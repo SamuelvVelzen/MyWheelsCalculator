@@ -15,10 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-wheels-calculator/calculator": [
-        "libs/feature/calculator/src/index.ts"
-      ],
-      "@my-wheels-calculator/ui": ["libs/shared/ui/src/index.ts"]
+      "@mwc/calculator": ["libs/feature/calculator/src/index.ts"],
+      "@mwc/ui": ["libs/shared/ui/src/index.ts"],
+      "@mwc/util": ["libs/shared/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
