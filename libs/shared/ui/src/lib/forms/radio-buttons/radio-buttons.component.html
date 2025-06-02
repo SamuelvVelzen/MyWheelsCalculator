@@ -1,0 +1,15 @@
+<nz-radio-group [(ngModel)]="value">
+  <div>
+    @for (radioButton of radioButtons(); track radioButton) {
+    <div nz-radio-button [nzValue]="radioButton.value">
+      <ng-container
+        *ngTemplateOutlet="
+          radioButtonContent();
+          context: { $implicit: radioButton }
+        "
+      >
+      </ng-container>
+    </div>
+    }
+  </div>
+</nz-radio-group>
