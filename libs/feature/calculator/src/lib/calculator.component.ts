@@ -5,7 +5,6 @@ import { RadioButtonsCardComponent, SliderNumberComponent } from '@mwc/ui';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AutoOptions, AutoOptionsEnum } from './_types/AutoOptionsEnum';
 import { TripOptions, TripOptionsEnum } from './_types/TripOptionsEnum';
-import { AbonnementOptionsComponent } from './abonnement-options/abonnement-options.component';
 
 @Component({
   selector: 'mwc-calculator',
@@ -13,7 +12,6 @@ import { AbonnementOptionsComponent } from './abonnement-options/abonnement-opti
   styleUrls: ['./calculator.component.css'],
   standalone: true,
   imports: [
-    AbonnementOptionsComponent,
     SliderNumberComponent,
     FormsModule,
     RadioButtonsCardComponent,

@@ -21,10 +21,7 @@
             "input": "apps/MyWheelsCalculator/public"
           }
         ],
-        "styles": [
-          "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-          "apps/MyWheelsCalculator/src/styles.css"
-        ],
+        "styles": ["apps/MyWheelsCalculator/src/styles.css"],
         "scripts": [],
         "server": "apps/MyWheelsCalculator/src/main.server.ts",
         "ssr": {
