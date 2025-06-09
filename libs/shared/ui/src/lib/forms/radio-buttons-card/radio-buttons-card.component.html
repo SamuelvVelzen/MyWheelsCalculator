@@ -1,0 +1,25 @@
+<div class="flex gap-2">
+  @for (option of options(); track $index) {
+  <input
+    type="radio"
+    id="{{ name }}-{{ $index }}"
+    [name]="name"
+    [value]="option"
+    (change)="value = option"
+    class="pointer-events-none hidden absolute"
+  />
+  <label
+    for="{{ name }}-{{ $index }}"
+    class="border rounded-2xl p-2 w-full"
+    [ngClass]="{ 'bg-amber-400': value === option }"
+  >
+    <ng-container
+      *ngTemplateOutlet="
+        cardContent();
+        context: { $implicit: option, selected: value === option }
+      "
+    >
+    </ng-container>
+  </label>
+  }
+</div>
