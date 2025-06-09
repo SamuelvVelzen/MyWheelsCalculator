@@ -1,0 +1,65 @@
+<div class="flex flex-col gap-2">
+  <mwc-radio-buttons-card
+    [(ngModel)]="test"
+    [options]="options"
+    labelText="Discount">
+    <ng-template
+      #cardContent
+      let-option
+      let-selected="selected">
+      <div class="flex flex-col gap-2">
+        <h1>{{ option.title }}</h1>
+        <p>{{ option.discount }}% discount</p>
+        <p>{{ option.price }}</p>
+      </div>
+    </ng-template>
+  </mwc-radio-buttons-card>
+
+  <mwc-radio-buttons-card
+    [(ngModel)]="chosenCar"
+    [options]="carOptions()"
+    labelText="Car">
+    <ng-template
+      #cardContent
+      let-option
+      let-selected="selected">
+      <div class="flex flex-col gap-2">
+        <h1>{{ option.title }}</h1>
+        <p>{{ option.hourPrice }} / hour</p>
+        <small>+ {{ option.kmPrice }} per km</small>
+      </div>
+    </ng-template>
+  </mwc-radio-buttons-card>
+
+  <mwc-slider-number [(ngModel)]="kilometers"></mwc-slider-number>
+  <mwc-slider-number [(ngModel)]="hours"></mwc-slider-number>
+
+  <mwc-radio-buttons-card
+    [(ngModel)]="chosenTrip"
+    [options]="tripOptions()"
+    labelText="Trip">
+    <ng-template
+      #cardContent
+      let-option
+      let-selected="selected">
+      <div class="flex flex-col gap-2">
+        <h1>{{ option.title }}</h1>
+        <p>{{ tripConfig[castFn(option.value)].price }}</p>
+      </div>
+    </ng-template>
+  </mwc-radio-buttons-card>
+
+  <hr />
+
+  <div>
+    <h1>Total prijs: {{ totalPrice() }}</h1>
+    <hr />
+    <h2>Discount: {{ test().discount }}</h2>
+    <hr />
+    <h2>Kilometers price: {{ kilometersPrice() }}</h2>
+    <h2>Hours price: {{ hoursPrice() }}</h2>
+    <h2>Extra costs: {{ startPrice }}</h2>
+    <hr />
+    <h2>Normal price: {{ basePrice() }}</h2>
+  </div>
+</div>
