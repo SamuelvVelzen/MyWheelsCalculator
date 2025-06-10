@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #1b70de;
+
+  --color-light: #fafafa;
+  --color-dark: #1a1a1a;
+
+  --color-info: #0ea5e9;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --radius-button: 100px;
+}
+
+@layer base {
+  html {
+    @apply text-light bg-primary;
+  }
+
+
+
+/* Button border radius override */
+.btn,
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  border-radius: var(--radius-button);
+}
+}
