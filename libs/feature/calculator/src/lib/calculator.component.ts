@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonsCardComponent, SliderNumberComponent } from '@mwc/ui';
+import { CurrencyPipe } from '@mwc/util';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AutoOptions, AutoOptionsEnum } from './_types/AutoOptionsEnum';
 import { TripOptions, TripOptionsEnum } from './_types/TripOptionsEnum';
+import { CalculatorCardComponent } from './calculator-card/calculator-card.component';
 
 @Component({
   selector: 'mwc-calculator',
@@ -17,6 +19,8 @@ import { TripOptions, TripOptionsEnum } from './_types/TripOptionsEnum';
     RadioButtonsCardComponent,
     CommonModule,
     RadioButtonsCardComponent,
+    CurrencyPipe,
+    CalculatorCardComponent,
   ],
 })
 export class CalculatorComponent {
@@ -26,6 +30,8 @@ export class CalculatorComponent {
   hours = model<number>(1);
 
   castFn = (value: unknown) => value as TripOptionsEnum;
+
+  abbonementOptions = AbonnementOptionsEnum;
 
   options = [
     {
@@ -38,13 +44,13 @@ export class CalculatorComponent {
       value: AbonnementOptionsEnum.Plus,
       title: 'Plus',
       discount: 10,
-      price: '10 p/maand',
+      price: '10',
     },
     {
       value: AbonnementOptionsEnum.Pro,
       title: 'Pro',
       discount: 25,
-      price: '25 p/maand',
+      price: '25',
     },
   ];
   test = model<(typeof this.options)[0]>(this.options[0]);

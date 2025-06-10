@@ -5,11 +5,13 @@
     labelText="Discount"
   >
     <ng-template #cardContent let-option let-selected="selected">
-      <div class="flex flex-col gap-2">
-        <h1>{{ option.title }}</h1>
-        <p>{{ option.discount }}% discount</p>
-        <p>{{ option.price }}</p>
-      </div>
+      <mwc-calculator-card [title]="option.title" [price]="option.discount">
+        <small>
+          {{
+            option.value === abbonementOptions.Start ? 'Gratis' : 'per maand'
+          }}
+        </small>
+      </mwc-calculator-card>
     </ng-template>
   </mwc-radio-buttons-card>
 
@@ -19,16 +21,25 @@
     labelText="Car"
   >
     <ng-template #cardContent let-option let-selected="selected">
-      <div class="flex flex-col gap-2">
-        <h1>{{ option.title }}</h1>
-        <p>{{ option.hourPrice }} / hour</p>
-        <small>+ {{ option.kmPrice }} per km</small>
-      </div>
+      <mwc-calculator-card [title]="option.title" [price]="option.hourPrice">
+        <small>
+          <p>max. {{ option.hourPrice * 10 | currency }} / dag</p>
+          <p>+ {{ option.kmPrice | currency }} per km</p>
+        </small>
+      </mwc-calculator-card>
     </ng-template>
   </mwc-radio-buttons-card>
 
-  <mwc-slider-number [(ngModel)]="kilometers"></mwc-slider-number>
-  <mwc-slider-number [(ngModel)]="hours"></mwc-slider-number>
+  <mwc-slider-number
+    [labelText]="'Kilometers'"
+    [(ngModel)]="kilometers"
+    [min]="1"
+  ></mwc-slider-number>
+  <mwc-slider-number
+    [labelText]="'Hours'"
+    [(ngModel)]="hours"
+    [min]="1"
+  ></mwc-slider-number>
 
   <mwc-radio-buttons-card
     [(ngModel)]="chosenTrip"
@@ -36,24 +47,25 @@
     labelText="Trip"
   >
     <ng-template #cardContent let-option let-selected="selected">
-      <div class="flex flex-col gap-2">
-        <h1>{{ option.title }}</h1>
-        <p>{{ tripConfig[castFn(option.value)].price }}</p>
-      </div>
+      <mwc-calculator-card
+        [title]="option.title"
+        [price]="tripConfig[castFn(option.value)].price"
+      >
+      </mwc-calculator-card>
     </ng-template>
   </mwc-radio-buttons-card>
 
   <hr />
 
   <div>
-    <h1>Total prijs: {{ totalPrice() }}</h1>
+    <h1>Total prijs: {{ totalPrice() | currency }}</h1>
     <hr />
     <h2>Discount: {{ test().discount }}</h2>
     <hr />
-    <h2>Kilometers price: {{ kilometersPrice() }}</h2>
-    <h2>Hours price: {{ hoursPrice() }}</h2>
-    <h2>Extra costs: {{ startPrice }}</h2>
+    <h2>Kilometers price: {{ kilometersPrice() | currency }}</h2>
+    <h2>Hours price: {{ hoursPrice() | currency }}</h2>
+    <h2>Extra costs: {{ startPrice | currency }}</h2>
     <hr />
-    <h2>Normal price: {{ basePrice() }}</h2>
+    <h2>Normal price: {{ basePrice() | currency }}</h2>
   </div>
 </div>

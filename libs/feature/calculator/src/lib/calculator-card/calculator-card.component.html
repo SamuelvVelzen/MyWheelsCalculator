@@ -1,0 +1,8 @@
+<h3 class="font-secondary font-semibold md:text-l mb-1">
+  {{ title() }}
+</h3>
+<p class="font-semibold">{{ price() | currency }}</p>
+
+<small class="text-sm">
+  <ng-content select="small"></ng-content>
+</small>
