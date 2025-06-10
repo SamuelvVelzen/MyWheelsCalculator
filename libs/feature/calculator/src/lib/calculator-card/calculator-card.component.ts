@@ -10,5 +10,5 @@ import { CurrencyPipe } from '@mwc/util';
 })
 export class CalculatorCardComponent {
   title = input.required<string>();
-  price = input.required<number>();
+  price = input.required<string | number>();
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, model, signal } from '@angular/core';
+import { Component, computed, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonsCardComponent, SliderNumberComponent } from '@mwc/ui';
 import { CurrencyPipe } from '@mwc/util';
@@ -25,126 +25,137 @@ import { CalculatorCardComponent } from './calculator-card/calculator-card.compo
 })
 export class CalculatorComponent {
   tripConfig = TripOptions;
+  abbonementOptionsEnum = AbonnementOptionsEnum;
 
   kilometers = model<number>(1);
   hours = model<number>(1);
 
-  castFn = (value: unknown) => value as TripOptionsEnum;
+  castAbbonementFn = Helpers.castFn<AbonnementOptionsEnum>;
+  castCarFn = Helpers.castFn<AutoOptionsEnum>;
+  castTripFn = Helpers.castFn<TripOptionsEnum>;
 
-  abbonementOptions = AbonnementOptionsEnum;
-
-  options = [
-    {
-      value: AbonnementOptionsEnum.Start,
+  abonnementConfig: {
+    [key in AbonnementOptionsEnum]: {
+      title: string;
+      discount: number;
+      price: string;
+    };
+  } = {
+    [AbonnementOptionsEnum.Start]: {
       title: 'Start',
       discount: 0,
       price: 'Gratis',
     },
-    {
-      value: AbonnementOptionsEnum.Plus,
+    [AbonnementOptionsEnum.Plus]: {
       title: 'Plus',
       discount: 10,
       price: '10',
     },
-    {
-      value: AbonnementOptionsEnum.Pro,
+    [AbonnementOptionsEnum.Pro]: {
       title: 'Pro',
       discount: 25,
       price: '25',
     },
+  };
+
+  chosenAbonnement = model(AbonnementOptionsEnum.Start);
+  abonnementOptions = [
+    AbonnementOptionsEnum.Start,
+    AbonnementOptionsEnum.Plus,
+    AbonnementOptionsEnum.Pro,
   ];
-  test = model<(typeof this.options)[0]>(this.options[0]);
 
-  carOptions = computed(() => [
-    {
-      value: AutoOptionsEnum.Compact,
-      title: 'Compact',
-      kmPrice: AutoOptions[this.test().value][AutoOptionsEnum.Compact].kmPrice,
-      hourPrice:
-        AutoOptions[this.test().value][AutoOptionsEnum.Compact].hourPrice,
-    },
-    {
-      value: AutoOptionsEnum.Comfort,
-      title: 'Comfort',
-      kmPrice: AutoOptions[this.test().value][AutoOptionsEnum.Comfort].kmPrice,
-      hourPrice:
-        AutoOptions[this.test().value][AutoOptionsEnum.Comfort].hourPrice,
-    },
-    {
-      value: AutoOptionsEnum.Extra,
-      title: 'Extra',
-      kmPrice: AutoOptions[this.test().value][AutoOptionsEnum.Extra].kmPrice,
-      hourPrice:
-        AutoOptions[this.test().value][AutoOptionsEnum.Extra].hourPrice,
-    },
-    {
-      value: AutoOptionsEnum.Premium,
-      title: 'Premium',
-      kmPrice: AutoOptions[this.test().value][AutoOptionsEnum.Premium].kmPrice,
-      hourPrice:
-        AutoOptions[this.test().value][AutoOptionsEnum.Premium].hourPrice,
-    },
-  ]);
+  carOptions = [
+    AutoOptionsEnum.Compact,
+    AutoOptionsEnum.Comfort,
+    AutoOptionsEnum.Extra,
+    AutoOptionsEnum.Premium,
+  ];
 
-  chosenCar = model(this.carOptions()[0]);
+  carConfig = computed(
+    (): {
+      [key in AutoOptionsEnum]: {
+        title: string;
+        kmPrice: number;
+        hourPrice: number;
+      };
+    } => {
+      return {
+        [AutoOptionsEnum.Compact]: {
+          title: 'Compact',
+          kmPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Compact]
+              .kmPrice,
+          hourPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Compact]
+              .hourPrice,
+        },
+        [AutoOptionsEnum.Comfort]: {
+          title: 'Comfort',
+          kmPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Comfort]
+              .kmPrice,
+          hourPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Comfort]
+              .hourPrice,
+        },
+        [AutoOptionsEnum.Extra]: {
+          title: 'Extra',
+          kmPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Extra].kmPrice,
+          hourPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Extra]
+              .hourPrice,
+        },
+        [AutoOptionsEnum.Premium]: {
+          title: 'Premium',
+          kmPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Premium]
+              .kmPrice,
+          hourPrice:
+            AutoOptions[this.chosenAbonnement()][AutoOptionsEnum.Premium]
+              .hourPrice,
+        },
+      };
+    }
+  );
 
-  tripOptions = signal([
-    {
-      value: TripOptionsEnum.None,
-      title: 'Geen',
-    },
-    {
-      value: TripOptionsEnum.TwentyFive,
-      title: '25 km',
-    },
-    {
-      value: TripOptionsEnum.Fifty,
-      title: '50 km',
-    },
-    {
-      value: TripOptionsEnum.Hundred,
-      title: '100 km',
-    },
-    {
-      value: TripOptionsEnum.TwoHundred,
-      title: '200 km',
-    },
-    {
-      value: TripOptionsEnum.FourHundred,
-      title: '400 km',
-    },
-    {
-      value: TripOptionsEnum.Thousand,
-      title: '1000 km',
-    },
-    {
-      value: TripOptionsEnum.SecondThousand,
-      title: '2000 km',
-    },
-  ]);
+  chosenCar = model(this.carOptions[0]);
 
-  chosenTrip = model(this.tripOptions()[0]);
+  tripOptions = [
+    TripOptionsEnum.None,
+    TripOptionsEnum.TwentyFive,
+    TripOptionsEnum.Fifty,
+    TripOptionsEnum.Hundred,
+    TripOptionsEnum.TwoHundred,
+    TripOptionsEnum.FourHundred,
+    TripOptionsEnum.Thousand,
+    TripOptionsEnum.SecondThousand,
+  ];
+
+  chosenTrip = model(this.tripOptions[0]);
 
   hoursPrice = computed(() => {
     const chosenCar = this.chosenCar();
+    const hourPrice = this.carConfig()[this.castCarFn(chosenCar)].hourPrice;
 
-    return chosenCar.hourPrice * this.hours();
+    return hourPrice * this.hours();
   });
 
   kilometersPrice = computed(() => {
     const kilometers = this.kilometers();
     const chosenCar = this.chosenCar();
-    return kilometers * chosenCar.kmPrice;
+    const kmPrice = this.carConfig()[this.castCarFn(chosenCar)].kmPrice;
+
+    return kilometers * kmPrice;
   });
 
   basePrice = computed(() => {
-    const chosenTrip = this.chosenTrip().value;
+    const chosenTrip = this.chosenTrip();
     const chosenTripPrice = this.tripConfig[chosenTrip].price;
 
     const kilometersPrice = this.kilometersPrice();
     const hoursPrice = this.hoursPrice();
-
-    console.log(kilometersPrice, hoursPrice, kilometersPrice + hoursPrice);
 
     return (
       Math.round((kilometersPrice + hoursPrice + chosenTripPrice) * 100) / 100
@@ -158,20 +169,30 @@ export class CalculatorComponent {
 
     const START_PRICE = this.startPrice;
 
-    const abbonementValue = this.test().value;
+    const abbonementValue = this.chosenAbonnement();
 
     if (abbonementValue === AbonnementOptionsEnum.Start) {
       return basePrice + START_PRICE;
     }
 
     if (abbonementValue === AbonnementOptionsEnum.Plus) {
-      return basePrice * 0.9;
+      const discount =
+        this.abonnementConfig[this.castAbbonementFn(abbonementValue)].discount;
+
+      return basePrice * (1 - discount / 100);
     }
 
     if (abbonementValue === AbonnementOptionsEnum.Pro) {
-      return basePrice * 0.75;
+      const discount =
+        this.abonnementConfig[this.castAbbonementFn(abbonementValue)].discount;
+
+      return basePrice * (1 - discount / 100);
     }
 
     return -1;
   });
+}
+
+class Helpers {
+  static castFn = <T>(value: unknown) => value as T;
 }
