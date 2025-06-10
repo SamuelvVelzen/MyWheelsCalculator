@@ -1,34 +1,36 @@
-<div class="grid grid-cols-4 gap-2">
-  @for (option of options(); track $index) {
-  <input
-    type="radio"
-    id="{{ name }}-{{ $index }}"
-    [name]="name"
-    [value]="option"
-    (change)="value = option"
-    class="pointer-events-none hidden absolute"
-  />
-  <label
-    for="{{ name }}-{{ $index }}"
-    class="rounded-2xl p-2 border-2 w-full border-primary bg-light ring-offset-1 text-dark ring-light cursor-pointer"
-    [ngClass]="{
-      'ring-1': value === option
-    }"
-  >
-    <ng-container
-      *ngTemplateOutlet="
-        cardContent();
-        context: { $implicit: option, selected: value === option }
-      "
+<mwc-form-group [labelText]="labelText()">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+    @for (option of options(); track $index) {
+    <input
+      type="radio"
+      id="{{ name }}-{{ $index }}"
+      [name]="name"
+      [value]="option"
+      (change)="value = option"
+      class="pointer-events-none hidden absolute"
+    />
+    <label
+      for="{{ name }}-{{ $index }}"
+      class="rounded-2xl p-2 flex flex-col gap-2 border-2 w-full border-primary bg-light ring-offset-1 text-dark ring-light cursor-pointer"
+      [ngClass]="{
+        'ring-1': value === option
+      }"
     >
-    </ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          cardContent();
+          context: { $implicit: option, selected: value === option }
+        "
+      >
+      </ng-container>
 
-    <button
-      (click)="value = option"
-      class="cursor-pointer bg-primary text-light py-3 px-6 justify-self-start"
-    >
-      {{ value === option ? 'Selected' : 'Select' }}
-    </button>
-  </label>
-  }
-</div>
+      <button
+        (click)="value = option"
+        class="cursor-pointer bg-primary text-light py-3 sm:px-6 mt-auto px-0"
+      >
+        {{ value === option ? 'Selected' : 'Select' }}
+      </button>
+    </label>
+    }
+  </div>
+</mwc-form-group>

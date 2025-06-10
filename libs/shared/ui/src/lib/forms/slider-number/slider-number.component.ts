@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseValueAccessor } from '@mwc/util';
+import { BaseInputControls } from '../../_types/BaseInputControls';
+import { FormGroupComponent } from '../form-group/form-group.component';
 import { InputNumberComponent } from '../input/input-number/input-number.component';
 import { SliderComponent } from '../slider/slider.component';
 
@@ -8,7 +9,14 @@ import { SliderComponent } from '../slider/slider.component';
   selector: 'mwc-slider-number',
   templateUrl: './slider-number.component.html',
   styleUrls: ['./slider-number.component.css'],
-  imports: [FormsModule, SliderComponent, InputNumberComponent],
+  imports: [
+    FormsModule,
+    SliderComponent,
+    InputNumberComponent,
+    FormGroupComponent,
+  ],
   standalone: true,
 })
-export class SliderNumberComponent extends BaseValueAccessor<number> {}
+export class SliderNumberComponent extends BaseInputControls<number> {
+  labelText = input.required<string>();
+}

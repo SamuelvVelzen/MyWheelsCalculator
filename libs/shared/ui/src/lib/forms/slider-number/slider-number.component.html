@@ -1,5 +1,11 @@
-<div class="flex justify-between gap-2">
-  <mwc-slider class="w-full" [(ngModel)]="value"></mwc-slider>
+<mwc-form-group [labelText]="labelText()">
+  <div class="flex justify-between gap-2">
+    <mwc-slider class="w-full" [(ngModel)]="value"></mwc-slider>
 
-  <mwc-input-number [(ngModel)]="value"></mwc-input-number>
-</div>
+    <mwc-input-number
+      [(ngModel)]="value"
+      [min]="min()"
+      [max]="max()"
+    ></mwc-input-number>
+  </div>
+</mwc-form-group>
