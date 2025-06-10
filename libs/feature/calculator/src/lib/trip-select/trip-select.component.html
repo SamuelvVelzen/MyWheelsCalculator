@@ -1,0 +1,13 @@
+<mwc-radio-buttons-card
+  [(ngModel)]="value"
+  [options]="tripOptions"
+  labelText="Trip"
+>
+  <ng-template #cardContent let-option let-selected="selected">
+    <mwc-calculator-card
+      [title]="tripConfig[castTripFn(option)].title"
+      [price]="tripConfig[castTripFn(option)].price"
+    >
+    </mwc-calculator-card>
+  </ng-template>
+</mwc-radio-buttons-card>

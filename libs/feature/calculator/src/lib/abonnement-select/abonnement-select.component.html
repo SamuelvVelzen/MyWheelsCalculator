@@ -1,0 +1,20 @@
+<mwc-radio-buttons-card
+  [(ngModel)]="value"
+  [options]="abonnementOptions"
+  labelText="Discount"
+>
+  <ng-template #cardContent let-option let-selected="selected">
+    <mwc-calculator-card
+      [title]="abonnementConfig[castAbbonementFn(option)].title"
+      [price]="abonnementConfig[castAbbonementFn(option)].price"
+    >
+      <small>
+        {{
+        option === abbonementOptionsEnum.Start
+          ? 'Gratis'
+          : `${abonnementConfig[castAbbonementFn(option)].discount}% per maand`
+        }}
+      </small>
+    </mwc-calculator-card>
+  </ng-template>
+</mwc-radio-buttons-card>

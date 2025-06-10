@@ -3,3 +3,27 @@ export enum AbonnementOptionsEnum {
   Plus = 'plus',
   Pro = 'pro',
 }
+
+export const AbonnementOptions: {
+  [key in AbonnementOptionsEnum]: {
+    title: string;
+    discount: number;
+    price: string;
+  };
+} = {
+  [AbonnementOptionsEnum.Start]: {
+    title: 'Start',
+    discount: 0,
+    price: 'Gratis',
+  },
+  [AbonnementOptionsEnum.Plus]: {
+    title: 'Plus',
+    discount: 10,
+    price: '10',
+  },
+  [AbonnementOptionsEnum.Pro]: {
+    title: 'Pro',
+    discount: 25,
+    price: '25',
+  },
+};
