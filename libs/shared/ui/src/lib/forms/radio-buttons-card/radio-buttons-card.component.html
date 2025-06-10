@@ -1,4 +1,4 @@
-<div class="flex gap-2">
+<div class="grid grid-cols-4 gap-2">
   @for (option of options(); track $index) {
   <input
     type="radio"
@@ -10,8 +10,10 @@
   />
   <label
     for="{{ name }}-{{ $index }}"
-    class="border rounded-2xl p-2 w-full"
-    [ngClass]="{ 'bg-amber-400': value === option }"
+    class="rounded-2xl p-2 border-2 w-full border-primary bg-light ring-offset-1 text-dark ring-light cursor-pointer"
+    [ngClass]="{
+      'ring-1': value === option
+    }"
   >
     <ng-container
       *ngTemplateOutlet="
@@ -20,6 +22,13 @@
       "
     >
     </ng-container>
+
+    <button
+      (click)="value = option"
+      class="cursor-pointer bg-primary text-light py-3 px-6 justify-self-start"
+    >
+      {{ value === option ? 'Selected' : 'Select' }}
+    </button>
   </label>
   }
 </div>
