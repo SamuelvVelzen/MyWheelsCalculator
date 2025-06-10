@@ -13,4 +13,5 @@ export class PriceComponent {
   priceService = inject(PriceService);
 
   totalPrice = this.priceService.totalPrice;
+  basePrice = this.priceService.basePrice;
 }
