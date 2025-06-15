@@ -1,5 +1,13 @@
 <mwc-form-group [labelText]="labelText()">
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+  <div
+    class="grid grid-cols-2 gap-2"
+    [ngClass]="{
+    'md:grid-cols-1': options().length === 1,
+    'md:grid-cols-2': options().length === 2,
+    'md:grid-cols-3': options().length === 3,
+    'md:grid-cols-4': options().length >= 4,
+  }"
+  >
     @for (option of options(); track $index) {
     <input
       type="radio"
