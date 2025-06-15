@@ -10,13 +10,19 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
   providedIn: 'root',
 })
 export class PriceService {
+  static readonly startPrice = 1.5;
+  static readonly depositPrice = 4.0;
+
   abonnement = signal<AbonnementOptionsEnum>(AbonnementOptionsEnum.Start);
   car = signal<AutoOptionsEnum>(AutoOptionsEnum.Comfort);
   trip = signal<TripOptionsEnum>(TripOptionsEnum.None);
   hours = signal<number>(1);
   kilometers = signal<number>(1);
 
-  private startPrice = 1.5;
+  hasStartPrice = computed(
+    () => this.abonnement() === AbonnementOptionsEnum.Start
+  );
+  hasDepositPaid = signal<boolean>(false);
 
   private abonnementOptions = AbonnementOptions;
   private autoOptions = AutoOptions;
@@ -39,8 +45,12 @@ export class PriceService {
   extraCosts = computed(() => {
     let extraCosts = 0;
 
-    if (this.abonnement() === AbonnementOptionsEnum.Start) {
-      extraCosts += this.startPrice;
+    if (this.hasStartPrice()) {
+      extraCosts += PriceService.startPrice;
+    }
+
+    if (!this.hasDepositPaid()) {
+      extraCosts += PriceService.depositPrice;
     }
 
     return extraCosts;
