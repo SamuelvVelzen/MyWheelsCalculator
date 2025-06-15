@@ -1,0 +1,16 @@
+:host {
+  .slider {
+    left: calc(50% - 27px/2 - 10px);
+    top: calc(50% - 27px/2);
+  }
+
+  /* State-dependent styles that require CSS selectors */
+  .checkbox:checked + .switch {
+    background-color: #34C759;
+  }
+
+  .checkbox:checked + .switch .slider {
+    left: calc(50% - 27px/2 + 10px);
+    top: calc(50% - 27px/2);
+  }
+}
