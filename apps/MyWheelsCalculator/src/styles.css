@@ -1,10 +1,12 @@
 @import "tailwindcss";
+@import "./styles/utilities/fonts.css";
 
 @theme {
   --color-primary: #1b70de;
 
   --color-light: #fafafa;
-  --color-dark: #1a1a1a;
+  --color-grey: #6c757d;
+  --color-dark: #1D2024;
 
   --color-info: #0ea5e9;
   --color-success: #10b981;
@@ -12,21 +14,21 @@
   --color-danger: #ef4444;
 
   --radius-button: 100px;
+
+  --default-font-family: "Onest", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 @layer base {
   html {
-    @apply text-light bg-primary;
+    @apply text-light bg-light;
   }
 
-
-
-/* Button border radius override */
-.btn,
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  border-radius: var(--radius-button);
-}
+  /* Button border radius override */
+  .btn,
+  button,
+  [type="button"],
+  [type="reset"],
+  [type="submit"] {
+    border-radius: var(--radius-button);
+  }
 }
