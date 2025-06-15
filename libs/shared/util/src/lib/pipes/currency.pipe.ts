@@ -10,7 +10,6 @@ export class CurrencyPipe implements PipeTransform {
   });
 
   transform(value: number | string): string {
-    console.log(value);
     const val = Number(value);
 
     if (isNaN(val)) {
