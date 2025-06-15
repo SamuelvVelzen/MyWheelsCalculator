@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderNumberComponent } from '@mwc/ui';
+import {
+  FieldsetComponent,
+  SliderNumberComponent,
+  ToggleButtonComponent,
+} from '@mwc/ui';
 import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
@@ -22,6 +26,8 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     AbonnementSelectComponent,
     CarSelectComponent,
     TripSelectComponent,
+    ToggleButtonComponent,
+    FieldsetComponent,
   ],
 })
 export class CalculatorComponent {
@@ -35,4 +41,7 @@ export class CalculatorComponent {
 
   kilometers = this.priceService.kilometers;
   hours = this.priceService.hours;
+
+  hasStartPrice = this.priceService.hasStartPrice;
+  hasDepositPaid = this.priceService.hasDepositPaid;
 }

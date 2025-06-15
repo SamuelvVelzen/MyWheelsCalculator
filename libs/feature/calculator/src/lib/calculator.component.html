@@ -19,6 +19,19 @@
 
   <mwc-trip-select [(ngModel)]="chosenTrip"></mwc-trip-select>
 
+  <mwc-fieldset [labelText]="'Extra costs'">
+    <mwc-toggle-button
+      [ngModel]="hasStartPrice()"
+      [labelText]="'Has a start price'"
+      [disabled]="true"
+    ></mwc-toggle-button>
+
+    <mwc-toggle-button
+      [(ngModel)]="hasDepositPaid"
+      [labelText]="'Has a deposit'"
+    ></mwc-toggle-button>
+  </mwc-fieldset>
+
   <hr />
 
   <mwc-price></mwc-price>
