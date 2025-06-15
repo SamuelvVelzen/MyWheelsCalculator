@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@mwc/util';
 import { PriceService } from '../_services/price.service';
+import { AbonnementOptions } from '../_types/AbonnementOptionsEnum';
 
 @Component({
   selector: 'mwc-price',
@@ -14,4 +15,12 @@ export class PriceComponent {
 
   totalPrice = this.priceService.totalPrice;
   basePrice = this.priceService.basePrice;
+  hourPrice = this.priceService.hourPrice;
+  kilometerPrice = this.priceService.kilometerPrice;
+  extraCosts = this.priceService.extraCosts;
+  abonnement = this.priceService.abonnement;
+
+  abonnementOptions = AbonnementOptions;
+
+  showPriceDetails = signal(false);
 }

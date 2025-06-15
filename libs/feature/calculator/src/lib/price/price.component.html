@@ -1,3 +1,29 @@
 <h2 class="text-lg font-bold">Total price: {{ totalPrice() | currency }}</h2>
 
-<small> Base price: {{ basePrice() | currency }} </small>
+<button class="text-sm" (click)="showPriceDetails.set(!showPriceDetails())">
+  {{ showPriceDetails() ? 'Show price details' : 'Hide price details' }}
+</button>
+
+@if(showPriceDetails()) {
+<div class="flex flex-col gap-2 text-sm w-75">
+  @if(abonnementOptions[abonnement()].discount >0) {
+  <p class="flex justify-between">
+    <span>Discount ({{ abonnementOptions[abonnement()].discount }}%): </span
+    ><span>-{{ basePrice() - totalPrice() | currency }}</span>
+  </p>
+  }
+  <p class="flex justify-between">
+    <span>Base price: </span><span>{{ basePrice() | currency }}</span>
+  </p>
+  <p class="flex justify-between">
+    <span>- Hour price: </span><span>{{ hourPrice() | currency }}</span>
+  </p>
+  <p class="flex justify-between">
+    <span>- Kilometer price: </span
+    ><span>{{ kilometerPrice() | currency }}</span>
+  </p>
+  <p class="flex justify-between">
+    <span>- Extra costs: </span><span>{{ extraCosts() | currency }}</span>
+  </p>
+</div>
+}
