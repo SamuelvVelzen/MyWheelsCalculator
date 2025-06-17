@@ -7,13 +7,14 @@
     <mwc-calculator-card
       [title]="carConfig()[castCarFn(option)].title"
       [price]="carConfig()[castCarFn(option)].hourPrice"
+      [contextText]="'hour'"
     >
       <small>
         <p>
-          max.
-          {{ carConfig()[castCarFn(option)].hourPrice * 10 | currency }} / dag
+          Max
+          {{ carConfig()[castCarFn(option)].hourPrice * 10 | currency }} /dag
         </p>
-        <p>+ {{ carConfig()[castCarFn(option)].kmPrice | currency }} per km</p>
+        <p>+ {{ carConfig()[castCarFn(option)].kmPrice | currency }} /km</p>
       </small>
     </mwc-calculator-card>
   </ng-template>
