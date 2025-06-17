@@ -20,7 +20,7 @@
 
 @layer base {
   html {
-    @apply text-light bg-light;
+    @apply text-dark bg-light;
   }
 
   /* Button border radius override */
