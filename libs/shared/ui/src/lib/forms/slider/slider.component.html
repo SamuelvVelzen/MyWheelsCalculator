@@ -1,1 +1,7 @@
-<input type="range" [(ngModel)]="value" class="w-full" />
+<input
+  type="range"
+  [(ngModel)]="value"
+  class="w-full accent-primary"
+  [min]="min()"
+  [max]="max()"
+/>
