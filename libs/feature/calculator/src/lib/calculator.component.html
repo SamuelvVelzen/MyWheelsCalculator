@@ -1,4 +1,7 @@
 <div class="flex flex-col gap-2">
+  <div class="ComponentBlockSharedCarsComparison_subtitle__Q8hsh">
+    Kies ons Pro abonnement als je slim voordelig wilt rijden.
+  </div>
   <mwc-abonnement-select [(ngModel)]="chosenAbonnement"></mwc-abonnement-select>
 
   <mwc-car-select
@@ -32,7 +35,7 @@
     ></mwc-toggle-button>
   </mwc-fieldset>
 
-  <hr />
-
-  <mwc-price></mwc-price>
+  <mwc-price
+    class="sticky bottom-0 border-t-1 border-dark pt-2 pb-5 -mb-5 bg-light"
+  ></mwc-price>
 </div>
