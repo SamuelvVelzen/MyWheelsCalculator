@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CalculatorComponent } from '@mwc/calculator';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [CalculatorComponent],
+  imports: [RouterOutlet],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
