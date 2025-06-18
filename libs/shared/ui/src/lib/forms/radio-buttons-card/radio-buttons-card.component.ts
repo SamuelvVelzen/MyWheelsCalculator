@@ -14,6 +14,8 @@ export class RadioButtonsCardComponent<T> extends BaseFormInputs<T> {
   options = input.required<T[]>();
   labelText = input.required<string>();
 
+  colClass = input<string>('grid-cols-2');
+
   cardContent = contentChild.required('cardContent', {
     read: TemplateRef<{ $implicit: { value: T; selected: boolean } }>,
   });

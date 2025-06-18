@@ -1,12 +1,12 @@
 <mwc-form-group [labelText]="labelText()">
   <div
-    class="grid grid-cols-2 gap-2"
+    [class]="'grid gap-2 ' + colClass()"
     [ngClass]="{
-    'md:grid-cols-1': options().length === 1,
-    'md:grid-cols-2': options().length === 2,
-    'md:grid-cols-3': options().length === 3,
-    'md:grid-cols-4': options().length >= 4,
-  }"
+      'md:grid-cols-1': options().length === 1,
+      'md:grid-cols-2': options().length === 2,
+      'md:grid-cols-3': options().length === 3,
+      'md:grid-cols-4': options().length >= 4,
+    }"
   >
     @for (option of options(); track $index) {
     <input
@@ -19,10 +19,7 @@
     />
     <label
       for="{{ name }}-{{ $index }}"
-      class="rounded-2xl p-2 flex flex-col gap-2 border-2 w-full border-primary bg-light ring-offset-1 text-dark ring-light cursor-pointer"
-      [ngClass]="{
-        'ring-1': value === option
-      }"
+      class="flex flex-col gap-2 w-full text-dark cursor-pointer"
     >
       <ng-container
         *ngTemplateOutlet="
@@ -32,12 +29,12 @@
       >
       </ng-container>
 
-      <button
+      <!-- <button
         (click)="value = option"
         class="cursor-pointer bg-primary text-light py-3 sm:px-6 mt-auto px-0"
       >
         {{ value === option ? 'Selected' : 'Select' }}
-      </button>
+      </button> -->
     </label>
     }
   </div>
