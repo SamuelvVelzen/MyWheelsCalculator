@@ -1,21 +1,25 @@
-@import "tailwindcss";
-@import "./styles/utilities/fonts.css";
+@import 'tailwindcss';
+@import './styles/utilities/fonts.css';
 
 @theme {
   --color-primary: #1b70de;
+  --color-secondary: #32af4b;
 
   --color-light: #fafafa;
   --color-grey: #6c757d;
-  --color-dark: #1D2024;
+  --color-muted: #c6cfd7;
+  --color-grey-light: #edf2f3;
+  --color-dark: #212529;
 
-  --color-info: #0ea5e9;
+  --color-info: #0047ff;
   --color-success: #10b981;
   --color-warning: #f59e0b;
-  --color-danger: #ef4444;
+  --color-danger: #f00048;
 
   --radius-button: 100px;
 
-  --default-font-family: "Onest", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font-family: 'Onest', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 @layer base {
@@ -26,9 +30,9 @@
   /* Button border radius override */
   .btn,
   button,
-  [type="button"],
-  [type="reset"],
-  [type="submit"] {
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
     border-radius: var(--radius-button);
   }
 }
