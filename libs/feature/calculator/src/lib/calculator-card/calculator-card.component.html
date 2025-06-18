@@ -1,10 +1,12 @@
-<h3 class="font-secondary font-semibold md:text-l mb-1">
+<h3 class="font-secondary md:text-xl mb-1">
   {{ title() }}
 </h3>
-<p class="font-semibold">
-  {{ price() | currency }}
+<p>
+  <span class="text-xl">
+    {{ price() | mwcCurrency }}
+  </span>
   @if(contextText()) {
-  <span class="text-sm text-grey font-normal">/{{ contextText() }}</span>
+  <span class="text-sm text-grey">/{{ contextText() }}</span>
   }
 </p>
 
