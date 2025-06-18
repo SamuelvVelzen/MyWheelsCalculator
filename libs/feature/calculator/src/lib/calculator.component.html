@@ -1,9 +1,13 @@
 <div class="flex flex-col gap-2">
-  <mwc-abonnement-select [(ngModel)]="chosenAbonnement"></mwc-abonnement-select>
+  <mwc-abonnement-select
+    [(ngModel)]="chosenAbonnement"
+    (ngModelChange)="updateUrlParams()"
+  ></mwc-abonnement-select>
 
   <mwc-car-select
     [(ngModel)]="chosenCar"
     [abonnement]="chosenAbonnement()"
+    (ngModelChange)="updateUrlParams()"
   ></mwc-car-select>
 
   <mwc-slider-number
@@ -11,15 +15,20 @@
     [(ngModel)]="kilometers"
     [min]="1"
     [max]="1000"
+    (ngModelChange)="updateUrlParams()"
   ></mwc-slider-number>
   <mwc-slider-number
     [labelText]="'Hours'"
     [(ngModel)]="hours"
     [min]="1"
     [max]="100"
+    (ngModelChange)="updateUrlParams()"
   ></mwc-slider-number>
 
-  <mwc-trip-select [(ngModel)]="chosenTrip"></mwc-trip-select>
+  <mwc-trip-select
+    [(ngModel)]="chosenTrip"
+    (ngModelChange)="updateUrlParams()"
+  ></mwc-trip-select>
 
   <mwc-fieldset [labelText]="'Extra costs'">
     <mwc-toggle-button
@@ -31,6 +40,7 @@
     <mwc-toggle-button
       [(ngModel)]="hasDepositPaid"
       [labelText]="'Has a deposit'"
+      (ngModelChange)="updateUrlParams()"
     ></mwc-toggle-button>
   </mwc-fieldset>
 

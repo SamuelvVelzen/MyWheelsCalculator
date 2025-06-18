@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   FieldsetComponent,
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
+import { calculatorQueryParams } from '../calculator.query-params';
 import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
@@ -31,6 +34,9 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
   ],
 })
 export class CalculatorComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   priceService = inject(PriceService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
@@ -44,4 +50,53 @@ export class CalculatorComponent {
 
   hasStartPrice = this.priceService.hasStartPrice;
   hasDepositPaid = this.priceService.hasDepositPaid;
+
+  constructor() {
+    this.loadFromQueryParams();
+  }
+
+  private loadFromQueryParams() {
+    this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
+      if (params[calculatorQueryParams.abonnement]) {
+        this.chosenAbonnement.set(params[calculatorQueryParams.abonnement]);
+      }
+      if (params[calculatorQueryParams.car]) {
+        this.chosenCar.set(params[calculatorQueryParams.car]);
+      }
+      if (params[calculatorQueryParams.trip]) {
+        this.chosenTrip.set(params[calculatorQueryParams.trip]);
+      }
+      if (params['kilometers']) {
+        this.kilometers.set(Number(params['kilometers']));
+      }
+      if (params['hours']) {
+        this.hours.set(Number(params['hours']));
+      }
+      if (params['hasDepositPaid']) {
+        this.hasDepositPaid.set(params['hasDepositPaid'] === 'true');
+      }
+    });
+  }
+
+  private updateQueryParams() {
+    const queryParams: Params = {
+      [calculatorQueryParams.abonnement]: this.chosenAbonnement(),
+      [calculatorQueryParams.car]: this.chosenCar(),
+      [calculatorQueryParams.trip]: this.chosenTrip(),
+      [calculatorQueryParams.kilometers]: this.kilometers(),
+      [calculatorQueryParams.hours]: this.hours(),
+      [calculatorQueryParams.hasDepositPaid]: this.hasDepositPaid(),
+    };
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
+  }
+
+  updateUrlParams() {
+    this.updateQueryParams();
+  }
 }
