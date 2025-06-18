@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonsCardComponent } from '@mwc/ui';
-import { BaseValueAccessor, Helpers } from '@mwc/util';
+import { BaseValueAccessor, CurrencyPipe, Helpers } from '@mwc/util';
 import {
   AbonnementOptions,
   AbonnementOptionsEnum,
 } from '../_types/AbonnementOptionsEnum';
-import { CalculatorCardComponent } from '../calculator-card/calculator-card.component';
 
 @Component({
   selector: 'mwc-abonnement-select',
   templateUrl: './abonnement-select.component.html',
   styleUrls: ['./abonnement-select.component.css'],
-  imports: [FormsModule, RadioButtonsCardComponent, CalculatorCardComponent],
+  imports: [FormsModule, RadioButtonsCardComponent, CurrencyPipe, CommonModule],
   standalone: true,
 })
 export class AbonnementSelectComponent extends BaseValueAccessor<AbonnementOptionsEnum> {

@@ -2,19 +2,19 @@
   [(ngModel)]="value"
   [options]="abonnementOptions"
   labelText="Discount"
+  [colClass]="'grid-cols-3'"
 >
   <ng-template #cardContent let-option let-selected="selected">
-    <mwc-calculator-card
-      [title]="abonnementConfig[castAbbonementFn(option)].title"
-      [price]="abonnementConfig[castAbbonementFn(option)].price"
+    <div
+      class="text-center abbonnement-option text-grey h-full"
+      [ngClass]="{
+        selected: selected,
+        'font-medium': selected
+      }"
     >
-      <small>
-        {{
-        option === abbonementOptionsEnum.Start
-          ? 'Gratis'
-          : `${abonnementConfig[castAbbonementFn(option)].discount}% per maand`
-        }}
-      </small>
-    </mwc-calculator-card>
+      {{ abonnementConfig[castAbbonementFn(option)].title }} ({{
+        abonnementConfig[castAbbonementFn(option)].price | mwcCurrency : false
+      }}/pm)
+    </div>
   </ng-template>
 </mwc-radio-buttons-card>

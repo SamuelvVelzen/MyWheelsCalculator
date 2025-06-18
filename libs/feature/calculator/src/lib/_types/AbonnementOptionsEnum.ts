@@ -14,7 +14,7 @@ export const AbonnementOptions: {
   [AbonnementOptionsEnum.Start]: {
     title: 'Start',
     discount: 0,
-    price: 'Gratis',
+    price: '0',
   },
   [AbonnementOptionsEnum.Plus]: {
     title: 'Plus',
