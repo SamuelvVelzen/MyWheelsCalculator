@@ -1,5 +1,10 @@
-<div class="sticky top-0 bg-light z-10 border-b-1 border-muted p-5">
+<div
+  class="sticky top-0 bg-light z-10 border-b-1 border-muted p-2 sm:p-5 flex justify-between"
+>
   <h1 class="text-2xl">mywheels calculator</h1>
+  <mwc-button class="text-sm">
+    {{ 25 | mwcCurrency : false }} on your first MyWheels trip
+  </mwc-button>
 </div>
 
 <div class="w-full lg:w-1/2 h-full">
