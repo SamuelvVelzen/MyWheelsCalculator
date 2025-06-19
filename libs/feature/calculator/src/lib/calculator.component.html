@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 p-5">
   <mwc-abonnement-select
     [(ngModel)]="chosenAbonnement"
     (ngModelChange)="updateUrlParams()"
@@ -43,8 +43,7 @@
       (ngModelChange)="updateUrlParams()"
     ></mwc-toggle-button>
   </mwc-fieldset>
-
-  <mwc-price
-    class="sticky bottom-0 border-t-1 border-dark pt-2 pb-5 -mb-5 bg-light"
-  ></mwc-price>
 </div>
+<mwc-price
+  class="sticky bottom-0 border-t-2 border-muted p-5 bg-light block"
+></mwc-price>
