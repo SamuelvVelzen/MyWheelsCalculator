@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { ButtonComponent, ButtonTypeEnum, ThemeEnum } from '@mwc/ui';
 import { CurrencyPipe } from '@mwc/util';
 import { PriceService } from '../_services/price.service';
 import { AbonnementOptions } from '../_types/AbonnementOptionsEnum';
@@ -8,7 +9,7 @@ import { AbonnementOptions } from '../_types/AbonnementOptionsEnum';
   templateUrl: './price.component.html',
   styleUrls: ['./price.component.css'],
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, ButtonComponent],
 })
 export class PriceComponent {
   priceService = inject(PriceService);
@@ -21,6 +22,8 @@ export class PriceComponent {
   abonnement = this.priceService.abonnement;
 
   abonnementOptions = AbonnementOptions;
+  buttonTypeEnum = ButtonTypeEnum;
+  themeEnum = ThemeEnum;
 
   showPriceDetails = signal(false);
 }

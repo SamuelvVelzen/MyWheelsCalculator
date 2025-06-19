@@ -1,11 +1,38 @@
-<h2 class="text-lg font-bold">Total price: {{ totalPrice() | mwcCurrency }}</h2>
+<div class="grid grid-cols-2 mb-2">
+  <div>
+    <p class="text-sm">Total price</p>
+    <h2 class="text-2xl font-bold">{{ totalPrice() | mwcCurrency }}</h2>
+  </div>
+  <div class="justify-self-end self-center">
+    <mwc-button
+      [themeType]="buttonTypeEnum.Outline"
+      [theme]="themeEnum.Secondary"
+    >
+      <span class="hidden sm:block">Share</span>
+      <span class="block sm:hidden">Share</span>
+    </mwc-button>
+  </div>
+</div>
 
-<button class="text-sm" (click)="showPriceDetails.set(!showPriceDetails())">
-  {{ showPriceDetails() ? 'Show price details' : 'Hide price details' }}
-</button>
+<div class="flex gap-2 flex-wrap-reverse">
+  <mwc-button
+    [themeType]="buttonTypeEnum.Outline"
+    (click)="showPriceDetails.set(!showPriceDetails())"
+    class="basis-full grow sm:basis-0"
+  >
+    @if(showPriceDetails()) { Hide details } @else { Show details }
+  </mwc-button>
+  <mwc-button
+    [themeType]="buttonTypeEnum.Outline"
+    (click)="showPriceDetails.set(!showPriceDetails())"
+    class="basis-full grow sm:basis-0"
+  >
+    Show price details
+  </mwc-button>
+</div>
 
 @if(showPriceDetails()) {
-<div class="flex flex-col gap-2 text-sm w-75">
+<div class="flex flex-col gap-2 text-sm">
   @if(abonnementOptions[abonnement()].discount >0) {
   <p class="flex justify-between">
     <span>Discount ({{ abonnementOptions[abonnement()].discount }}%): </span
