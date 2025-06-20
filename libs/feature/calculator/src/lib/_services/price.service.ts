@@ -20,7 +20,9 @@ export class PriceService {
   kilometers = signal<number>(1);
 
   hasStartPrice = computed(
-    () => this.abonnement() === AbonnementOptionsEnum.Start
+    () =>
+      this.abonnement() === AbonnementOptionsEnum.Start &&
+      this.trip() === TripOptionsEnum.None
   );
   hasDepositPaid = signal<boolean>(false);
 
