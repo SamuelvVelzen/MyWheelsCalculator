@@ -1,21 +1,29 @@
 <mwc-radio-buttons-card
   [(ngModel)]="value"
   [options]="carOptions"
-  labelText="Car"
+  labelText="Car type"
 >
   <ng-template #cardContent let-option let-selected="selected">
-    <mwc-calculator-card
-      [title]="carConfig()[castCarFn(option)].title"
-      [price]="carConfig()[castCarFn(option)].hourPrice"
-      [contextText]="'hour'"
-    >
-      <small>
+    @let car = carConfig()[castCarFn(option)];
+
+    <div class="rounded-2xl p-2" [ngClass]="{ 'bg-grey-light': selected }">
+      <h3 class="font-secondary md:text-xl mb-1 text-center ri">
+        {{ car.title }}
+      </h3>
+      <p>
+        <span class="text-xl">
+          {{ car.hourPrice | mwcCurrency }}
+        </span>
+        <span class="text-sm text-grey">/hour</span>
+      </p>
+
+      <small class="text-sm text-grey">
         <p>
           Max
-          {{ carConfig()[castCarFn(option)].hourPrice * 10 | mwcCurrency }} /dag
+          {{ car.hourPrice * 10 | mwcCurrency }} /dag
         </p>
-        <p>+ {{ carConfig()[castCarFn(option)].kmPrice | mwcCurrency }} /km</p>
+        <p>+ {{ car.kmPrice | mwcCurrency }} /km</p>
       </small>
-    </mwc-calculator-card>
+    </div>
   </ng-template>
 </mwc-radio-buttons-card>
