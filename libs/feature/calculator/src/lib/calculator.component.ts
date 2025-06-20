@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -53,6 +53,17 @@ export class CalculatorComponent {
 
   constructor() {
     this.loadFromQueryParams();
+
+    effect(() => {
+      void this.chosenAbonnement();
+      void this.chosenCar();
+      void this.chosenTrip();
+      void this.kilometers();
+      void this.hours();
+      void this.hasDepositPaid();
+
+      this.updateUrlParams();
+    });
   }
 
   private loadFromQueryParams() {
