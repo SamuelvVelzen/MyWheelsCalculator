@@ -8,6 +8,7 @@ import {
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
+import { from, tap } from 'rxjs';
 import { calculatorQueryParams } from '../calculator.query-params';
 import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
@@ -99,12 +100,19 @@ export class CalculatorComponent {
       [calculatorQueryParams.hasDepositPaid]: this.hasDepositPaid(),
     };
 
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      queryParamsHandling: 'merge',
-      replaceUrl: true,
-    });
+    // Store current scroll position
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    from(
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: queryParams,
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      })
+    )
+      .pipe(tap(() => window.scrollTo(0, scrollTop)))
+      .subscribe();
   }
 
   updateUrlParams() {
