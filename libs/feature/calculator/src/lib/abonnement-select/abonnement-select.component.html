@@ -1,15 +1,16 @@
 <mwc-radio-buttons-card
   [(ngModel)]="value"
   [options]="abonnementOptions"
-  labelText="Discount"
+  labelText="Abonnement"
   [colClass]="'grid-cols-3'"
 >
   <ng-template #cardContent let-option let-selected="selected">
     <div
-      class="text-center abbonnement-option text-grey h-full"
+      class="text-center abbonnement-option text-grey h-full rounded-t-2xl pb-5 pt-2.5 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-1"
       [ngClass]="{
         selected: selected,
-        'font-medium': selected
+        'font-medium': selected,
+        'bg-grey-light': selected,
       }"
     >
       {{ abonnementConfig[castAbbonementFn(option)].title }} ({{
