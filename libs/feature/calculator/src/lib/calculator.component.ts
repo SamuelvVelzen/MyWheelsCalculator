@@ -8,6 +8,7 @@ import {
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
+import { CurrencyPipe } from '@mwc/util';
 import { from, tap } from 'rxjs';
 import { calculatorQueryParams } from '../calculator.query-params';
 import { PriceService } from './_services/price.service';
@@ -32,6 +33,7 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     TripSelectComponent,
     ToggleButtonComponent,
     FieldsetComponent,
+    CurrencyPipe,
   ],
 })
 export class CalculatorComponent {
@@ -49,8 +51,10 @@ export class CalculatorComponent {
   kilometers = this.priceService.kilometers;
   hours = this.priceService.hours;
 
-  hasStartPrice = this.priceService.hasStartPrice;
   hasDepositPaid = this.priceService.hasDepositPaid;
+  depositPrice = PriceService.depositPrice;
+  hasStartPrice = this.priceService.hasStartPrice;
+  startPrice = PriceService.startPrice;
 
   constructor() {
     this.loadFromQueryParams();
