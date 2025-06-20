@@ -11,7 +11,7 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
 })
 export class PriceService {
   static readonly startPrice = 1.5;
-  static readonly depositPrice = 4.0;
+  static readonly depositPrice = 4.99;
 
   abonnement = signal<AbonnementOptionsEnum>(AbonnementOptionsEnum.Start);
   car = signal<AutoOptionsEnum>(AutoOptionsEnum.Comfort);
