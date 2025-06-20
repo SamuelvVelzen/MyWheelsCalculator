@@ -2,6 +2,8 @@
   [(ngModel)]="value"
   [options]="tripOptions"
   labelText="Trip"
+  [colClass]="'grid-cols-4'"
+  labelClass="focus:rounded-2xl"
 >
   <ng-template #cardContent let-option let-selected="selected">
     <div class="rounded-2xl p-2" [ngClass]="{ 'bg-grey-light': selected }">

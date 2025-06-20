@@ -2,12 +2,16 @@
   [(ngModel)]="value"
   [options]="carOptions"
   labelText="Car type"
+  labelClass="focus:rounded-2xl"
 >
   <ng-template #cardContent let-option let-selected="selected">
     @let car = carConfig()[castCarFn(option)];
 
-    <div class="rounded-2xl p-2" [ngClass]="{ 'bg-grey-light': selected }">
-      <h3 class="font-secondary md:text-xl mb-1 text-center ri">
+    <div
+      class="rounded-2xl p-2 text-center"
+      [ngClass]="{ 'bg-grey-light': selected }"
+    >
+      <h3 class="font-secondary md:text-xl mb-1">
         {{ car.title }}
       </h3>
       <p>
