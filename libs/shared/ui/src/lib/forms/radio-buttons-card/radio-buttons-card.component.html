@@ -15,11 +15,13 @@
       [name]="name"
       [value]="option"
       (change)="value = option"
-      class="pointer-events-none hidden absolute"
+      class="sr-only"
     />
     <label
       for="{{ name }}-{{ $index }}"
+      tabindex="0"
       class="flex flex-col gap-2 w-full text-dark cursor-pointer"
+      (keydown)="onKeyDown($event, option)"
     >
       <ng-container
         *ngTemplateOutlet="

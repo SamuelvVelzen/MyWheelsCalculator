@@ -19,4 +19,12 @@ export class RadioButtonsCardComponent<T> extends BaseFormInputs<T> {
   cardContent = contentChild.required('cardContent', {
     read: TemplateRef<{ $implicit: { value: T; selected: boolean } }>,
   });
+
+  onKeyDown(event: KeyboardEvent, option: T) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      this.value = option;
+    }
+  }
 }
