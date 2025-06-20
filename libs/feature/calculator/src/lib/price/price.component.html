@@ -1,56 +1,70 @@
-<div class="grid grid-cols-2 mb-2">
-  <div>
-    <p class="text-sm">Total price</p>
-    <h2 class="text-2xl font-bold">{{ totalPrice() | mwcCurrency }}</h2>
+<div class="p-3 sm:p-5 bg-primary text-light">
+  <div class="grid grid-cols-2 mb-2">
+    <div>
+      <p class="text-sm">Total price</p>
+      <h2 class="text-2xl font-bold">{{ totalPrice() | mwcCurrency }}</h2>
+    </div>
+    <div class="justify-self-end self-center">
+      <mwc-button
+        [themeType]="buttonTypeEnum.Outline"
+        [theme]="themeEnum.Secondary"
+      >
+        <span class="hidden sm:block">Share</span>
+        <span class="block sm:hidden">Share</span>
+      </mwc-button>
+    </div>
   </div>
-  <div class="justify-self-end self-center">
+
+  <div class="flex gap-2 flex-wrap-reverse mb-2">
     <mwc-button
       [themeType]="buttonTypeEnum.Outline"
-      [theme]="themeEnum.Secondary"
+      (click)="showPriceDetails.set(!showPriceDetails())"
+      class="basis-full grow sm:basis-0"
     >
-      <span class="hidden sm:block">Share</span>
-      <span class="block sm:hidden">Share</span>
+      @if(showPriceDetails()) { Hide details } @else { Show details }
+    </mwc-button>
+    <mwc-button
+      [themeType]="buttonTypeEnum.Outline"
+      (click)="showPriceDetails.set(!showPriceDetails())"
+      class="basis-full grow sm:basis-0"
+    >
+      Show price details
     </mwc-button>
   </div>
 </div>
 
-<div class="flex gap-2 flex-wrap-reverse">
-  <mwc-button
-    [themeType]="buttonTypeEnum.Outline"
-    (click)="showPriceDetails.set(!showPriceDetails())"
-    class="basis-full grow sm:basis-0"
-  >
-    @if(showPriceDetails()) { Hide details } @else { Show details }
-  </mwc-button>
-  <mwc-button
-    [themeType]="buttonTypeEnum.Outline"
-    (click)="showPriceDetails.set(!showPriceDetails())"
-    class="basis-full grow sm:basis-0"
-  >
-    Show price details
-  </mwc-button>
-</div>
-
 @if(showPriceDetails()) {
-<div class="flex flex-col gap-2 text-sm">
-  @if(abonnementOptions[abonnement()].discount >0) {
-  <p class="flex justify-between">
-    <span>Discount ({{ abonnementOptions[abonnement()].discount }}%): </span
-    ><span>-{{ basePrice() - totalPrice() | mwcCurrency }}</span>
-  </p>
-  }
-  <p class="flex justify-between">
-    <span>Base price: </span><span>{{ basePrice() | mwcCurrency }}</span>
-  </p>
-  <p class="flex justify-between">
-    <span>- Hour price: </span><span>{{ hourPrice() | mwcCurrency }}</span>
-  </p>
-  <p class="flex justify-between">
-    <span>- Kilometer price: </span
-    ><span>{{ kilometerPrice() | mwcCurrency }}</span>
-  </p>
-  <p class="flex justify-between">
-    <span>- Extra costs: </span><span>{{ extraCosts() | mwcCurrency }}</span>
-  </p>
+<div class="border-t-1 border-muted p-3 sm:p-5">
+  <ng-container
+    *ngTemplateOutlet="
+      priceDetail;
+      context: { details: priceDetails(), depth: 0 }
+    "
+  ></ng-container>
 </div>
 }
+
+<ng-template #priceDetail let-details="details" let-depth="depth">
+  @for (detail of details; track $index) { @if(!detail.hide) {
+  <div class="flex justify-between flex-wrap">
+    <span>{{ detail.label }}</span
+    ><span>{{
+      detail.totalCost ? (detail.totalCost | mwcCurrency) : detail.value
+    }}</span>
+
+    @if(detail.children) {
+    <div
+      class="flex flex-col w-full"
+      [ngStyle]="{ 'padding-left.px': depth + 1 * 10 }"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          priceDetail;
+          context: { details: detail.children, depth: depth + 1 }
+        "
+      ></ng-container>
+    </div>
+    }
+  </div>
+  } }
+</ng-template>
