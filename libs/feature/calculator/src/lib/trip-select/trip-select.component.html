@@ -4,10 +4,15 @@
   labelText="Trip"
 >
   <ng-template #cardContent let-option let-selected="selected">
-    <mwc-calculator-card
-      [title]="tripConfig[castTripFn(option)].title"
-      [price]="tripConfig[castTripFn(option)].price"
-    >
-    </mwc-calculator-card>
+    <div class="rounded-2xl p-2" [ngClass]="{ 'bg-grey-light': selected }">
+      <h3 class="font-secondary mb-1">
+        {{ tripConfig[castTripFn(option)].title }}
+      </h3>
+      <p>
+        <span class="text-xl">
+          {{ tripConfig[castTripFn(option)].price | mwcCurrency }}
+        </span>
+      </p>
+    </div>
   </ng-template>
 </mwc-radio-buttons-card>
