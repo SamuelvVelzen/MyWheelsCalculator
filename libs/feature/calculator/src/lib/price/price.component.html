@@ -1,5 +1,5 @@
-<div class="p-3 sm:p-5 bg-primary text-light">
-  <div class="grid grid-cols-2 mb-2">
+<div class="bg-primary text-light">
+  <div class="grid grid-cols-2 mb-2 p-3 sm:p-5">
     <div>
       <p class="text-sm">Total price</p>
       <h2 class="text-2xl font-bold">{{ totalPrice() | mwcCurrency }}</h2>
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="flex gap-2 flex-wrap-reverse mb-2">
+  <div class="flex gap-2 flex-wrap-reverse mb-2 p-3 sm:p-5">
     <mwc-button
       [themeType]="buttonTypeEnum.Outline"
       (click)="showPriceDetails.set(!showPriceDetails())"
@@ -31,18 +31,18 @@
       Show price details
     </mwc-button>
   </div>
-</div>
 
-@if(showPriceDetails()) {
-<div class="border-t-1 border-muted p-3 sm:p-5">
-  <ng-container
-    *ngTemplateOutlet="
-      priceDetail;
-      context: { details: priceDetails(), depth: 0 }
-    "
-  ></ng-container>
+  @if(showPriceDetails()) {
+  <div class="border-t-2 border-light p-3 sm:p-5">
+    <ng-container
+      *ngTemplateOutlet="
+        priceDetail;
+        context: { details: priceDetails(), depth: 0 }
+      "
+    ></ng-container>
+  </div>
+  }
 </div>
-}
 
 <ng-template #priceDetail let-details="details" let-depth="depth">
   @for (detail of details; track $index) { @if(!detail.hide) {

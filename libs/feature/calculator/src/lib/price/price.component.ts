@@ -53,7 +53,7 @@ export class PriceComponent {
             children: [
               {
                 label: 'Total kilometers',
-                value: this.kilometers(),
+                value: `${this.kilometers()} km`,
               },
               {
                 label: `Trip price (${
