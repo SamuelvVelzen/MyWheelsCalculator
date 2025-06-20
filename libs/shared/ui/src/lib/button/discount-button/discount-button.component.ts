@@ -9,4 +9,6 @@ import { ButtonComponent } from '../button/button.component';
   standalone: true,
   imports: [ButtonComponent, CurrencyPipe],
 })
-export class DiscountButtonComponent {}
+export class DiscountButtonComponent {
+  shareLink = 'https://mywheels.nl/uitnodigen/samuel9178';
+}
