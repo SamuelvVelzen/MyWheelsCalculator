@@ -57,13 +57,10 @@ export class PriceService {
   });
 
   kilometerPrice = computed(() => {
-    const { freeKm, price: tripPrice } = this.tripOptions[this.trip()];
+    const { price: tripPrice } = this.tripOptions[this.trip()];
     const kmPrice = this.autoOptions[this.abonnement()][this.car()].kmPrice;
 
-    const kilometers = this.kilometers();
-
-    const extraKm = Math.max(0, kilometers - freeKm);
-    const extraKmPrice = extraKm * kmPrice;
+    const extraKmPrice = this.extraKm() * kmPrice;
 
     return extraKmPrice + tripPrice;
   });
@@ -72,5 +69,13 @@ export class PriceService {
     return (
       this.autoOptions[this.abonnement()][this.car()].hourPrice * this.hours()
     );
+  });
+
+  extraKm = computed(() => {
+    const { freeKm } = this.tripOptions[this.trip()];
+
+    const kilometers = this.kilometers();
+
+    return Math.max(0, kilometers - freeKm);
   });
 }
