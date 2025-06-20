@@ -1,5 +1,7 @@
 <div class="flex items-center gap-2 justify-between">
-  <label [for]="name">{{ labelText() }} </label>
+  <label [for]="name">
+    <ng-content></ng-content>
+  </label>
   <div class="w-[51px] h-[31px] relative">
     <input
       type="checkbox"

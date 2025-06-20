@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BaseFormInputs } from '../../_types/BaseFormInputs';
 
@@ -9,6 +9,4 @@ import { BaseFormInputs } from '../../_types/BaseFormInputs';
   standalone: true,
   imports: [FormsModule],
 })
-export class ToggleButtonComponent extends BaseFormInputs<boolean> {
-  labelText = input.required<string>();
-}
+export class ToggleButtonComponent extends BaseFormInputs<boolean> {}
