@@ -8,4 +8,6 @@ import { Component, input } from '@angular/core';
 })
 export class FieldsetComponent {
   labelText = input.required<string>();
+
+  colClass = input<string>('grid-cols-2');
 }

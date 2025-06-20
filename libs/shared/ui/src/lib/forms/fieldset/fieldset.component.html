@@ -1,4 +1,4 @@
-<fieldset class="flex flex-col gap-2">
+<fieldset [class]="'grid gap-2 ' + colClass()">
   <legend class="mb-1 block font-medium">{{ labelText() }}</legend>
 
   <ng-content></ng-content>
