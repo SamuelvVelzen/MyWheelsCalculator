@@ -90,7 +90,7 @@ export class CalculatorComponent {
     });
   }
 
-  private updateQueryParams() {
+  private _updateQueryParams() {
     const queryParams: Params = {
       [calculatorQueryParams.abonnement]: this.chosenAbonnement(),
       [calculatorQueryParams.car]: this.chosenCar(),
@@ -116,6 +116,6 @@ export class CalculatorComponent {
   }
 
   updateUrlParams() {
-    this.updateQueryParams();
+    this._updateQueryParams();
   }
 }
