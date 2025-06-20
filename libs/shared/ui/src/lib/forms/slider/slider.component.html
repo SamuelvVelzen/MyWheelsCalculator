@@ -1,7 +1,8 @@
 <input
+  #range
   type="range"
   [(ngModel)]="value"
-  class="w-full accent-primary"
+  (input)="onInput($event)"
   [min]="min()"
   [max]="max()"
 />
