@@ -1,9 +1,9 @@
 import { computed, Injectable, signal } from '@angular/core';
+import { DateHelpers } from '@mwc/util';
 import {
   addHours,
   differenceInMinutes,
   setMilliseconds,
-  setMinutes,
   setSeconds,
 } from 'date-fns';
 
@@ -70,31 +70,15 @@ export class PeriodService {
 
   private getRoundedStartDate(): Date {
     const now = new Date();
-    const currentMinutes = now.getMinutes();
 
     // Create base date with seconds and milliseconds set to 0
     let roundedDate = setSeconds(now, 0);
     roundedDate = setMilliseconds(roundedDate, 0);
 
-    // Calculate the remainder from current step
-    const remainder = currentMinutes % PeriodService.roundToNearestStep;
-
-    // If already at a step boundary, no change needed
-    if (remainder === 0) {
-      return setMinutes(roundedDate, currentMinutes);
-    }
-
-    // Always round up to next step boundary
-    const roundedMinutes =
-      currentMinutes + (PeriodService.roundToNearestStep - remainder);
-
-    // Handle overflow to next hour
-    if (roundedMinutes >= 60) {
-      roundedDate = addHours(roundedDate, 1);
-      return setMinutes(roundedDate, 0);
-    }
-
-    return setMinutes(roundedDate, roundedMinutes);
+    return DateHelpers.roundToNearestStep(
+      roundedDate,
+      PeriodService.roundToNearestStep
+    );
   }
 
   private _formatHoursMinutes(hours: number): string {
