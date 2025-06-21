@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, output, viewChild } from '@angular/core';
+import { Component, computed, output, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   FlatpickrDirective,
@@ -21,9 +21,26 @@ export class InputDatetimeComponent extends BaseDateInputs<Date> {
 
   calendarClosed = output<void>();
 
+  minuteIncrement = computed(() => this.step() ?? 1);
+
   updateValue(event: FlatPickrOutputOptions): void {
     const date = event.selectedDates[0];
 
-    this.value = new Date(date);
+    const roundedDate = this._roundToNearestStep(new Date(date));
+
+    this.value = roundedDate;
+  }
+
+  private _roundToNearestStep(date: Date): Date {
+    const minutes = date.getMinutes();
+    const roundedMinutes =
+      Math.round(minutes / this.minuteIncrement()) * this.minuteIncrement();
+
+    const roundedDate = new Date(date);
+    roundedDate.setMinutes(roundedMinutes);
+    roundedDate.setSeconds(0);
+    roundedDate.setMilliseconds(0);
+
+    return roundedDate;
   }
 }

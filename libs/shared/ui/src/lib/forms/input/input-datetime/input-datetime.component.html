@@ -10,7 +10,7 @@
   [enableTime]="true"
   [minDate]="min() ?? ''"
   [maxDate]="max() ?? ''"
-  [minuteIncrement]="step() ?? 1"
+  [minuteIncrement]="minuteIncrement()"
   [time24hr]="true"
   class="w-full"
   (flatpickrClose)="calendarClosed.emit()"
