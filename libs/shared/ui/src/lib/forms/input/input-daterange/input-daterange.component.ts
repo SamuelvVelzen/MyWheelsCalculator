@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DateHelpers } from '@mwc/util';
 import { BaseFormInputs } from '../../../_types/BaseFormInputs';
 import { FormGroupComponent } from '../../form-group/form-group.component';
 import { InputDatetimeComponent } from '../input-datetime/input-datetime.component';
@@ -18,18 +19,23 @@ import { InputDatetimeComponent } from '../input-datetime/input-datetime.compone
   ],
 })
 export class InputDaterangeComponent extends BaseFormInputs<{
-  startDate: string;
-  endDate: string;
+  startDate: string | null;
+  endDate: string | null;
 }> {
   labelText = input<string>('Start date');
 
   setStartDate(startDate: string): void {
-    console.log('setStartDate', startDate);
     if (!this.value) {
       return;
     }
 
     this.value.startDate = startDate;
+
+    if (this.value.endDate) {
+      if (DateHelpers.isAfter(startDate, this.value.endDate)) {
+        this.value.endDate = null;
+      }
+    }
   }
 
   setEndDate(endDate: string): void {
@@ -37,9 +43,14 @@ export class InputDaterangeComponent extends BaseFormInputs<{
       return;
     }
 
-    const endDateString = endDate;
+    if (
+      this.value.startDate &&
+      DateHelpers.isBefore(endDate, this.value.startDate)
+    ) {
+      return;
+    }
 
-    this.value.endDate = endDateString;
+    this.value.endDate = endDate;
   }
 
   minStartDate = input<string>(new Date().toISOString());
