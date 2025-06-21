@@ -56,6 +56,8 @@ export class CalculatorComponent {
   hasStartPrice = this._priceService.hasStartPrice;
   startPrice = PriceService.startPrice;
 
+  step = PeriodService.roundToNearestStep;
+
   dateRange = computed(() => ({
     startDate: this._periodService.startDate(),
     endDate: this._periodService.endDate(),

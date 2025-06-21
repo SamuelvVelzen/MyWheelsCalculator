@@ -12,6 +12,8 @@ import {
 })
 export class PeriodService {
   static maxHoursInDay = 10;
+  // should be divisible by 60
+  static roundToNearestStep = 15;
 
   startDate = signal<Date>(this.getRoundedStartDate());
   endDate = signal<Date>(addHours(this.getRoundedStartDate(), 4));

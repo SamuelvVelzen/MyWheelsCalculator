@@ -17,7 +17,7 @@
     [labelText]="'Period'"
     [ngModel]="dateRange()"
     (ngModelChange)="setDateRange($event)"
-    [step]="30"
+    [step]="step"
   ></mwc-input-daterange>
 
   <mwc-trip-select [(ngModel)]="chosenTrip"></mwc-trip-select>
