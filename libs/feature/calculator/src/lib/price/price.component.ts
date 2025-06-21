@@ -2,6 +2,7 @@ import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ButtonComponent, ButtonTypeEnum, ThemeEnum } from '@mwc/ui';
 import { CurrencyPipe } from '@mwc/util';
+import { PeriodService } from '../_services/period.service';
 import { PriceService } from '../_services/price.service';
 import { AbonnementOptions } from '../_types/AbonnementOptionsEnum';
 import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
@@ -14,15 +15,17 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
   imports: [CurrencyPipe, ButtonComponent, NgTemplateOutlet, CommonModule],
 })
 export class PriceComponent {
-  priceService = inject(PriceService);
+  private readonly _priceService = inject(PriceService);
+  private readonly _periodService = inject(PeriodService);
 
-  totalPrice = this.priceService.totalPrice;
-  basePrice = this.priceService.basePrice;
-  hourPrice = this.priceService.hourPrice;
-  kilometerPrice = this.priceService.kilometerPrice;
-  kilometers = this.priceService.kilometers;
-  extraCosts = this.priceService.extraCosts;
-  abonnement = this.priceService.abonnement;
+  totalPrice = this._priceService.totalPrice;
+  basePrice = this._priceService.basePrice;
+  hourPrice = this._priceService.hourPrice;
+  kilometerPrice = this._priceService.kilometerPrice;
+  kilometers = this._priceService.kilometers;
+
+  extraCosts = this._priceService.extraCosts;
+  abonnement = this._priceService.abonnement;
 
   abonnementOptions = AbonnementOptions;
   buttonTypeEnum = ButtonTypeEnum;
@@ -57,15 +60,15 @@ export class PriceComponent {
               },
               {
                 label: `Trip price (${
-                  TripOptions[this.priceService.trip()].title
+                  TripOptions[this._priceService.trip()].title
                 })`,
-                totalCost: TripOptions[this.priceService.trip()].price,
-                hide: this.priceService.trip() === TripOptionsEnum.None,
+                totalCost: TripOptions[this._priceService.trip()].price,
+                hide: this._priceService.trip() === TripOptionsEnum.None,
               },
               {
                 label: 'Extra km',
-                value: this.priceService.extraKm(),
-                hide: this.priceService.extraKm() === 0,
+                value: this._priceService.extraKm(),
+                hide: this._priceService.extraKm() === 0,
               },
             ],
           },
@@ -76,12 +79,12 @@ export class PriceComponent {
               {
                 label: 'Start price',
                 totalCost: PriceService.startPrice,
-                hide: !this.priceService.hasStartPrice(),
+                hide: !this._priceService.hasStartPrice(),
               },
               {
                 label: 'Deposit',
                 totalCost: PriceService.depositPrice,
-                hide: this.priceService.hasDepositPaid(),
+                hide: this._priceService.hasDepositPaid(),
               },
             ],
           },
