@@ -76,29 +76,25 @@ export class PeriodService {
     let roundedDate = setSeconds(now, 0);
     roundedDate = setMilliseconds(roundedDate, 0);
 
-    // Already at a 15-minute increment, no change needed
-    if (currentMinutes % 15 === 0) {
+    // Calculate the remainder from current step
+    const remainder = currentMinutes % PeriodService.roundToNearestStep;
+
+    // If already at a step boundary, no change needed
+    if (remainder === 0) {
       return setMinutes(roundedDate, currentMinutes);
     }
 
-    // Round up to :15
-    if (currentMinutes < 15) {
-      return setMinutes(roundedDate, 15);
+    // Always round up to next step boundary
+    const roundedMinutes =
+      currentMinutes + (PeriodService.roundToNearestStep - remainder);
+
+    // Handle overflow to next hour
+    if (roundedMinutes >= 60) {
+      roundedDate = addHours(roundedDate, 1);
+      return setMinutes(roundedDate, 0);
     }
 
-    // Round up to :30
-    if (currentMinutes < 30) {
-      return setMinutes(roundedDate, 30);
-    }
-
-    // Round up to :45
-    if (currentMinutes < 45) {
-      return setMinutes(roundedDate, 45);
-    }
-
-    // Round up to next hour :00
-    roundedDate = addHours(roundedDate, 1);
-    return setMinutes(roundedDate, 0);
+    return setMinutes(roundedDate, roundedMinutes);
   }
 
   private _formatHoursMinutes(hours: number): string {
