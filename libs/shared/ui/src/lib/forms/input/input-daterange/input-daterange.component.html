@@ -6,11 +6,13 @@
       [min]="minStartDate()"
       [step]="step()"
       class="w-full"
+      (calendarClosed)="handleStartDateCalendarClosed()"
     />
 
     <span class="text-grey"> - </span>
 
     <mwc-input-datetime
+      #endDateInput
       [ngModel]="value?.endDate"
       (ngModelChange)="setEndDate($event)"
       [min]="minEndDate()"

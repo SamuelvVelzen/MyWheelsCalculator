@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateHelpers } from '@mwc/util';
 import { BaseFormInputs } from '../../../_types/BaseFormInputs';
@@ -22,6 +22,8 @@ export class InputDaterangeComponent extends BaseFormInputs<{
   startDate: string | null;
   endDate: string | null;
 }> {
+  endDateInput = viewChild.required<InputDatetimeComponent>('endDateInput');
+
   labelText = input<string>('Start date');
 
   setStartDate(startDate: string): void {
@@ -56,4 +58,12 @@ export class InputDaterangeComponent extends BaseFormInputs<{
   minStartDate = input<string>(new Date().toISOString());
   minEndDate = input<string>(this.minStartDate());
   step = input<number>();
+
+  handleStartDateCalendarClosed(): void {
+    if (!this.value?.endDate) {
+      setTimeout(() => {
+        this.endDateInput().calendar().instance.open();
+      }, 100);
+    }
+  }
 }

@@ -12,4 +12,5 @@
   [maxDate]="max() ?? ''"
   [minuteIncrement]="step() ?? 1"
   class="w-full"
+  (flatpickrClose)="calendarClosed.emit()"
 />
