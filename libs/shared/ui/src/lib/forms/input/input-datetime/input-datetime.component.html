@@ -3,7 +3,6 @@
   type="text"
   mwlFlatpickr
   [ngModel]="value"
-  (flatpickrValueUpdate)="updateValue($event)"
   [altInput]="true"
   [convertModelValue]="true"
   [altFormat]="'d/m H:i'"
@@ -14,4 +13,5 @@
   [time24hr]="true"
   class="w-full border-b border-muted"
   (flatpickrClose)="calendarClosed.emit()"
+  (flatpickrChange)="updateValue($event)"
 />

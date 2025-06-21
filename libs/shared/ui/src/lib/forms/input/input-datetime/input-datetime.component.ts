@@ -44,13 +44,12 @@ export class InputDatetimeComponent extends BaseDateInputs<Date> {
   private _addDayOnRollOver(date: Date): Date {
     if (this.value && DateHelpers.isSameDay(this.value, date)) {
       const originalHour = this.value.getHours();
-      const roundedHour = date.getHours();
+      const newHour = date.getHours();
 
-      // If we went from late night (>= 22) to early morning (< 2), advance the date
-      if (originalHour >= 22 && roundedHour < 2) {
+      if (originalHour >= 23 && newHour <= 0) {
         const newDate = addDays(date, 1);
 
-        date = setMinutes(newDate, 0);
+        return setMinutes(newDate, 0);
       }
     }
 
