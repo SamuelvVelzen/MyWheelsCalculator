@@ -15,7 +15,7 @@ export class CalculatorQueryParamsService {
   private readonly _queryParamsService = inject(QueryParamsService);
   private readonly _priceService = inject(PriceService);
 
-  init() {
+  constructor() {
     this.loadFromQueryParams();
 
     effect(() => {
