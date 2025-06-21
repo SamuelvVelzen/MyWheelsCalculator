@@ -6,6 +6,7 @@ import {
   provideFlatpickrDefaults,
 } from 'angularx-flatpickr';
 import { FlatPickrOutputOptions } from 'angularx-flatpickr/lib/flatpickr.directive';
+import { addHours, setMinutes } from 'date-fns';
 import { BaseDateInputs } from '../../../_types/BaseDateInputs';
 
 @Component({
@@ -32,15 +33,19 @@ export class InputDatetimeComponent extends BaseDateInputs<Date> {
   }
 
   private _roundToNearestStep(date: Date): Date {
-    const minutes = date.getMinutes();
+    const currentMinutes = date.getMinutes();
+
+    const remainder = currentMinutes % this.minuteIncrement();
+
     const roundedMinutes =
-      Math.round(minutes / this.minuteIncrement()) * this.minuteIncrement();
+      currentMinutes + (this.minuteIncrement() - remainder);
 
-    const roundedDate = new Date(date);
-    roundedDate.setMinutes(roundedMinutes);
-    roundedDate.setSeconds(0);
-    roundedDate.setMilliseconds(0);
+    // Handle overflow to next hour
+    if (roundedMinutes >= 60) {
+      date = addHours(date, 1);
+      return setMinutes(date, 0);
+    }
 
-    return roundedDate;
+    return setMinutes(date, roundedMinutes);
   }
 }
