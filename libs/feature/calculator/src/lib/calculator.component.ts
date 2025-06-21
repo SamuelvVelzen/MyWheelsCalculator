@@ -46,12 +46,19 @@ export class CalculatorComponent {
   chosenTrip = this._priceService.trip;
 
   kilometers = this._priceService.kilometers;
-  hours = this._priceService.hours;
 
   hasDepositPaid = this._priceService.hasDepositPaid;
   depositPrice = PriceService.depositPrice;
   hasStartPrice = this._priceService.hasStartPrice;
   startPrice = PriceService.startPrice;
 
+  dateRange = computed(() => ({
+    startDate: this._periodService.startDate().toISOString(),
+    endDate: this._periodService.endDate().toISOString(),
+  }));
+
+  setDateRange(dateRange: { startDate: string; endDate: string }): void {
+    this._periodService.startDate.set(new Date(dateRange.startDate));
+    this._periodService.endDate.set(new Date(dateRange.endDate));
   }
 }

@@ -12,12 +12,13 @@
     [min]="1"
     [max]="1000"
   ></mwc-slider-number>
-  <mwc-slider-number
-    [labelText]="'Hours'"
-    [(ngModel)]="hours"
-    [min]="1"
-    [max]="100"
-  ></mwc-slider-number>
+
+  <mwc-input-daterange
+    [labelText]="'Period'"
+    [ngModel]="dateRange()"
+    (ngModelChange)="setDateRange($event)"
+    [step]="30"
+  ></mwc-input-daterange>
 
   <mwc-trip-select [(ngModel)]="chosenTrip"></mwc-trip-select>
 
@@ -35,11 +36,11 @@
         <strong>{{ depositPrice | mwcCurrency }}</strong> per day.
       </small>
       <small class="text-grey text-sm">
-        To read more about this. Please follow this
+        To read more about this, follow this
         <a
           href="https://help.mywheels.nl/hc/en-nl/articles/5464626156828-Can-I-reduce-my-deductible"
           target="_blank"
-          class="text-primary"
+          class="text-primary underline"
           >link</a
         >.
       </small>

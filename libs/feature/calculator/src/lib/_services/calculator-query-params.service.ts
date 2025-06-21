@@ -23,7 +23,8 @@ export class CalculatorQueryParamsService {
       void this._priceService.car();
       void this._priceService.trip();
       void this._priceService.kilometers();
-      void this._priceService.hours();
+      void this._priceService.startDate();
+      void this._priceService.endDate();
       void this._priceService.hasDepositPaid();
 
       this.updateUrlParams();

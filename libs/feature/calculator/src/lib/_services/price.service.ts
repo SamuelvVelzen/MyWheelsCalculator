@@ -1,10 +1,11 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import {
   AbonnementOptions,
   AbonnementOptionsEnum,
 } from '../_types/AbonnementOptionsEnum';
 import { AutoOptions, AutoOptionsEnum } from '../_types/AutoOptionsEnum';
 import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
+import { PeriodService } from './period.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +14,14 @@ export class PriceService {
   static readonly startPrice = 1.5;
   static readonly depositPrice = 4.99;
 
+  private readonly _periodService = inject(PeriodService);
+
   abonnement = signal<AbonnementOptionsEnum>(AbonnementOptionsEnum.Start);
   car = signal<AutoOptionsEnum>(AutoOptionsEnum.Comfort);
   trip = signal<TripOptionsEnum>(TripOptionsEnum.None);
-  hours = signal<number>(1);
   kilometers = signal<number>(1);
+  startDate = this._periodService.startDate;
+  endDate = this._periodService.endDate;
 
   hasStartPrice = computed(
     () =>
@@ -68,8 +72,11 @@ export class PriceService {
   });
 
   hourPrice = computed(() => {
+    const totalPeriodTime = this._periodService.totalPeriodTime();
+
     return (
-      this.autoOptions[this.abonnement()][this.car()].hourPrice * this.hours()
+      this.autoOptions[this.abonnement()][this.car()].hourPrice *
+      totalPeriodTime
     );
   });
 

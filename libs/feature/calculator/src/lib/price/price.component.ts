@@ -44,7 +44,7 @@ export class PriceComponent {
         totalCost: this.basePrice(),
         children: [
           {
-            label: 'Hour price',
+            label: `Rental period (${this._periodService.totalPeriodTimeString()})`,
             totalCost: this.hourPrice(),
           },
           {

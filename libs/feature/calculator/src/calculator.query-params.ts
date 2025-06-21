@@ -3,6 +3,7 @@ export const calculatorQueryParams = {
   car: 'car',
   trip: 'trip',
   kilometers: 'kilometers',
-  hours: 'hours',
+  startDate: 'startDate',
+  endDate: 'endDate',
   hasDepositPaid: 'hasDepositPaid',
 };
