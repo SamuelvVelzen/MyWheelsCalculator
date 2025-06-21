@@ -1,7 +1,7 @@
 import { effect, inject, Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { QueryParamsService } from '@mwc/util';
-import { forkJoin } from 'rxjs';
+import { forkJoin, take } from 'rxjs';
 import { calculatorQueryParams } from '../../calculator.query-params';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptionsEnum } from '../_types/AutoOptionsEnum';
@@ -15,7 +15,7 @@ export class CalculatorQueryParamsService {
   private readonly _queryParamsService = inject(QueryParamsService);
   private readonly _priceService = inject(PriceService);
 
-  constructor() {
+  init() {
     this.loadFromQueryParams();
 
     effect(() => {
@@ -32,27 +32,27 @@ export class CalculatorQueryParamsService {
   }
 
   private loadFromQueryParams() {
-    const abonnementQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.abonnement
-    );
-    const carQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.car
-    );
-    const tripQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.trip
-    );
-    const kilometersQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.kilometers
-    );
-    const startDateQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.startDate
-    );
-    const endDateQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.endDate
-    );
-    const hasDepositPaidQueryParam$ = this._queryParamsService.getQueryParams$(
-      calculatorQueryParams.hasDepositPaid
-    );
+    const abonnementQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.abonnement)
+      .pipe(take(1));
+    const carQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.car)
+      .pipe(take(1));
+    const tripQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.trip)
+      .pipe(take(1));
+    const kilometersQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.kilometers)
+      .pipe(take(1));
+    const startDateQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.startDate)
+      .pipe(take(1));
+    const endDateQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.endDate)
+      .pipe(take(1));
+    const hasDepositPaidQueryParam$ = this._queryParamsService
+      .getQueryParams$(calculatorQueryParams.hasDepositPaid)
+      .pipe(take(1));
 
     forkJoin({
       abonnementQueryParam$,
@@ -72,6 +72,15 @@ export class CalculatorQueryParamsService {
         endDateQueryParam$,
         hasDepositPaidQueryParam$,
       }) => {
+        console.log(
+          abonnementQueryParam$,
+          carQueryParam$,
+          tripQueryParam$,
+          kilometersQueryParam$,
+          startDateQueryParam$,
+          endDateQueryParam$,
+          hasDepositPaidQueryParam$
+        );
         const abonnementValue = this._parseEnum(
           abonnementQueryParam$,
           Object.values(AbonnementOptionsEnum)
@@ -125,31 +134,6 @@ export class CalculatorQueryParamsService {
     }
 
     return enumValues.includes(value as T) ? (value as T) : null;
-  }
-
-  /**
-   * Safely converts a string to AbonnementOptionsEnum
-   */
-  private parseAbonnementEnum(value: string): AbonnementOptionsEnum | null {
-    return this._parseEnum(value, Object.values(AbonnementOptionsEnum));
-  }
-
-  /**
-   * Safely converts a string to AutoOptionsEnum
-   */
-  private parseAutoEnum(value: string): AutoOptionsEnum | null {
-    return Object.values(AutoOptionsEnum).includes(value as AutoOptionsEnum)
-      ? (value as AutoOptionsEnum)
-      : null;
-  }
-
-  /**
-   * Safely converts a string to TripOptionsEnum
-   */
-  private parseTripEnum(value: string): TripOptionsEnum | null {
-    return Object.values(TripOptionsEnum).includes(value as TripOptionsEnum)
-      ? (value as TripOptionsEnum)
-      : null;
   }
 
   private _updateQueryParams() {

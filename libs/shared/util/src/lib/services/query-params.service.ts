@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { filter, from, map, Observable, tap } from 'rxjs';
+import { from, map, Observable, tap } from 'rxjs';
 import { WINDOW } from '../injectiontokens/window';
 
 @Injectable({
@@ -37,9 +37,6 @@ export class QueryParamsService {
   }
 
   getQueryParams$(key: string): Observable<string | null> {
-    return this._activatedRoute.queryParams.pipe(
-      map((params) => params[key]),
-      filter((value) => value !== undefined)
-    );
+    return this._activatedRoute.queryParams.pipe(map((params) => params[key]));
   }
 }

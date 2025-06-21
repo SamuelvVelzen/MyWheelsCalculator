@@ -8,6 +8,7 @@ import {
   ToggleButtonComponent,
 } from '@mwc/ui';
 import { CurrencyPipe } from '@mwc/util';
+import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { PeriodService } from './_services/period.service';
 import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
@@ -38,6 +39,9 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
 export class CalculatorComponent {
   private readonly _priceService = inject(PriceService);
   private readonly _periodService = inject(PeriodService);
+  private readonly _calculatorQueryParamsService = inject(
+    CalculatorQueryParamsService
+  );
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
@@ -56,6 +60,10 @@ export class CalculatorComponent {
     startDate: this._periodService.startDate().toISOString(),
     endDate: this._periodService.endDate().toISOString(),
   }));
+
+  constructor() {
+    this._calculatorQueryParamsService.init();
+  }
 
   setDateRange(dateRange: { startDate: string; endDate: string }): void {
     this._periodService.startDate.set(new Date(dateRange.startDate));
