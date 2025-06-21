@@ -57,8 +57,8 @@ export class CalculatorComponent {
   startPrice = PriceService.startPrice;
 
   dateRange = computed(() => ({
-    startDate: this._periodService.startDate().toISOString(),
-    endDate: this._periodService.endDate().toISOString(),
+    startDate: this._periodService.startDate(),
+    endDate: this._periodService.endDate(),
   }));
 
   constructor() {

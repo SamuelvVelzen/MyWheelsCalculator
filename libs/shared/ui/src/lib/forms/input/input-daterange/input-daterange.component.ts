@@ -19,14 +19,14 @@ import { InputDatetimeComponent } from '../input-datetime/input-datetime.compone
   ],
 })
 export class InputDaterangeComponent extends BaseFormInputs<{
-  startDate: string | null;
-  endDate: string | null;
+  startDate: Date | null;
+  endDate: Date | null;
 }> {
   endDateInput = viewChild.required<InputDatetimeComponent>('endDateInput');
 
   labelText = input<string>('Start date');
 
-  setStartDate(startDate: string): void {
+  setStartDate(startDate: Date): void {
     if (!this.value) {
       return;
     }
@@ -40,7 +40,7 @@ export class InputDaterangeComponent extends BaseFormInputs<{
     }
   }
 
-  setEndDate(endDate: string): void {
+  setEndDate(endDate: Date): void {
     if (!this.value) {
       return;
     }
