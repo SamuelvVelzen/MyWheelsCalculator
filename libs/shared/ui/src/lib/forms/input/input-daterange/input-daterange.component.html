@@ -1,0 +1,21 @@
+<mwc-form-group [labelText]="labelText()">
+  <div class="flex gap-2">
+    <mwc-input-datetime
+      [ngModel]="value?.startDate"
+      (ngModelChange)="setStartDate($event)"
+      [min]="minStartDate()"
+      [step]="step()"
+      class="w-full"
+    />
+
+    <span class="text-grey"> - </span>
+
+    <mwc-input-datetime
+      [ngModel]="value?.endDate"
+      (ngModelChange)="setEndDate($event)"
+      [min]="minEndDate()"
+      [step]="step()"
+      class="w-full"
+    />
+  </div>
+</mwc-form-group>

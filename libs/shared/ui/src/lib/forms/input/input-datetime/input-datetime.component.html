@@ -1,0 +1,14 @@
+<input
+  class="form-control"
+  type="text"
+  mwlFlatpickr
+  [(ngModel)]="value"
+  (flatpickrValueUpdate)="updateValue($event)"
+  [altInput]="true"
+  [convertModelValue]="true"
+  [enableTime]="true"
+  [minDate]="min() ?? ''"
+  [maxDate]="max() ?? ''"
+  [minuteIncrement]="step() ?? 1"
+  class="w-full"
+/>
