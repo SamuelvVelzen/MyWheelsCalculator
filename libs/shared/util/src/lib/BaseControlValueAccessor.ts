@@ -7,7 +7,11 @@ export class BaseValueAccessor<T> implements ControlValueAccessor {
 
   disabled = false;
 
-  valueSignal = signal<T | undefined | null>(undefined);
+  valueSignal = signal<T | undefined | null>(undefined, {
+    equal: (a, b) => {
+      return JSON.stringify(a) === JSON.stringify(b);
+    },
+  });
 
   readonly selected = output<T | null>();
 
