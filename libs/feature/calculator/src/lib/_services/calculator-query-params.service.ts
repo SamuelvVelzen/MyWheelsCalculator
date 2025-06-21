@@ -74,15 +74,6 @@ export class CalculatorQueryParamsService {
         endDateQueryParam$,
         hasDepositPaidQueryParam$,
       }) => {
-        console.log(
-          abonnementQueryParam$,
-          carQueryParam$,
-          tripQueryParam$,
-          kilometersQueryParam$,
-          startDateQueryParam$,
-          endDateQueryParam$,
-          hasDepositPaidQueryParam$
-        );
         const abonnementValue = this._parseEnum(
           abonnementQueryParam$,
           Object.values(AbonnementOptionsEnum)
