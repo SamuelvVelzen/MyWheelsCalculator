@@ -1,16 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   FieldsetComponent,
+  InputDaterangeComponent,
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
 import { CurrencyPipe } from '@mwc/util';
-import { from, tap } from 'rxjs';
-import { calculatorQueryParams } from '../calculator.query-params';
+import { PeriodService } from './_services/period.service';
 import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
@@ -34,92 +32,26 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     ToggleButtonComponent,
     FieldsetComponent,
     CurrencyPipe,
+    InputDaterangeComponent,
   ],
 })
 export class CalculatorComponent {
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-
-  priceService = inject(PriceService);
+  private readonly _priceService = inject(PriceService);
+  private readonly _periodService = inject(PeriodService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
-  chosenAbonnement = this.priceService.abonnement;
-  chosenCar = this.priceService.car;
-  chosenTrip = this.priceService.trip;
+  chosenAbonnement = this._priceService.abonnement;
+  chosenCar = this._priceService.car;
+  chosenTrip = this._priceService.trip;
 
-  kilometers = this.priceService.kilometers;
-  hours = this.priceService.hours;
+  kilometers = this._priceService.kilometers;
+  hours = this._priceService.hours;
 
-  hasDepositPaid = this.priceService.hasDepositPaid;
+  hasDepositPaid = this._priceService.hasDepositPaid;
   depositPrice = PriceService.depositPrice;
-  hasStartPrice = this.priceService.hasStartPrice;
+  hasStartPrice = this._priceService.hasStartPrice;
   startPrice = PriceService.startPrice;
 
-  constructor() {
-    this.loadFromQueryParams();
-
-    effect(() => {
-      void this.chosenAbonnement();
-      void this.chosenCar();
-      void this.chosenTrip();
-      void this.kilometers();
-      void this.hours();
-      void this.hasDepositPaid();
-
-      this.updateUrlParams();
-    });
-  }
-
-  private loadFromQueryParams() {
-    this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
-      if (params[calculatorQueryParams.abonnement]) {
-        this.chosenAbonnement.set(params[calculatorQueryParams.abonnement]);
-      }
-      if (params[calculatorQueryParams.car]) {
-        this.chosenCar.set(params[calculatorQueryParams.car]);
-      }
-      if (params[calculatorQueryParams.trip]) {
-        this.chosenTrip.set(params[calculatorQueryParams.trip]);
-      }
-      if (params['kilometers']) {
-        this.kilometers.set(Number(params['kilometers']));
-      }
-      if (params['hours']) {
-        this.hours.set(Number(params['hours']));
-      }
-      if (params['hasDepositPaid']) {
-        this.hasDepositPaid.set(params['hasDepositPaid'] === 'true');
-      }
-    });
-  }
-
-  private _updateQueryParams() {
-    const queryParams: Params = {
-      [calculatorQueryParams.abonnement]: this.chosenAbonnement(),
-      [calculatorQueryParams.car]: this.chosenCar(),
-      [calculatorQueryParams.trip]: this.chosenTrip(),
-      [calculatorQueryParams.kilometers]: this.kilometers(),
-      [calculatorQueryParams.hours]: this.hours(),
-      [calculatorQueryParams.hasDepositPaid]: this.hasDepositPaid(),
-    };
-
-    // Store current scroll position
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    from(
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: queryParams,
-        queryParamsHandling: 'merge',
-        replaceUrl: true,
-      })
-    )
-      .pipe(tap(() => window.scrollTo(0, scrollTop)))
-      .subscribe();
-  }
-
-  updateUrlParams() {
-    this._updateQueryParams();
   }
 }
