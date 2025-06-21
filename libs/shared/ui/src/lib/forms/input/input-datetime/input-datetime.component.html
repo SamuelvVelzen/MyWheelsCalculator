@@ -11,6 +11,7 @@
   [minDate]="min() ?? ''"
   [maxDate]="max() ?? ''"
   [minuteIncrement]="step() ?? 1"
+  [time24hr]="true"
   class="w-full"
   (flatpickrClose)="calendarClosed.emit()"
 />
