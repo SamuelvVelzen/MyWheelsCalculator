@@ -1,4 +1,4 @@
-import { addHours, isAfter, isBefore, setMinutes } from 'date-fns';
+import { addHours, isAfter, isBefore, isSameDay, setMinutes } from 'date-fns';
 
 export class DateHelpers {
   static isAfter(date1: string | Date, date2: string | Date): boolean {
@@ -45,5 +45,24 @@ export class DateHelpers {
     }
 
     return setMinutes(date, roundedMinutes);
+  }
+
+  static isSameDay(
+    date1: Date | string | null | undefined,
+    date2: Date | string | null | undefined
+  ): boolean {
+    if (!date1 || !date2) {
+      return false;
+    }
+
+    if (typeof date1 === 'string') {
+      date1 = new Date(date1);
+    }
+
+    if (typeof date2 === 'string') {
+      date2 = new Date(date2);
+    }
+
+    return isSameDay(date1, date2);
   }
 }
