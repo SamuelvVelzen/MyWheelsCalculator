@@ -6,6 +6,7 @@ import { calculatorQueryParams } from '../../calculator.query-params';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptionsEnum } from '../_types/AutoOptionsEnum';
 import { TripOptionsEnum } from '../_types/TripOptionsEnum';
+import { PeriodService } from './period.service';
 import { PriceService } from './price.service';
 
 @Injectable({
@@ -14,6 +15,7 @@ import { PriceService } from './price.service';
 export class CalculatorQueryParamsService {
   private readonly _queryParamsService = inject(QueryParamsService);
   private readonly _priceService = inject(PriceService);
+  private readonly _periodService = inject(PeriodService);
 
   init() {
     this.loadFromQueryParams();
@@ -23,11 +25,11 @@ export class CalculatorQueryParamsService {
       void this._priceService.car();
       void this._priceService.trip();
       void this._priceService.kilometers();
-      void this._priceService.startDate();
-      void this._priceService.endDate();
+      void this._periodService.startDate();
+      void this._periodService.endDate();
       void this._priceService.hasDepositPaid();
 
-      this.updateUrlParams();
+      this._updateQueryParams();
     });
   }
 
@@ -111,13 +113,12 @@ export class CalculatorQueryParamsService {
         if (kilometersQueryParam$) {
           this._priceService.kilometers.set(Number(kilometersQueryParam$));
         }
-        // TODO: Implement daterange functionality
-        // if (startDateQueryParam$) {
-        //   this._priceService.daterange.startDate = startDateQueryParam$;
-        // }
-        // if (endDateQueryParam$) {
-        //   this._priceService.daterange.endDate = endDateQueryParam$;
-        // }
+        if (startDateQueryParam$) {
+          this._periodService.startDate.set(new Date(startDateQueryParam$));
+        }
+        if (endDateQueryParam$) {
+          this._periodService.endDate.set(new Date(endDateQueryParam$));
+        }
 
         if (hasDepositPaidQueryParam$) {
           this._priceService.hasDepositPaid.set(
@@ -142,17 +143,16 @@ export class CalculatorQueryParamsService {
       [calculatorQueryParams.car]: this._priceService.car(),
       [calculatorQueryParams.trip]: this._priceService.trip(),
       [calculatorQueryParams.kilometers]: this._priceService.kilometers(),
-      // TODO: Implement daterange functionality
-      // [calculatorQueryParams.startDate]: this.daterange.startDate,
-      // [calculatorQueryParams.endDate]: this.daterange.endDate,
+      [calculatorQueryParams.startDate]: this._periodService
+        .startDate()
+        .toISOString(),
+      [calculatorQueryParams.endDate]: this._periodService
+        .endDate()
+        .toISOString(),
       [calculatorQueryParams.hasDepositPaid]:
         this._priceService.hasDepositPaid(),
     };
 
     this._queryParamsService.updateQueryParams$(queryParams).subscribe();
-  }
-
-  updateUrlParams() {
-    this._updateQueryParams();
   }
 }
