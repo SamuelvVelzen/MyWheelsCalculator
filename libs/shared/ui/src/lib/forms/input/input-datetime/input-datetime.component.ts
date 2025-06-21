@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, output, viewChild } from '@angular/core';
+import { Component, output, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   FlatpickrDirective,
@@ -16,25 +16,14 @@ import { BaseDateInputs } from '../../../_types/BaseDateInputs';
   imports: [FormsModule, CommonModule, FlatpickrDirective],
   providers: [provideFlatpickrDefaults()],
 })
-export class InputDatetimeComponent extends BaseDateInputs<string> {
+export class InputDatetimeComponent extends BaseDateInputs<Date> {
   calendar = viewChild.required<FlatpickrDirective>(FlatpickrDirective);
-
-  mappedValue = computed(() => {
-    if (!this.value) {
-      return '';
-    }
-
-    return {
-      date: new Date(this.value).toISOString().split('T')[0],
-      time: new Date(this.value).toISOString().split('T')[1],
-    };
-  });
 
   calendarClosed = output<void>();
 
   updateValue(event: FlatPickrOutputOptions): void {
     const date = event.selectedDates[0];
 
-    this.value = new Date(date).toISOString();
+    this.value = new Date(date);
   }
 }
