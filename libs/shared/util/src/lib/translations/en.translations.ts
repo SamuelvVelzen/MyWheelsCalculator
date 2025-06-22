@@ -35,6 +35,8 @@ export const enTranslations = {
   'calculator.price.details.extra_costs': 'Extra costs',
   'calculator.price.details.deposit': 'Deposit',
 
+  'calculator.price.discount': 'discount on your first MyWheels trip',
+
   // Common
   'common.link': 'link',
   'common.days': 'days',

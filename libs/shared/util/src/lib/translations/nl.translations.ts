@@ -34,6 +34,7 @@ export const nlTranslations = {
   'calculator.price.details.trip_price': 'Ritprijs',
   'calculator.price.details.extra_costs': 'Extra kosten',
   'calculator.price.details.deposit': 'Borg',
+  'calculator.price.discount': 'korting op je eerste MyWheels rit',
 
   // Common
   'common.link': 'link',
