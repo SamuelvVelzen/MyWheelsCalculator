@@ -34,6 +34,8 @@ export class PriceComponent {
   showPriceDetails = signal(false);
 
   priceDetails = computed(() => {
+    const totalDepositDays = this._priceService.totalDepositDays();
+
     return [
       {
         label: `Discount (${
@@ -82,7 +84,9 @@ export class PriceComponent {
                 hide: !this._priceService.hasStartPrice(),
               },
               {
-                label: 'Deposit',
+                label: `Deposit (${this._priceService.totalDepositDays()} ${
+                  totalDepositDays === 1 ? 'day' : 'days'
+                })`,
                 totalCost: this._priceService.depositPrice(),
                 hide: this._priceService.hasDepositPaid(),
               },

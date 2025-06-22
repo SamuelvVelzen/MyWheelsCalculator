@@ -63,10 +63,12 @@ export class PriceService {
   });
 
   depositPrice = computed(() => {
-    const billableHours = this._periodService.totalPeriodTime();
-    const totalDays = Math.ceil(billableHours / PeriodService.maxHoursInDay);
+    return this.totalDepositDays() * PriceService.depositPrice;
+  });
 
-    return totalDays * PriceService.depositPrice;
+  totalDepositDays = computed(() => {
+    const billableHours = this._periodService.totalPeriodTime();
+    return Math.ceil(billableHours / PeriodService.maxHoursInDay);
   });
 
   kilometerPrice = computed(() => {
