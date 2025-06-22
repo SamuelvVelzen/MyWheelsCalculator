@@ -67,7 +67,7 @@ export class PriceComponent {
               },
               {
                 label: 'Extra km',
-                value: this._priceService.extraKm(),
+                value: `${this._priceService.extraKm()} km`,
                 hide: this._priceService.extraKm() === 0,
               },
             ],
