@@ -83,7 +83,7 @@ export class PriceComponent {
               },
               {
                 label: 'Deposit',
-                totalCost: PriceService.depositPrice,
+                totalCost: this._priceService.depositPrice(),
                 hide: this._priceService.hasDepositPaid(),
               },
             ],

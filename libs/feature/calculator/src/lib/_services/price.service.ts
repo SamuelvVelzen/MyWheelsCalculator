@@ -56,10 +56,17 @@ export class PriceService {
     }
 
     if (!this.hasDepositPaid()) {
-      extraCosts += PriceService.depositPrice;
+      extraCosts += this.depositPrice();
     }
 
     return extraCosts;
+  });
+
+  depositPrice = computed(() => {
+    const billableHours = this._periodService.totalPeriodTime();
+    const totalDays = Math.ceil(billableHours / PeriodService.maxHoursInDay);
+
+    return totalDays * PriceService.depositPrice;
   });
 
   kilometerPrice = computed(() => {
