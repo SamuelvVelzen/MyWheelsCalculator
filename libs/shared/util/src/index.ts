@@ -7,3 +7,5 @@ export * from './lib/helpers/helpers';
 export * from './lib/injectiontokens/window';
 
 export * from './lib/services/query-params.service';
+
+export * from './lib/types/language.enum';
