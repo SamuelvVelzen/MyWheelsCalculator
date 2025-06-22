@@ -59,8 +59,8 @@ export class InputDaterangeComponent extends BaseFormInputs<{
     };
   }
 
-  minStartDate = input<string>(new Date().toISOString());
-  minEndDate = input<string>(this.minStartDate());
+  minStartDate = input<string>();
+  minEndDate = input<string>();
   step = input<number>();
 
   handleStartDateCalendarClosed(): void {
