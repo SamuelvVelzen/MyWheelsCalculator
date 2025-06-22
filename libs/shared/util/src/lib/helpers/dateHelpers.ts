@@ -1,7 +1,13 @@
 import { addHours, isAfter, isBefore, isSameDay, setMinutes } from 'date-fns';
 
 export class DateHelpers {
-  static isAfter(date1: string | Date, date2: string | Date): boolean {
+  static isAfter(
+    date1: string | Date | null | undefined,
+    date2: string | Date | null | undefined
+  ): boolean {
+    if (!date1 || !date2) {
+      return true;
+    }
     if (typeof date1 === 'string') {
       date1 = new Date(date1);
     }
