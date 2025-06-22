@@ -7,14 +7,14 @@
   ></mwc-car-select>
 
   <mwc-slider-number
-    [labelText]="'Kilometers'"
+    [labelText]="'form.distance' | translate"
     [(ngModel)]="kilometers"
     [min]="1"
     [max]="1000"
   ></mwc-slider-number>
 
   <mwc-input-daterange
-    [labelText]="'Period'"
+    [labelText]="'calculator.trip.period' | translate"
     [ngModel]="dateRange()"
     (ngModelChange)="setDateRange($event)"
     [step]="step"
@@ -23,45 +23,45 @@
   <mwc-trip-select [(ngModel)]="chosenTrip"></mwc-trip-select>
 
   <mwc-fieldset
-    [labelText]="'Extra costs'"
+    [labelText]="'calculator.extra_costs.title' | translate"
     [colClass]="'grid-cols-1 md:grid-cols-2 gap-5'"
   >
     <div class="flex flex-col gap-2">
-      <mwc-toggle-button [(ngModel)]="hasDepositPaid"
-        >You have paid a deposit</mwc-toggle-button
-      >
-      <small class="text-grey text-sm"
-        >If you have paid a deposit you have the option to disable the mandatory
-        reduction of the own risk which will cost
-        <strong>{{ depositPrice | mwcCurrency }}</strong> per day.
+      <mwc-toggle-button [(ngModel)]="hasDepositPaid">
+        {{ 'calculator.extra_costs.deposit_paid' | translate }}
+      </mwc-toggle-button>
+      <small class="text-grey text-sm">
+        {{ 'calculator.extra_costs.deposit_description' | translate }}
+        <strong>{{ depositPrice | mwcCurrency }}</strong>
+        {{ 'calculator.price.per_day' | translate }}.
       </small>
       <small class="text-grey text-sm">
-        To read more about this, follow this
+        {{ 'calculator.extra_costs.read_more' | translate }}
         <a
           href="https://help.mywheels.nl/hc/en-nl/articles/5464626156828-Can-I-reduce-my-deductible"
           target="_blank"
           class="text-primary underline"
-          >link</a
+          >{{ 'common.link' | translate }}</a
         >.
       </small>
     </div>
 
     <div class="flex flex-col gap-2">
-      <mwc-toggle-button [ngModel]="hasStartPrice()" [disabled]="true"
-        >Has a start price
+      <mwc-toggle-button [ngModel]="hasStartPrice()" [disabled]="true">
+        {{ 'calculator.extra_costs.start_price' | translate }}
       </mwc-toggle-button>
-      <small class="text-grey text-sm"
-        >You have to pay a starting price when you don't have an abonnement or
-        don't have trips. This cost
-        <strong>{{ startPrice | mwcCurrency }}</strong> per trip.</small
-      >
       <small class="text-grey text-sm">
-        To read more about this, follow this
+        {{ 'calculator.extra_costs.start_price_description' | translate }}
+        <strong>{{ startPrice | mwcCurrency }}</strong>
+        {{ 'calculator.extra_costs.per_trip' | translate }}.
+      </small>
+      <small class="text-grey text-sm">
+        {{ 'calculator.extra_costs.read_more' | translate }}
         <a
           href="https://mywheels.nl/tarieven/abonnementen"
           target="_blank"
           class="text-primary underline"
-          >link</a
+          >{{ 'common.link' | translate }}</a
         >.
       </small>
     </div>

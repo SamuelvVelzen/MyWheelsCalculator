@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/MyWheelsCalculator",
         "index": "apps/MyWheelsCalculator/src/index.html",
         "browser": "apps/MyWheelsCalculator/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "apps/MyWheelsCalculator/tsconfig.app.json",
         "assets": [
           {

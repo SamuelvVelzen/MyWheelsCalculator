@@ -18,13 +18,17 @@
         <span class="text-xl">
           {{ car.hourPrice | mwcCurrency }}
         </span>
-        <span class="text-sm text-grey">/hour</span>
+        <span class="text-sm text-grey">
+          {{ 'calculator.car.hour' | translate }}
+        </span>
       </p>
 
       <small class="text-sm text-grey">
         <p>
           Max
-          {{ car.hourPrice * 10 | mwcCurrency }} /dag
+          {{ car.hourPrice * 10 | mwcCurrency }} /{{
+            'calculator.car.day' | translate
+          }}
         </p>
         <p>+ {{ car.kmPrice | mwcCurrency }} /km</p>
       </small>

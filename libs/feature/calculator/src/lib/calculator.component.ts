@@ -7,7 +7,7 @@ import {
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
-import { CurrencyPipe } from '@mwc/util';
+import { CurrencyPipe, TranslatePipe } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { PeriodService } from './_services/period.service';
 import { PriceService } from './_services/price.service';
@@ -33,6 +33,7 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     ToggleButtonComponent,
     FieldsetComponent,
     CurrencyPipe,
+    TranslatePipe,
     InputDaterangeComponent,
   ],
 })

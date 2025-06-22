@@ -1,5 +1,5 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { DateHelpers } from '@mwc/util';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { DateHelpers, LanguageService } from '@mwc/util';
 import {
   addHours,
   differenceInMinutes,
@@ -11,6 +11,8 @@ import {
   providedIn: 'root',
 })
 export class PeriodService {
+  private readonly _languageService = inject(LanguageService);
+
   static maxHoursInDay = 10;
   // should be divisible by 60
   static roundToNearestStep = 15;
@@ -58,11 +60,11 @@ export class PeriodService {
 
     // Just days (no remainder)
     if (remainingHours === 0) {
-      return days === 1 ? 'day' : `${days} days`;
+      return this._formatDays(days);
     }
 
     // Days + remaining hours/minutes
-    const dayString = days === 1 ? 'day' : `${days} days`;
+    const dayString = this._formatDays(days);
     const hourString = this._formatHoursMinutes(remainingHours);
 
     return `${dayString} + ${hourString}`;
@@ -89,5 +91,11 @@ export class PeriodService {
       return `${wholeHours}h ${minutes}m`;
     }
     return `${wholeHours}h`;
+  }
+
+  private _formatDays(days: number): string {
+    return days === 1
+      ? this._languageService.translate('common.day')
+      : `${days} ${this._languageService.translate('common.days')}`;
   }
 }

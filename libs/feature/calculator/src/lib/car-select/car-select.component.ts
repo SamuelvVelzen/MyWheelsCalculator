@@ -2,7 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonsCardComponent } from '@mwc/ui';
-import { BaseValueAccessor, CurrencyPipe, Helpers } from '@mwc/util';
+import {
+  BaseValueAccessor,
+  CurrencyPipe,
+  Helpers,
+  TranslatePipe,
+} from '@mwc/util';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptions, AutoOptionsEnum } from '../_types/AutoOptionsEnum';
 
@@ -10,7 +15,13 @@ import { AutoOptions, AutoOptionsEnum } from '../_types/AutoOptionsEnum';
   selector: 'mwc-car-select',
   templateUrl: './car-select.component.html',
   styleUrls: ['./car-select.component.css'],
-  imports: [FormsModule, RadioButtonsCardComponent, CurrencyPipe, CommonModule],
+  imports: [
+    FormsModule,
+    RadioButtonsCardComponent,
+    CurrencyPipe,
+    CommonModule,
+    TranslatePipe,
+  ],
   standalone: true,
 })
 export class CarSelectComponent extends BaseValueAccessor<AutoOptionsEnum> {
