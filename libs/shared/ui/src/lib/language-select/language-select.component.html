@@ -1,8 +1,15 @@
 <div class="flex gap-2 text-grey">
-  @for (language of availableLanguages; track language) {
+  @for (language of availableLanguages; track language) { @let isSelected =
+  currentLanguage() === language;
   <button
-    class="cursor-pointer text-lg uppercase"
+    class="cursor-pointer text-lg uppercase transition-colors duration-200 text-grey hover:underline"
+    [ngClass]="{
+      'text-primary': isSelected,
+      'font-medium': isSelected
+    }"
     (click)="setLanguage(language)"
+    [attr.aria-pressed]="isSelected"
+    [attr.aria-label]="'Switch to ' + language"
   >
     {{ language }}
   </button>
