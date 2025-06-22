@@ -1,7 +1,7 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ButtonComponent, ButtonTypeEnum, ThemeEnum } from '@mwc/ui';
-import { CurrencyPipe } from '@mwc/util';
+import { CurrencyPipe, LanguageService, TranslatePipe } from '@mwc/util';
 import { PeriodService } from '../_services/period.service';
 import { PriceService } from '../_services/price.service';
 import { AbonnementOptions } from '../_types/AbonnementOptionsEnum';
@@ -12,11 +12,18 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
   templateUrl: './price.component.html',
   styleUrls: ['./price.component.css'],
   standalone: true,
-  imports: [CurrencyPipe, ButtonComponent, NgTemplateOutlet, CommonModule],
+  imports: [
+    CurrencyPipe,
+    ButtonComponent,
+    NgTemplateOutlet,
+    CommonModule,
+    TranslatePipe,
+  ],
 })
 export class PriceComponent {
   private readonly _priceService = inject(PriceService);
   private readonly _periodService = inject(PeriodService);
+  private readonly _languageService = inject(LanguageService);
 
   totalPrice = this._priceService.totalPrice;
   basePrice = this._priceService.basePrice;
@@ -38,54 +45,62 @@ export class PriceComponent {
 
     return [
       {
-        label: `Discount (${
-          this.abonnementOptions[this.abonnement()].discount
-        }%)`,
+        label: `${this._languageService.translate(
+          'calculator.price.details.discount'
+        )} (${this.abonnementOptions[this.abonnement()].discount}%)`,
         totalCost: this.totalPrice() - this.basePrice(),
         hide: this.abonnementOptions[this.abonnement()].discount === 0,
       },
       {
-        label: 'Base price',
+        label: 'calculator.price.details.base_price',
         totalCost: this.basePrice(),
         children: [
           {
-            label: `Rental period (${this._periodService.totalPeriodTimeString()})`,
+            label: `${this._languageService.translate(
+              'calculator.price.details.rental_period'
+            )} (${this._periodService.totalPeriodTimeString()})`,
             totalCost: this.hourPrice(),
           },
           {
-            label: 'Kilometer price',
+            label: 'calculator.price.details.kilometer_price',
             totalCost: this.kilometerPrice(),
             children: [
               {
-                label: 'Total kilometers',
+                label: 'calculator.price.details.total_kilometers',
                 value: `${this.kilometers()} km`,
               },
               {
-                label: `Trip price (${
-                  TripOptions[this._priceService.trip()].title
-                })`,
+                label: `${this._languageService.translate(
+                  'calculator.price.details.trip_price'
+                )} (${TripOptions[this._priceService.trip()].title})`,
                 totalCost: TripOptions[this._priceService.trip()].price,
                 hide: this._priceService.trip() === TripOptionsEnum.None,
               },
               {
-                label: 'Extra km',
+                label: `${this._languageService.translate(
+                  'calculator.price.details.extra_km'
+                )}`,
                 value: `${this._priceService.extraKm()} km`,
                 hide: this._priceService.extraKm() === 0,
               },
             ],
           },
           {
-            label: 'Extra costs',
+            label: 'calculator.price.details.extra_costs',
             totalCost: this.extraCosts(),
             children: [
               {
-                label: 'Start price',
+                label: 'calculator.price.details.start_price',
                 totalCost: PriceService.startPrice,
                 hide: !this._priceService.hasStartPrice(),
               },
               {
-                label: `Deposit (${this._priceService.totalDepositDays()} ${
-                  totalDepositDays === 1 ? 'day' : 'days'
+                label: `${this._languageService.translate(
+                  'calculator.price.details.deposit'
+                )} (${this._priceService.totalDepositDays()} ${
+                  totalDepositDays === 1
+                    ? this._languageService.translate('common.day')
+                    : this._languageService.translate('common.days')
                 })`,
                 totalCost: this._priceService.depositPrice(),
                 hide: this._priceService.hasDepositPaid(),

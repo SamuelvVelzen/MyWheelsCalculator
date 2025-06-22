@@ -19,6 +19,24 @@ export const nlTranslations = {
   'calculator.extra_costs.read_more': 'Om hier meer over te lezen, volg deze',
   'calculator.trip.period': 'Periode',
 
+  'calculator.car.hour': 'uur',
+  'calculator.car.day': 'dag',
+
+  'calculator.price.total_price': 'Totale prijs',
+  'calculator.price.hide_details': 'Verberg details',
+  'calculator.price.show_details': 'Toon details',
+  'calculator.price.share': 'Delen',
+  'calculator.price.details.discount': 'Korting',
+  'calculator.price.details.base_price': 'Basisprijs',
+  'calculator.price.details.rental_period': 'Rental periode',
+  'calculator.price.details.total_kilometers': 'Totaal kilometers',
+  'calculator.price.details.kilometer_price': 'Kilometerprijs',
+  'calculator.price.details.trip_price': 'Ritprijs',
+  'calculator.price.details.extra_costs': 'Extra kosten',
+  'calculator.price.details.deposit': 'Borg',
+
   // Common
   'common.link': 'link',
+  'common.days': 'dagen',
+  'common.day': 'dag',
 } as const;

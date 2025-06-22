@@ -19,6 +19,24 @@ export const enTranslations = {
   'calculator.extra_costs.read_more': 'To read more about this, follow this',
   'calculator.trip.period': 'Period',
 
+  'calculator.car.hour': 'hour',
+  'calculator.car.day': 'day',
+
+  'calculator.price.total_price': 'Total price',
+  'calculator.price.hide_details': 'Hide details',
+  'calculator.price.show_details': 'Show details',
+  'calculator.price.share': 'Share',
+  'calculator.price.details.discount': 'Discount',
+  'calculator.price.details.base_price': 'Base price',
+  'calculator.price.details.rental_period': 'Rental period',
+  'calculator.price.details.total_kilometers': 'Total kilometers',
+  'calculator.price.details.kilometer_price': 'Kilometer price',
+  'calculator.price.details.trip_price': 'Trip price',
+  'calculator.price.details.extra_costs': 'Extra costs',
+  'calculator.price.details.deposit': 'Deposit',
+
   // Common
   'common.link': 'link',
+  'common.days': 'days',
+  'common.day': 'day',
 } as const;
