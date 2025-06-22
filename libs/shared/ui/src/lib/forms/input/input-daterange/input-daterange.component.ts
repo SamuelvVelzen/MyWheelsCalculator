@@ -31,13 +31,14 @@ export class InputDaterangeComponent extends BaseFormInputs<{
       return;
     }
 
-    this.value.startDate = startDate;
+    const endDate = DateHelpers.isAfter(startDate, this.value.endDate)
+      ? null
+      : this.value.endDate;
 
-    if (this.value.endDate) {
-      if (DateHelpers.isAfter(startDate, this.value.endDate)) {
-        this.value.endDate = null;
-      }
-    }
+    this.value = {
+      startDate,
+      endDate,
+    };
   }
 
   setEndDate(endDate: Date): void {
@@ -52,7 +53,10 @@ export class InputDaterangeComponent extends BaseFormInputs<{
       return;
     }
 
-    this.value.endDate = endDate;
+    this.value = {
+      startDate: this.value.startDate,
+      endDate,
+    };
   }
 
   minStartDate = input<string>(new Date().toISOString());
