@@ -1,0 +1,13 @@
+<div class="flex gap-2 text-grey">
+  @for (language of availableLanguages; track language) {
+  <button
+    class="cursor-pointer text-lg uppercase"
+    (click)="setLanguage(language)"
+  >
+    {{ language }}
+  </button>
+
+  @if (!$last) {
+  <span class="text-muted">|</span>
+  } }
+</div>
