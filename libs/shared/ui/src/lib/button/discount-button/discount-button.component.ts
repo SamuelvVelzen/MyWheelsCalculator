@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { CurrencyPipe, TranslatePipe } from '@mwc/util';
+import { Component, inject } from '@angular/core';
+import {
+  CurrencyPipe,
+  LanguageEnum,
+  TranslatePipe,
+  UrlService,
+} from '@mwc/util';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
@@ -10,5 +15,10 @@ import { ButtonComponent } from '../button/button.component';
   imports: [ButtonComponent, CurrencyPipe, TranslatePipe],
 })
 export class DiscountButtonComponent {
-  shareLink = 'https://mywheels.nl/uitnodigen/samuel9178';
+  private readonly _urlService = inject(UrlService);
+
+  url = this._urlService.getUrlBasedOnLanguage({
+    [LanguageEnum.EN]: 'https://mywheels.nl/en/uitnodigen/samuel9178',
+    [LanguageEnum.NL]: 'https://mywheels.nl/uitnodigen/samuel9178',
+  });
 }
