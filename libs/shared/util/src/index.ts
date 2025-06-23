@@ -3,6 +3,7 @@ export * from './lib/pipes/currency.pipe';
 export * from './lib/pipes/translate.pipe';
 
 export * from './lib/helpers/dateHelpers';
+export * from './lib/helpers/enum.helpers';
 export * from './lib/helpers/helpers';
 
 export * from './lib/injectiontokens/window';
