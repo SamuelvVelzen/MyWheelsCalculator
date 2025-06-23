@@ -38,7 +38,7 @@
       <small class="text-grey text-sm">
         {{ 'calculator.extra_costs.read_more' | translate }}
         <a
-          href="https://help.mywheels.nl/hc/en-nl/articles/5464626156828-Can-I-reduce-my-deductible"
+          [href]="depositPriceUrl()"
           target="_blank"
           class="text-primary underline"
           >{{ 'common.link' | translate }}</a
@@ -58,7 +58,7 @@
       <small class="text-grey text-sm">
         {{ 'calculator.extra_costs.read_more' | translate }}
         <a
-          href="https://mywheels.nl/tarieven/abonnementen"
+          [href]="startPriceUrl()"
           target="_blank"
           class="text-primary underline"
           >{{ 'common.link' | translate }}</a

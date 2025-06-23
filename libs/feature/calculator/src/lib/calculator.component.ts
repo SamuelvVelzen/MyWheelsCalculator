@@ -7,7 +7,12 @@ import {
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
-import { CurrencyPipe, TranslatePipe } from '@mwc/util';
+import {
+  CurrencyPipe,
+  LanguageEnum,
+  TranslatePipe,
+  UrlService,
+} from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { PeriodService } from './_services/period.service';
 import { PriceService } from './_services/price.service';
@@ -43,6 +48,7 @@ export class CalculatorComponent {
   private readonly _calculatorQueryParamsService = inject(
     CalculatorQueryParamsService
   );
+  private readonly _urlService = inject(UrlService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
@@ -63,6 +69,18 @@ export class CalculatorComponent {
     startDate: this._periodService.startDate(),
     endDate: this._periodService.endDate(),
   }));
+
+  depositPriceUrl = this._urlService.getUrlBasedOnLanguage({
+    [LanguageEnum.EN]:
+      'https://help.mywheels.nl/hc/en-nl/articles/5464626156828-Can-I-reduce-my-deductible',
+    [LanguageEnum.NL]:
+      'https://help.mywheels.nl/hc/nl/articles/5464626156828-Kan-ik-het-eigen-risico-verlagen',
+  });
+
+  startPriceUrl = this._urlService.getUrlBasedOnLanguage({
+    [LanguageEnum.EN]: 'https://mywheels.nl/en/tarieven/abonnementen',
+    [LanguageEnum.NL]: 'https://mywheels.nl/tarieven/abonnementen',
+  });
 
   constructor() {
     this._calculatorQueryParamsService.init();
