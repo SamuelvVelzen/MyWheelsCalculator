@@ -18,7 +18,7 @@ export class CalculatorQueryParamsService {
   private readonly _periodService = inject(PeriodService);
 
   init() {
-    this.loadFromQueryParams();
+    this._loadFromQueryParams();
 
     effect(() => {
       void this._priceService.abonnement();
@@ -33,7 +33,7 @@ export class CalculatorQueryParamsService {
     });
   }
 
-  private loadFromQueryParams() {
+  private _loadFromQueryParams() {
     const abonnementQueryParam$ = this._queryParamsService
       .getQueryParams$(calculatorQueryParams.abonnement)
       .pipe(take(1));
