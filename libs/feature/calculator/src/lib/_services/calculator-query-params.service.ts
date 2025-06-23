@@ -47,10 +47,10 @@ export class CalculatorQueryParamsService {
       .getQueryParams$(calculatorQueryParams.kilometers)
       .pipe(take(1));
     const startDateQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.startDate)
+      .getQueryParamsDate$(calculatorQueryParams.startDate)
       .pipe(take(1));
     const endDateQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.endDate)
+      .getQueryParamsDate$(calculatorQueryParams.endDate)
       .pipe(take(1));
     const hasDepositPaidQueryParam$ = this._queryParamsService
       .getQueryParams$(calculatorQueryParams.hasDepositPaid)
@@ -134,12 +134,8 @@ export class CalculatorQueryParamsService {
       [calculatorQueryParams.car]: this._priceService.car(),
       [calculatorQueryParams.trip]: this._priceService.trip(),
       [calculatorQueryParams.kilometers]: this._priceService.kilometers(),
-      [calculatorQueryParams.startDate]: this._periodService
-        .startDate()
-        .toISOString(),
-      [calculatorQueryParams.endDate]: this._periodService
-        .endDate()
-        .toISOString(),
+      [calculatorQueryParams.startDate]: this._periodService.startDate(),
+      [calculatorQueryParams.endDate]: this._periodService.endDate(),
       [calculatorQueryParams.hasDepositPaid]:
         this._priceService.hasDepositPaid(),
     };

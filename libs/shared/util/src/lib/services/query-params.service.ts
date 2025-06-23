@@ -3,6 +3,7 @@ import { DestroyRef, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { from, map, Observable, tap } from 'rxjs';
+import { DateQueryParamsHelpers } from '../helpers/dateQueryParams.helpers';
 import { WINDOW } from '../injectiontokens/window';
 
 @Injectable({
@@ -19,10 +20,12 @@ export class QueryParamsService {
     const scrollTop =
       this._window.scrollY || this._document.documentElement.scrollTop;
 
+    const mappedParams = this._mapParams(params);
+
     return from(
       this._router.navigate([], {
         relativeTo: this._activatedRoute,
-        queryParams: params,
+        queryParams: mappedParams,
         queryParamsHandling: 'merge',
         replaceUrl: true,
       })
@@ -38,5 +41,25 @@ export class QueryParamsService {
 
   getQueryParams$(key: string): Observable<string | null> {
     return this._activatedRoute.queryParams.pipe(map((params) => params[key]));
+  }
+
+  getQueryParamsDate$(key: string): Observable<Date | null> {
+    return this.getQueryParams$(key).pipe(
+      map((value) => (value ? DateQueryParamsHelpers.decodeDate(value) : null))
+    );
+  }
+
+  private _mapParams(params: Params): Params {
+    return Object.fromEntries(
+      Object.entries(params).map(([key, value]) => {
+        let valueToMap = value;
+
+        if (valueToMap instanceof Date) {
+          valueToMap = DateQueryParamsHelpers.encodeDate(valueToMap);
+        }
+
+        return [key, valueToMap];
+      })
+    );
   }
 }
