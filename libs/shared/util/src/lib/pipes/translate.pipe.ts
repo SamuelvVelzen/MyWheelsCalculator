@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform, computed, inject } from '@angular/core';
 import { LanguageService } from '../services/language.service';
+import { TranslateService } from '../services/translate.service';
 import { TranslationKey } from '../translations';
 
 @Pipe({
@@ -8,7 +9,8 @@ import { TranslationKey } from '../translations';
   standalone: true,
 })
 export class TranslatePipe implements PipeTransform {
-  private languageService = inject(LanguageService);
+  private readonly _translateService = inject(TranslateService);
+  private readonly _languageService = inject(LanguageService);
 
   transform(
     key: TranslationKey | string,
@@ -16,8 +18,8 @@ export class TranslatePipe implements PipeTransform {
   ): string {
     // This will automatically react to language changes
     const currentTranslations = computed(() =>
-      this.languageService.getTranslationsForLanguage(
-        this.languageService.currentLanguage()
+      this._translateService.getTranslationsForLanguage(
+        this._languageService.currentLanguage()
       )
     );
 

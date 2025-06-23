@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { DateHelpers, LanguageService } from '@mwc/util';
+import { DateHelpers, TranslateService } from '@mwc/util';
 import {
   addHours,
   differenceInMinutes,
@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class PeriodService {
-  private readonly _languageService = inject(LanguageService);
+  private readonly _translateService = inject(TranslateService);
 
   static maxHoursInDay = 10;
   // should be divisible by 60
@@ -95,7 +95,7 @@ export class PeriodService {
 
   private _formatDays(days: number): string {
     return days === 1
-      ? this._languageService.translate('common.day')
-      : `${days} ${this._languageService.translate('common.days')}`;
+      ? this._translateService.translate('common.day')
+      : `${days} ${this._translateService.translate('common.days')}`;
   }
 }

@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import { effect, Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { TranslationKey, translations } from '../translations';
 import { LanguageEnum } from '../types/language.enum';
 
 @Injectable({
@@ -34,28 +33,6 @@ export class LanguageService {
    */
   setLanguage(language: LanguageEnum): void {
     this._currentLanguage.set(language);
-  }
-
-  /**
-   * Get translations for the current language
-   */
-  getTranslations(): Record<string, string> {
-    return this.getTranslationsForLanguage(this._currentLanguage());
-  }
-
-  /**
-   * Get translations for a specific language
-   */
-  getTranslationsForLanguage(language: LanguageEnum): Record<string, string> {
-    return translations[language] || translations[LanguageEnum.EN];
-  }
-
-  /**
-   * Translate a key for the current language
-   */
-  translate(key: TranslationKey | string): string {
-    const translations = this.getTranslations();
-    return translations[key] || key;
   }
 
   /**
