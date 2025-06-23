@@ -16,7 +16,10 @@ export class QueryParamsService {
   private readonly _document = inject(DOCUMENT);
   private readonly _destroyRef = inject(DestroyRef);
 
-  updateQueryParams$(params: Params): Observable<boolean> {
+  updateQueryParams$(
+    params: Params,
+    options?: { scrollToTop?: boolean }
+  ): Observable<boolean> {
     const scrollTop =
       this._window.scrollY || this._document.documentElement.scrollTop;
 
@@ -31,7 +34,7 @@ export class QueryParamsService {
       })
     ).pipe(
       tap(() => {
-        if (this._window.scrollTo) {
+        if (this._window.scrollTo && !options?.scrollToTop) {
           this._window.scrollTo(0, scrollTop);
         }
       }),
