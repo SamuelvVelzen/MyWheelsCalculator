@@ -49,8 +49,8 @@ export class CalculatorComponent {
   private readonly _calculatorQueryParamsService = inject(
     CalculatorQueryParamsService
   );
-  private readonly _urlService = inject(UrlService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _urlService = inject(UrlService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
