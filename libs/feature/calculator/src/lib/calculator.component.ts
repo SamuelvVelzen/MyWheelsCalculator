@@ -11,6 +11,7 @@ import {
   CurrencyPipe,
   LanguageEnum,
   TranslatePipe,
+  TranslateService,
   UrlService,
 } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
@@ -49,6 +50,7 @@ export class CalculatorComponent {
     CalculatorQueryParamsService
   );
   private readonly _urlService = inject(UrlService);
+  private readonly _translateService = inject(TranslateService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
@@ -81,6 +83,13 @@ export class CalculatorComponent {
     [LanguageEnum.EN]: 'https://mywheels.nl/en/tarieven/abonnementen',
     [LanguageEnum.NL]: 'https://mywheels.nl/tarieven/abonnementen',
   });
+
+  discountLabel = computed(
+    () =>
+      `${this._translateService.translate(
+        'calculator.trip.period'
+      )} (${this._periodService.totalPeriodTimeString()})`
+  );
 
   constructor() {
     this._calculatorQueryParamsService.init();

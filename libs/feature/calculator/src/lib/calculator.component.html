@@ -14,7 +14,7 @@
   ></mwc-slider-number>
 
   <mwc-input-daterange
-    [labelText]="'calculator.trip.period' | translate"
+    [labelText]="discountLabel()"
     [ngModel]="dateRange()"
     (ngModelChange)="setDateRange($event)"
     [step]="step"
