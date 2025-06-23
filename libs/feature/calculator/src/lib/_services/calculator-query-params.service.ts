@@ -1,8 +1,8 @@
-import { effect, inject, Injectable } from '@angular/core';
+import { DestroyRef, effect, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { EnumHelpers, QueryParamsService } from '@mwc/util';
-import { forkJoin, take } from 'rxjs';
+import { debounceTime, forkJoin, take } from 'rxjs';
 import { calculatorQueryParams } from '../../calculator.query-params';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptionsEnum } from '../_types/AutoOptionsEnum';
@@ -17,6 +17,7 @@ export class CalculatorQueryParamsService {
   private readonly _queryParamsService = inject(QueryParamsService);
   private readonly _priceService = inject(PriceService);
   private readonly _periodService = inject(PeriodService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   init() {
     this._loadFromQueryParams();
@@ -135,6 +136,9 @@ export class CalculatorQueryParamsService {
         this._priceService.hasDepositPaid(),
     };
 
-    this._queryParamsService.updateQueryParams$(queryParams).subscribe();
+    this._queryParamsService
+      .updateQueryParams$(queryParams)
+      .pipe(debounceTime(100), takeUntilDestroyed(this._destroyRef))
+      .subscribe();
   }
 }
