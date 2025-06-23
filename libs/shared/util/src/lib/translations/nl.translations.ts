@@ -5,7 +5,7 @@ export const nlTranslations = {
   'calculator.price.per_day': 'per dag',
 
   // Form labels
-  'form.distance': 'Afstand (km)',
+  'calculator.distance': 'Afstand',
 
   // Extra costs
   'calculator.extra_costs.title': 'Extra kosten',
