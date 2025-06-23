@@ -1,4 +1,5 @@
 import { effect, inject, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { EnumHelpers, QueryParamsService } from '@mwc/util';
 import { forkJoin, take } from 'rxjs';
@@ -47,10 +48,10 @@ export class CalculatorQueryParamsService {
       .getQueryParams$(calculatorQueryParams.kilometers)
       .pipe(take(1));
     const startDateQueryParam$ = this._queryParamsService
-      .getQueryParamsDate$(calculatorQueryParams.startDate)
+      .getQueryParams$(calculatorQueryParams.startDate, { parseDate: true })
       .pipe(take(1));
     const endDateQueryParam$ = this._queryParamsService
-      .getQueryParamsDate$(calculatorQueryParams.endDate)
+      .getQueryParams$(calculatorQueryParams.endDate, { parseDate: true })
       .pipe(take(1));
     const hasDepositPaidQueryParam$ = this._queryParamsService
       .getQueryParams$(calculatorQueryParams.hasDepositPaid)
@@ -64,68 +65,62 @@ export class CalculatorQueryParamsService {
       startDateQueryParam$,
       endDateQueryParam$,
       hasDepositPaidQueryParam$,
-    }).subscribe(
-      ({
-        abonnementQueryParam$,
-        carQueryParam$,
-        tripQueryParam$,
-        kilometersQueryParam$,
-        startDateQueryParam$,
-        endDateQueryParam$,
-        hasDepositPaidQueryParam$,
-      }) => {
-        const abonnementValue = EnumHelpers.parseEnumFromObject(
+    })
+      .pipe(takeUntilDestroyed())
+      .subscribe(
+        ({
           abonnementQueryParam$,
-          AbonnementOptionsEnum
-        );
-
-        if (abonnementValue) {
-          this._priceService.abonnement.set(abonnementValue);
-        }
-
-        const carValue = EnumHelpers.parseEnumFromObject(
           carQueryParam$,
-          AutoOptionsEnum
-        );
-
-        if (carValue) {
-          this._priceService.car.set(carValue);
-        }
-
-        const tripValue = EnumHelpers.parseEnumFromObject(
           tripQueryParam$,
-          TripOptionsEnum
-        );
-
-        if (tripValue) {
-          this._priceService.trip.set(tripValue);
-        }
-
-        if (kilometersQueryParam$) {
-          this._priceService.kilometers.set(Number(kilometersQueryParam$));
-        }
-        if (startDateQueryParam$) {
-          this._periodService.startDate.set(new Date(startDateQueryParam$));
-        }
-        if (endDateQueryParam$) {
-          this._periodService.endDate.set(new Date(endDateQueryParam$));
-        }
-
-        if (hasDepositPaidQueryParam$) {
-          this._priceService.hasDepositPaid.set(
-            hasDepositPaidQueryParam$ === 'true'
+          kilometersQueryParam$,
+          startDateQueryParam$,
+          endDateQueryParam$,
+          hasDepositPaidQueryParam$,
+        }) => {
+          const abonnementValue = EnumHelpers.parseEnumFromObject(
+            abonnementQueryParam$,
+            AbonnementOptionsEnum
           );
+
+          if (abonnementValue) {
+            this._priceService.abonnement.set(abonnementValue);
+          }
+
+          const carValue = EnumHelpers.parseEnumFromObject(
+            carQueryParam$,
+            AutoOptionsEnum
+          );
+
+          if (carValue) {
+            this._priceService.car.set(carValue);
+          }
+
+          const tripValue = EnumHelpers.parseEnumFromObject(
+            tripQueryParam$,
+            TripOptionsEnum
+          );
+
+          if (tripValue) {
+            this._priceService.trip.set(tripValue);
+          }
+
+          if (kilometersQueryParam$) {
+            this._priceService.kilometers.set(Number(kilometersQueryParam$));
+          }
+          if (startDateQueryParam$) {
+            this._periodService.startDate.set(new Date(startDateQueryParam$));
+          }
+          if (endDateQueryParam$) {
+            this._periodService.endDate.set(new Date(endDateQueryParam$));
+          }
+
+          if (hasDepositPaidQueryParam$) {
+            this._priceService.hasDepositPaid.set(
+              hasDepositPaidQueryParam$ === 'true'
+            );
+          }
         }
-      }
-    );
-  }
-
-  private _parseEnum<T>(value: string | null, enumValues: T[]): T | null {
-    if (!value) {
-      return null;
-    }
-
-    return enumValues.includes(value as T) ? (value as T) : null;
+      );
   }
 
   private _updateQueryParams() {

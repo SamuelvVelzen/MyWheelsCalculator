@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { from, map, Observable, tap } from 'rxjs';
 import { DateQueryParamsHelpers } from '../helpers/dateQueryParams.helpers';
+import { QueryParamsHelpers } from '../helpers/query-params.helpers';
 import { WINDOW } from '../injectiontokens/window';
 
 @Injectable({
@@ -18,12 +19,12 @@ export class QueryParamsService {
 
   updateQueryParams$(
     params: Params,
-    options?: { scrollToTop?: boolean }
+    options?: { scrollToTop?: boolean; mode?: 'single' | 'multiple' }
   ): Observable<boolean> {
     const scrollTop =
       this._window.scrollY || this._document.documentElement.scrollTop;
 
-    const mappedParams = this._mapParams(params);
+    const mappedParams = this._mapParams(params, options?.mode);
 
     return from(
       this._router.navigate([], {
@@ -42,23 +43,64 @@ export class QueryParamsService {
     );
   }
 
-  getQueryParams$(key: string): Observable<string | null> {
-    return this._activatedRoute.queryParams.pipe(map((params) => params[key]));
-  }
+  getQueryParams$(
+    key: string,
+    options: { multiple: true; parseDate: true }
+  ): Observable<Date[]>;
+  getQueryParams$(
+    key: string,
+    options: { multiple: true; parseDate?: false }
+  ): Observable<string[]>;
+  getQueryParams$(
+    key: string,
+    options: { multiple?: false; parseDate: true }
+  ): Observable<Date | null>;
+  getQueryParams$(
+    key: string,
+    options?: { multiple?: false; parseDate?: false }
+  ): Observable<string | null>;
+  getQueryParams$(
+    key: string,
+    options?: { multiple?: boolean; parseDate?: boolean }
+  ): Observable<string | null | string[] | Date | Date[]> {
+    return this._activatedRoute.queryParams.pipe(
+      map((params) => {
+        const value = params[key];
 
-  getQueryParamsDate$(key: string): Observable<Date | null> {
-    return this.getQueryParams$(key).pipe(
-      map((value) => (value ? DateQueryParamsHelpers.decodeDate(value) : null))
+        // Handle multiple dates
+        if (options?.multiple && options.parseDate) {
+          const stringArray = QueryParamsHelpers.decodeArray(value);
+          return stringArray
+            .map((dateStr) => DateQueryParamsHelpers.decodeDate(dateStr))
+            .filter((date): date is Date => date !== null);
+        }
+
+        // Handle multiple strings
+        if (options?.multiple) {
+          return QueryParamsHelpers.decodeArray(value);
+        }
+
+        // Handle single date
+        if (options?.parseDate) {
+          return value ? DateQueryParamsHelpers.decodeDate(value) : null;
+        }
+
+        return value;
+      })
     );
   }
 
-  private _mapParams(params: Params): Params {
+  private _mapParams(params: Params, mode?: 'single' | 'multiple'): Params {
     return Object.fromEntries(
       Object.entries(params).map(([key, value]) => {
         let valueToMap = value;
 
         if (valueToMap instanceof Date) {
           valueToMap = DateQueryParamsHelpers.encodeDate(valueToMap);
+        }
+
+        if (mode === 'multiple') {
+          valueToMap = QueryParamsHelpers.encodeArray(valueToMap);
         }
 
         return [key, valueToMap];
