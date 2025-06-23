@@ -1,6 +1,6 @@
 import { effect, inject, Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { QueryParamsService } from '@mwc/util';
+import { EnumHelpers, QueryParamsService } from '@mwc/util';
 import { forkJoin, take } from 'rxjs';
 import { calculatorQueryParams } from '../../calculator.query-params';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
@@ -74,27 +74,27 @@ export class CalculatorQueryParamsService {
         endDateQueryParam$,
         hasDepositPaidQueryParam$,
       }) => {
-        const abonnementValue = this._parseEnum(
+        const abonnementValue = EnumHelpers.parseEnumFromObject(
           abonnementQueryParam$,
-          Object.values(AbonnementOptionsEnum)
+          AbonnementOptionsEnum
         );
 
         if (abonnementValue) {
           this._priceService.abonnement.set(abonnementValue);
         }
 
-        const carValue = this._parseEnum(
+        const carValue = EnumHelpers.parseEnumFromObject(
           carQueryParam$,
-          Object.values(AutoOptionsEnum)
+          AutoOptionsEnum
         );
 
         if (carValue) {
           this._priceService.car.set(carValue);
         }
 
-        const tripValue = this._parseEnum(
+        const tripValue = EnumHelpers.parseEnumFromObject(
           tripQueryParam$,
-          Object.values(TripOptionsEnum)
+          TripOptionsEnum
         );
 
         if (tripValue) {
