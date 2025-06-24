@@ -16,3 +16,5 @@ export * from './lib/services/url.service';
 export * from './lib/translations';
 
 export * from './lib/types/language.enum';
+
+export * from './lib/constants/breakpoints';
