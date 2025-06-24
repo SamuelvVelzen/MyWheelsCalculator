@@ -1,8 +1,8 @@
-<div class="flex gap-2 text-grey">
+<div class="flex gap-2">
   @for (language of availableLanguages; track language) { @let isSelected =
   currentLanguage() === language;
   <button
-    class="cursor-pointer text-lg uppercase transition-colors duration-200 text-grey hover:underline"
+    class="cursor-pointer text-sm uppercase transition-colors duration-200 hover:underline"
     [ngClass]="{
       'text-primary': isSelected,
       'font-medium': isSelected
