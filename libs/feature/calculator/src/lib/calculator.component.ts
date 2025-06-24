@@ -100,3 +100,19 @@ export class CalculatorComponent {
     this._periodService.endDate.set(dateRange.endDate);
   }
 }
+
+@Component({
+  selector: 'mwc-routes',
+  template: `
+    <div>
+      <h1>Routes</h1>
+    </div>
+  `,
+  standalone: true,
+  imports: [],
+})
+export class RoutesComponent {
+  constructor() {
+    console.log('RoutesComponent');
+  }
+}

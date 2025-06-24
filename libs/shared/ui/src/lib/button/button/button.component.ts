@@ -104,12 +104,15 @@ const ThemeOptionsEnum: {
 })
 export class ButtonComponent {
   type = input<HTMLButtonElement['type']>('button');
-  themeType = input<ButtonTypeEnum>(ButtonTypeEnum.Fill);
-  theme = input<ThemeEnum>(ThemeEnum.Primary);
+  themeType = input<keyof typeof ButtonTypeEnum>('Fill');
+  theme = input<keyof typeof ThemeEnum>('Primary');
+  buttonClasses = input<string>('');
 
   themeClasses = computed(() => {
     const { color, background, border } =
-      ThemeOptionsEnum[this.theme()][this.themeType()];
+      ThemeOptionsEnum[ThemeEnum[this.theme()]][
+        ButtonTypeEnum[this.themeType()]
+      ];
 
     const borderClass = border ? `${border} border-1` : 'border-transparant';
 
