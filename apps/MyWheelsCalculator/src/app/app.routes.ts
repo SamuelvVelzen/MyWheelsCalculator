@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
-import { CalculatorComponent, RoutesComponent } from '@mwc/calculator';
+import { CalculatorComponent } from '@mwc/calculator';
+import { RoutesComponent } from '@mwc/routes';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 export const appRoutes: Route[] = [
