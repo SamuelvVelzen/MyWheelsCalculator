@@ -1,30 +1,16 @@
 <!-- Full Page Menu Overlay - Mobile Only -->
 @if (openMenu()) {
 <div
-  class="fixed inset-0 bg-dark z-10 flex flex-col items-center justify-center sm:hidden"
+  class="fixed inset-0 bg-dark z-10 flex flex-col items-center justify-center md:hidden"
 >
   <nav class="flex flex-col items-center space-y-4 text-light">
-    <a
-      href="/"
-      class="text-2xl font-semibold cursor-pointer text-light no-underline"
-      (click)="handleNavigation($event, '/')"
-    >
-      {{ 'calculator.title' | translate }}
-    </a>
-
-    <a
-      href="/routes"
-      class="text-2xl font-semibold cursor-pointer text-light no-underline"
-      (click)="handleNavigation($event, '/routes')"
-    >
-      {{ 'routes.title' | translate }}
-    </a>
+    <ng-container *ngTemplateOutlet="navigationItems"></ng-container>
   </nav>
 </div>
 }
 
 <div
-  class="flex justify-between border-b-1 items-center p-2 sm:px-5 relative z-30"
+  class="flex justify-between border-b-1 items-center p-2 md:px-5 relative z-30"
   [ngClass]="{
     'text-light': openMenu(),
     'border-dark': openMenu(),
@@ -37,39 +23,23 @@
 </div>
 
 <div
-  class="sticky top-0 p-3 sm:p-5 border-b-1 flex justify-between flex-wrap items-center z-20"
+  class="sticky top-0 p-3 md:p-5 border-b-1 flex justify-between flex-wrap items-center z-20"
   [ngClass]="{
-      'bg-dark': openMenu(),
-      'text-light': openMenu(),
-      'border-dark': openMenu(),
-      'bg-light': !openMenu(),
-      'border-muted': !openMenu(),
-    }"
+    'bg-dark': openMenu(),
+    'text-light': openMenu(),
+    'border-dark': openMenu(),
+    'bg-light': !openMenu(),
+    'border-muted': !openMenu(),
+  }"
 >
   <h1 class="text-2xl">{{ 'calculator.title' | translate }}</h1>
 
-  <div class="sm:block hidden">
-    <nav class="flex flex-row items-center gap-2">
-      <a
-        href="/"
-        class="cursor-pointer no-underline"
-        (click)="handleNavigation($event, '/')"
-      >
-        {{ 'calculator.title' | translate }}
-      </a>
-
-      <a
-        href="/routes"
-        class="cursor-pointer no-underline"
-        (click)="handleNavigation($event, '/routes')"
-      >
-        {{ 'routes.title' | translate }}
-      </a>
-    </nav>
-  </div>
+  <nav class="hidden md:flex flex-row items-center gap-2">
+    <ng-container *ngTemplateOutlet="navigationItems"></ng-container>
+  </nav>
 
   <button
-    class="h-9 w-9 cursor-pointer border flex items-center justify-center sm:hidden"
+    class="h-9 w-9 cursor-pointer border flex items-center justify-center md:hidden"
     (click)="toggleMenu()"
   >
     <div
@@ -84,3 +54,29 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<!-- Navigation Items Template -->
+<ng-template #navigationItems>
+  <a
+    href="/"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    (click)="handleNavigation($event, '/')"
+  >
+    {{ 'common.nav.home' | translate }}
+  </a>
+
+  <a
+    href="/routes"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    (click)="handleNavigation($event, '/routes')"
+  >
+    {{ 'common.nav.routes' | translate }}
+  </a>
+  <a
+    href="/how-it-works"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    (click)="handleNavigation($event, '/how-it-works')"
+  >
+    {{ 'common.nav.how-it-works' | translate }}
+  </a>
+</ng-template>

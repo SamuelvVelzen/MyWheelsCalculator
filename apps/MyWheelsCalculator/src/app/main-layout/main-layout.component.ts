@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { DiscountButtonComponent, LanguageSelectComponent } from '@mwc/ui';
 import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
 
@@ -12,7 +12,6 @@ import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink,
     DiscountButtonComponent,
     LanguageSelectComponent,
     TranslatePipe,
@@ -49,7 +48,7 @@ export class MainLayoutComponent {
   onWindowResize(event: Event) {
     const target = event.target as Window;
     // Close menu when window width is greater than Tailwind sm breakpoint
-    if (target.innerWidth > TAILWIND_BREAKPOINTS.sm) {
+    if (target.innerWidth > TAILWIND_BREAKPOINTS.md) {
       this.openMenu.set(false);
     }
   }

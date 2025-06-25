@@ -41,4 +41,8 @@ export const enTranslations = {
   'common.link': 'link',
   'common.days': 'days',
   'common.day': 'day',
+
+  'common.nav.home': 'Home',
+  'common.nav.routes': 'Routes',
+  'common.nav.how-it-works': 'How it works',
 } as const;

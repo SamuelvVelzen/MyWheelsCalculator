@@ -40,4 +40,8 @@ export const nlTranslations = {
   'common.link': 'link',
   'common.days': 'dagen',
   'common.day': 'dag',
+
+  'common.nav.home': 'Home',
+  'common.nav.routes': 'Routes',
+  'common.nav.how-it-works': 'Hoe werkt het',
 } as const;
