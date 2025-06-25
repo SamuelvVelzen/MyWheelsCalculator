@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-routes',
+  selector: 'mwc-routes',
   imports: [CommonModule],
   templateUrl: './routes.component.html',
   styleUrl: './routes.component.css',
