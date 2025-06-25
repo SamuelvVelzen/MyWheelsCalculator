@@ -17,7 +17,8 @@
     "paths": {
       "@mwc/calculator": ["libs/feature/calculator/src/index.ts"],
       "@mwc/ui": ["libs/shared/ui/src/index.ts"],
-      "@mwc/util": ["libs/shared/util/src/index.ts"]
+      "@mwc/util": ["libs/shared/util/src/index.ts"],
+      "@my-wheels-calculator/routes": ["libs/feature/routes/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
