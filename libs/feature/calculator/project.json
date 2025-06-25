@@ -2,7 +2,7 @@
   "name": "calculator",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/feature/calculator/src",
-  "prefix": "lib",
+  "prefix": "mwc",
   "projectType": "library",
   "tags": [],
   "targets": {
