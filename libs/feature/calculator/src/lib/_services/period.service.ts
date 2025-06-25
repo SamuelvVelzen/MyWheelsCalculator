@@ -20,6 +20,11 @@ export class PeriodService {
   startDate = signal<Date>(this.getRoundedStartDate());
   endDate = signal<Date>(addHours(this.getRoundedStartDate(), 4));
 
+  totalDepositDays(): number {
+    const billableHours = this.totalPeriodTime();
+    return Math.ceil(billableHours / PeriodService.maxHoursInDay);
+  }
+
   totalPeriodTime = computed(() => {
     // Calculate total difference in fractional hours (including minutes)
     const totalMinutes = differenceInMinutes(this.endDate(), this.startDate());
