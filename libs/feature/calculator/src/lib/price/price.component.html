@@ -4,7 +4,9 @@
       <p class="text-sm">
         {{ 'calculator.price.total_price' | translate }}
       </p>
-      <h2 class="text-2xl font-bold">{{ totalPrice() | mwcCurrency }}</h2>
+      <h2 class="text-2xl font-bold">
+        {{ priceDetails().totalPrice | mwcCurrency }}
+      </h2>
     </div>
     <div class="justify-self-end self-center">
       <mwc-button [themeType]="'Outline'" [theme]="'Secondary'">
@@ -44,7 +46,7 @@
     <ng-container
       *ngTemplateOutlet="
         priceDetail;
-        context: { details: priceDetails(), depth: 0 }
+        context: { details: priceDetailList(), depth: 0 }
       "
     ></ng-container>
   </div>

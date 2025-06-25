@@ -15,6 +15,7 @@ import {
   UrlService,
 } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
+import { CalculatorService } from './_services/calculator.service';
 import { PeriodService } from './_services/period.service';
 import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
@@ -44,7 +45,7 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
   ],
 })
 export class CalculatorComponent {
-  private readonly _priceService = inject(PriceService);
+  private readonly _calculatorService = inject(CalculatorService);
   private readonly _periodService = inject(PeriodService);
   private readonly _calculatorQueryParamsService = inject(
     CalculatorQueryParamsService
@@ -54,15 +55,15 @@ export class CalculatorComponent {
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
-  chosenAbonnement = this._priceService.abonnement;
-  chosenCar = this._priceService.car;
-  chosenTrip = this._priceService.trip;
+  chosenAbonnement = this._calculatorService.abonnement;
+  chosenCar = this._calculatorService.car;
+  chosenTrip = this._calculatorService.trip;
 
-  kilometers = this._priceService.kilometers;
+  kilometers = this._calculatorService.kilometers;
 
-  hasDepositPaid = this._priceService.hasDepositPaid;
+  hasDepositPaid = this._calculatorService.hasDepositPaid;
   depositPrice = PriceService.depositPrice;
-  hasStartPrice = this._priceService.hasStartPrice;
+  hasStartPrice = this._calculatorService.hasStartPrice;
   startPrice = PriceService.startPrice;
 
   step = PeriodService.roundToNearestStep;

@@ -7,15 +7,15 @@ import { calculatorQueryParams } from '../../calculator.query-params';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptionsEnum } from '../_types/AutoOptionsEnum';
 import { TripOptionsEnum } from '../_types/TripOptionsEnum';
+import { CalculatorService } from './calculator.service';
 import { PeriodService } from './period.service';
-import { PriceService } from './price.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalculatorQueryParamsService {
+  private readonly _calculatorService = inject(CalculatorService);
   private readonly _queryParamsService = inject(QueryParamsService);
-  private readonly _priceService = inject(PriceService);
   private readonly _periodService = inject(PeriodService);
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -23,13 +23,13 @@ export class CalculatorQueryParamsService {
     this._loadFromQueryParams();
 
     effect(() => {
-      void this._priceService.abonnement();
-      void this._priceService.car();
-      void this._priceService.trip();
-      void this._priceService.kilometers();
+      void this._calculatorService.abonnement();
+      void this._calculatorService.car();
+      void this._calculatorService.trip();
+      void this._calculatorService.kilometers();
       void this._periodService.startDate();
       void this._periodService.endDate();
-      void this._priceService.hasDepositPaid();
+      void this._calculatorService.hasDepositPaid();
 
       this._updateQueryParams();
     });
@@ -84,7 +84,7 @@ export class CalculatorQueryParamsService {
           );
 
           if (abonnementValue) {
-            this._priceService.abonnement.set(abonnementValue);
+            this._calculatorService.abonnement.set(abonnementValue);
           }
 
           const carValue = EnumHelpers.parseEnumFromObject(
@@ -93,7 +93,7 @@ export class CalculatorQueryParamsService {
           );
 
           if (carValue) {
-            this._priceService.car.set(carValue);
+            this._calculatorService.car.set(carValue);
           }
 
           const tripValue = EnumHelpers.parseEnumFromObject(
@@ -102,11 +102,13 @@ export class CalculatorQueryParamsService {
           );
 
           if (tripValue) {
-            this._priceService.trip.set(tripValue);
+            this._calculatorService.trip.set(tripValue);
           }
 
           if (kilometersQueryParam$) {
-            this._priceService.kilometers.set(Number(kilometersQueryParam$));
+            this._calculatorService.kilometers.set(
+              Number(kilometersQueryParam$)
+            );
           }
           if (startDateQueryParam$) {
             this._periodService.startDate.set(new Date(startDateQueryParam$));
@@ -116,7 +118,7 @@ export class CalculatorQueryParamsService {
           }
 
           if (hasDepositPaidQueryParam$) {
-            this._priceService.hasDepositPaid.set(
+            this._calculatorService.hasDepositPaid.set(
               hasDepositPaidQueryParam$ === 'true'
             );
           }
@@ -126,14 +128,14 @@ export class CalculatorQueryParamsService {
 
   private _updateQueryParams() {
     const queryParams: Params = {
-      [calculatorQueryParams.abonnement]: this._priceService.abonnement(),
-      [calculatorQueryParams.car]: this._priceService.car(),
-      [calculatorQueryParams.trip]: this._priceService.trip(),
-      [calculatorQueryParams.kilometers]: this._priceService.kilometers(),
+      [calculatorQueryParams.abonnement]: this._calculatorService.abonnement(),
+      [calculatorQueryParams.car]: this._calculatorService.car(),
+      [calculatorQueryParams.trip]: this._calculatorService.trip(),
+      [calculatorQueryParams.kilometers]: this._calculatorService.kilometers(),
       [calculatorQueryParams.startDate]: this._periodService.startDate(),
       [calculatorQueryParams.endDate]: this._periodService.endDate(),
       [calculatorQueryParams.hasDepositPaid]:
-        this._priceService.hasDepositPaid(),
+        this._calculatorService.hasDepositPaid(),
     };
 
     this._queryParamsService
