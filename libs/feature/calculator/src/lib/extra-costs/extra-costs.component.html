@@ -1,0 +1,44 @@
+<mwc-fieldset
+  [labelText]="'calculator.extra_costs.title' | translate"
+  [colClass]="'grid-cols-1 md:grid-cols-2 gap-5'"
+>
+  <div class="flex flex-col gap-2">
+    <mwc-toggle-button [(ngModel)]="hasDepositPaid">
+      {{ 'calculator.extra_costs.deposit_paid' | translate }}
+    </mwc-toggle-button>
+    <small class="text-grey text-sm">
+      {{ 'calculator.extra_costs.deposit_description' | translate }}
+      <strong>{{ depositPrice | mwcCurrency }}</strong>
+      {{ 'calculator.price.per_day' | translate }}.
+    </small>
+    <small class="text-grey text-sm">
+      {{ 'calculator.extra_costs.read_more' | translate }}
+      <a
+        [href]="depositPriceUrl()"
+        target="_blank"
+        class="text-primary underline"
+        >{{ 'common.link' | translate }}</a
+      >.
+    </small>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <mwc-toggle-button [ngModel]="hasStartPrice()" [disabled]="true">
+      {{ 'calculator.extra_costs.start_price' | translate }}
+    </mwc-toggle-button>
+    <small class="text-grey text-sm">
+      {{ 'calculator.extra_costs.start_price_description' | translate }}
+      <strong>{{ startPrice | mwcCurrency }}</strong>
+      {{ 'calculator.extra_costs.per_trip' | translate }}.
+    </small>
+    <small class="text-grey text-sm">
+      {{ 'calculator.extra_costs.read_more' | translate }}
+      <a
+        [href]="startPriceUrl()"
+        target="_blank"
+        class="text-primary underline"
+        >{{ 'common.link' | translate }}</a
+      >.
+    </small>
+  </div>
+</mwc-fieldset>

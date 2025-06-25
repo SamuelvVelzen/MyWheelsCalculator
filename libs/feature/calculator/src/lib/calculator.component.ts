@@ -7,13 +7,7 @@ import {
   SliderNumberComponent,
   ToggleButtonComponent,
 } from '@mwc/ui';
-import {
-  CurrencyPipe,
-  LanguageEnum,
-  TranslatePipe,
-  TranslateService,
-  UrlService,
-} from '@mwc/util';
+import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { CalculatorService } from './_services/calculator.service';
 import { PeriodService } from './_services/period.service';
@@ -21,6 +15,7 @@ import { PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
 import { CarSelectComponent } from './car-select/car-select.component';
+import { ExtraCostsComponent } from './extra-costs/extra-costs.component';
 import { PriceComponent } from './price/price.component';
 import { TripSelectComponent } from './trip-select/trip-select.component';
 
@@ -42,6 +37,7 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     CurrencyPipe,
     TranslatePipe,
     InputDaterangeComponent,
+    ExtraCostsComponent,
   ],
 })
 export class CalculatorComponent {
@@ -51,7 +47,6 @@ export class CalculatorComponent {
     CalculatorQueryParamsService
   );
   private readonly _translateService = inject(TranslateService);
-  private readonly _urlService = inject(UrlService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
@@ -72,18 +67,6 @@ export class CalculatorComponent {
     startDate: this._periodService.startDate(),
     endDate: this._periodService.endDate(),
   }));
-
-  depositPriceUrl = this._urlService.getUrlBasedOnLanguage({
-    [LanguageEnum.EN]:
-      'https://help.mywheels.nl/hc/en-nl/articles/5464626156828-Can-I-reduce-my-deductible',
-    [LanguageEnum.NL]:
-      'https://help.mywheels.nl/hc/nl/articles/5464626156828-Kan-ik-het-eigen-risico-verlagen',
-  });
-
-  startPriceUrl = this._urlService.getUrlBasedOnLanguage({
-    [LanguageEnum.EN]: 'https://mywheels.nl/en/tarieven/abonnementen',
-    [LanguageEnum.NL]: 'https://mywheels.nl/tarieven/abonnementen',
-  });
 
   discountLabel = computed(
     () =>
