@@ -7,8 +7,8 @@
 </div>
 } @if (isEditMode()) {
 <mwc-route-list-item-edit
-  [route]="route()"
-  (saved)="onSave()"
-  (cancelled)="isEditMode.set(false)"
+  [route]="copiedRoute()"
+  (saved)="onSave($event)"
+  (cancelled)="onCancel()"
 ></mwc-route-list-item-edit>
 }

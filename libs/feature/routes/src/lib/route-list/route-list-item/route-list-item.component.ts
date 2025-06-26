@@ -1,4 +1,4 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { Component, input, linkedSignal, output, signal } from '@angular/core';
 import { IRoute } from '../../_types/routes.interface';
 import { RouteListItemEditComponent } from '../route-list-item-edit/route-list-item-edit.component';
 
@@ -14,16 +14,17 @@ export class RouteListItemComponent {
   route = input.required<IRoute>();
   index = input.required<number>();
 
-  copiedRoute = computed(() => ({ ...this.route() }));
+  copiedRoute = linkedSignal(() => ({ ...this.route() }));
 
   saved = output<IRoute>();
 
-  onSave() {
+  onSave(route: IRoute) {
+    this.saved.emit(route);
     this.isEditMode.set(false);
-    this.saved.emit(this.copiedRoute());
   }
 
   onCancel() {
+    this.copiedRoute.set({ ...this.route() });
     this.isEditMode.set(false);
   }
 }

@@ -9,12 +9,11 @@ import {
   TripSelectComponent,
 } from '@mwc/calculator';
 import {
-  FieldsetComponent,
+  ButtonComponent,
   InputDaterangeComponent,
   SliderNumberComponent,
-  ToggleButtonComponent,
 } from '@mwc/ui';
-import { CurrencyPipe, TranslatePipe } from '@mwc/util';
+import { TranslatePipe } from '@mwc/util';
 import { IRoute } from '../../_types/routes.interface';
 
 @Component({
@@ -27,16 +26,13 @@ import { IRoute } from '../../_types/routes.interface';
     SliderNumberComponent,
     InputDaterangeComponent,
     TripSelectComponent,
-    FieldsetComponent,
-    ToggleButtonComponent,
     FormsModule,
     TranslatePipe,
-    CurrencyPipe,
     ExtraCostsComponent,
+    ButtonComponent,
   ],
 })
 export class RouteListItemEditComponent {
-  private readonly _priceService = inject(PriceService);
   private readonly _calculatorService = inject(CalculatorService);
 
   route = input.required<IRoute>();
