@@ -109,10 +109,10 @@ export class ButtonComponent {
   buttonClasses = input<string>('');
 
   themeClasses = computed(() => {
-    const { color, background, border } =
-      ThemeOptionsEnum[ThemeEnum[this.theme()]][
-        ButtonTypeEnum[this.themeType()]
-      ];
+    const theme = ThemeEnum[this.theme()];
+    const buttonType = ButtonTypeEnum[this.themeType()];
+
+    const { color, background, border } = ThemeOptionsEnum[theme][buttonType];
 
     const borderClass = border ? `${border} border-1` : 'border-transparant';
 
