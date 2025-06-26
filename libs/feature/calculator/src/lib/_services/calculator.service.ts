@@ -17,10 +17,18 @@ export class CalculatorService {
   startDate = this._periodService.startDate;
   endDate = this._periodService.endDate;
 
-  hasStartPrice = computed(
-    () =>
-      this.abonnement() === AbonnementOptionsEnum.Start &&
-      this.trip() === TripOptionsEnum.None
+  hasStartPrice = computed(() =>
+    this.calculateHasStartPrice(this.abonnement(), this.trip())
   );
   hasDepositPaid = signal<boolean>(false);
+
+  calculateHasStartPrice(
+    abonnement: AbonnementOptionsEnum,
+    trip: TripOptionsEnum
+  ): boolean {
+    return (
+      abonnement === AbonnementOptionsEnum.Start &&
+      trip === TripOptionsEnum.None
+    );
+  }
 }
