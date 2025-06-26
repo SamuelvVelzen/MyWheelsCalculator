@@ -1,0 +1,14 @@
+@if(!isEditMode()) {
+<div class="flex justify-between">
+  <h2>Route {{ index() + 1 }}</h2>
+  <button class="cursor-pointer" (click)="isEditMode.set(true)">
+    {{ isEditMode() ? 'Save' : 'Edit' }}
+  </button>
+</div>
+} @if (isEditMode()) {
+<mwc-route-list-item-edit
+  [route]="route()"
+  (saved)="onSave()"
+  (cancelled)="isEditMode.set(false)"
+></mwc-route-list-item-edit>
+}

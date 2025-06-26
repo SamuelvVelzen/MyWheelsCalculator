@@ -1,0 +1,12 @@
+<div
+  class="flex flex-col divide-y-2 divide-muted border-2 rounded-2xl border-muted"
+>
+  @for (route of routes(); track route) {
+  <mwc-route-list-item
+    [route]="route"
+    [index]="$index"
+    (saved)="onSave($event, $index)"
+    class="p-3"
+  ></mwc-route-list-item>
+  }
+</div>

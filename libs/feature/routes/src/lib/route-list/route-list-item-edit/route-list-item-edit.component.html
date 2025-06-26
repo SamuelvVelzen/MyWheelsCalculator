@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-5">
+  <mwc-abonnement-select
+    [(ngModel)]="route().abonnement"
+  ></mwc-abonnement-select>
+
+  <mwc-car-select
+    [(ngModel)]="route().car"
+    [abonnement]="route().abonnement"
+  ></mwc-car-select>
+
+  <mwc-slider-number
+    [labelText]="'calculator.distance' | translate"
+    [(ngModel)]="route().kilometers"
+    [min]="1"
+    [max]="1000"
+  ></mwc-slider-number>
+
+  <mwc-input-daterange
+    [labelText]="'calculator.trip.period' | translate"
+    [ngModel]="dateRange()"
+    (ngModelChange)="setDateRange($event)"
+    [step]="1"
+  ></mwc-input-daterange>
+
+  <mwc-trip-select [(ngModel)]="route().trip"></mwc-trip-select>
+
+  <mwc-extra-costs
+    [hasDepositPaid]="route().hasDepositPaid"
+    [hasStartPrice]="hasStartPrice()"
+  ></mwc-extra-costs>
+</div>
