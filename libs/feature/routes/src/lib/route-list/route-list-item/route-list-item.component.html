@@ -1,9 +1,17 @@
 @if(!isEditMode()) {
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
   <h2>Route {{ index() + 1 }}</h2>
-  <button class="cursor-pointer" (click)="isEditMode.set(true)">
-    {{ isEditMode() ? 'Save' : 'Edit' }}
-  </button>
+  <div class="flex gap-2">
+    <mwc-icon-button
+      [icon]="tablerPencil"
+      (click)="isEditMode.set(true)"
+    ></mwc-icon-button>
+
+    <mwc-icon-button
+      [icon]="tablerTrash"
+      (click)="removed.emit()"
+    ></mwc-icon-button>
+  </div>
 </div>
 } @if (isEditMode()) {
 <mwc-route-list-item-edit
