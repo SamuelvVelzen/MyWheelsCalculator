@@ -13,3 +13,5 @@ export * from './lib/abonnement-select/abonnement-select.component';
 export * from './lib/car-select/car-select.component';
 export * from './lib/extra-costs/extra-costs.component';
 export * from './lib/trip-select/trip-select.component';
+
+export * from './lib/calculator.query-params';

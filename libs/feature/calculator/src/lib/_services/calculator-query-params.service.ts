@@ -3,10 +3,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { EnumHelpers, QueryParamsService } from '@mwc/util';
 import { debounceTime, forkJoin, take } from 'rxjs';
-import { calculatorQueryParams } from '../../calculator.query-params';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptionsEnum } from '../_types/AutoOptionsEnum';
-import { TripOptionsEnum } from '../_types/TripOptionsEnum';
+import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
+import { calculatorQueryParams } from '../calculator.query-params';
 import { CalculatorService } from './calculator.service';
 import { PeriodService } from './period.service';
 
@@ -96,10 +96,7 @@ export class CalculatorQueryParamsService {
             this._calculatorService.car.set(carValue);
           }
 
-          const tripValue = EnumHelpers.parseEnumFromObject(
-            tripQueryParam$,
-            TripOptionsEnum
-          );
+          const tripValue = this._decodeQueryParamToTrip(tripQueryParam$);
 
           if (tripValue) {
             this._calculatorService.trip.set(tripValue);
@@ -130,7 +127,9 @@ export class CalculatorQueryParamsService {
     const queryParams: Params = {
       [calculatorQueryParams.abonnement]: this._calculatorService.abonnement(),
       [calculatorQueryParams.car]: this._calculatorService.car(),
-      [calculatorQueryParams.trip]: this._calculatorService.trip(),
+      [calculatorQueryParams.trip]: this._encodeTripForQueryParams(
+        this._calculatorService.trip()
+      ),
       [calculatorQueryParams.kilometers]: this._calculatorService.kilometers(),
       [calculatorQueryParams.startDate]: this._periodService.startDate(),
       [calculatorQueryParams.endDate]: this._periodService.endDate(),
@@ -142,5 +141,28 @@ export class CalculatorQueryParamsService {
       .updateQueryParams$(queryParams)
       .pipe(debounceTime(100), takeUntilDestroyed(this._destroyRef))
       .subscribe();
+  }
+
+  private _encodeTripForQueryParams(trip: TripOptionsEnum): string {
+    return TripOptions[trip].queryParamIdentifier;
+  }
+
+  private _decodeQueryParamToTrip(queryParam?: string | null): TripOptionsEnum {
+    if (!queryParam) {
+      return TripOptionsEnum.None;
+    }
+
+    const tripString = Object.entries(TripOptions).find(
+      ([_, tripOptions]) => tripOptions.queryParamIdentifier === queryParam
+    )?.[0];
+
+    if (!tripString) {
+      return TripOptionsEnum.None;
+    }
+
+    return (
+      EnumHelpers.parseEnumFromObject(tripString, TripOptionsEnum) ||
+      TripOptionsEnum.None
+    );
   }
 }
