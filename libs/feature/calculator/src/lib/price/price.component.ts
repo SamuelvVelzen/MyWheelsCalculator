@@ -1,6 +1,6 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { ButtonComponent, ButtonTypeEnum, ThemeEnum } from '@mwc/ui';
+import { ButtonComponent } from '@mwc/ui';
 import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
 import { CalculatorService } from '../_services/calculator.service';
 import { PeriodService } from '../_services/period.service';
@@ -48,8 +48,6 @@ export class PriceComponent {
   abonnement = this._calculatorService.abonnement;
 
   abonnementOptions = AbonnementOptions;
-  buttonTypeEnum = ButtonTypeEnum;
-  themeEnum = ThemeEnum;
 
   showPriceDetails = signal(false);
 
