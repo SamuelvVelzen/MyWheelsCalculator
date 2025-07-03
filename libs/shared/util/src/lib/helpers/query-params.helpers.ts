@@ -1,8 +1,10 @@
 export class QueryParamsHelpers {
+  static SPLITTER = ';';
+
   static encodeArray(value: unknown[]): string {
     return value
       .map((v) => String(v).replace(/,/g, '%2C')) // Escape commas in values
-      .join(','); // Join with commas
+      .join(QueryParamsHelpers.SPLITTER); // Join with commas
   }
 
   static decodeArray(value: string | null): string[] {
@@ -10,6 +12,8 @@ export class QueryParamsHelpers {
       return [];
     }
 
-    return value.split(',').map((v) => v.replace(/%2C/g, ','));
+    return value
+      .split(QueryParamsHelpers.SPLITTER)
+      .map((v) => v.replace(/%2C/g, QueryParamsHelpers.SPLITTER));
   }
 }

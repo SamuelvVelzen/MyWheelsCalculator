@@ -100,6 +100,15 @@ export class QueryParamsService {
         }
 
         if (mode === 'multiple') {
+          if (
+            Array.isArray(valueToMap) &&
+            valueToMap.every((val) => val instanceof Date)
+          ) {
+            valueToMap = valueToMap.map((val) =>
+              DateQueryParamsHelpers.encodeDate(val)
+            );
+          }
+
           valueToMap = QueryParamsHelpers.encodeArray(valueToMap);
         }
 
