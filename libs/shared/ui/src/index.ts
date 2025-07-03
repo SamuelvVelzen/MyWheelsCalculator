@@ -5,8 +5,11 @@ export * from './lib/forms/slider/slider.component';
 
 export * from './lib/button/button/button.component';
 export * from './lib/button/discount-button/discount-button.component';
+export * from './lib/button/icon-button/icon-button.component';
 export * from './lib/button/toggle-button/toggle-button.component';
 
 export * from './lib/forms/fieldset/fieldset.component';
 
 export * from './lib/language-select/language-select.component';
+
+export * from './lib/icon/icon/icon.component';
