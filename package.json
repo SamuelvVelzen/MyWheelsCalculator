@@ -2,7 +2,9 @@
   "name": "@my-wheels-calculator/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "npx nx serve MyWheelsCalculator"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~19.2.0",
