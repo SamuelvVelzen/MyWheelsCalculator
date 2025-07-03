@@ -1,13 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  FieldsetComponent,
-  InputDaterangeComponent,
-  SliderNumberComponent,
-  ToggleButtonComponent,
-} from '@mwc/ui';
-import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
+import { InputDaterangeComponent, SliderNumberComponent } from '@mwc/ui';
+import { TranslatePipe, TranslateService } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { CalculatorService } from './_services/calculator.service';
 import { PeriodService } from './_services/period.service';
@@ -32,9 +27,6 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     AbonnementSelectComponent,
     CarSelectComponent,
     TripSelectComponent,
-    ToggleButtonComponent,
-    FieldsetComponent,
-    CurrencyPipe,
     TranslatePipe,
     InputDaterangeComponent,
     ExtraCostsComponent,
