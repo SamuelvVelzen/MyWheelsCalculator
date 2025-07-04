@@ -94,7 +94,6 @@ export class CalculatorQueryParamsService {
             this._calculatorService.trip.set(tripValue);
           }
 
-          console.log(kilometersQueryParam$);
           if (kilometersQueryParam$) {
             this._calculatorService.kilometers.set(
               Number(kilometersQueryParam$[0])
