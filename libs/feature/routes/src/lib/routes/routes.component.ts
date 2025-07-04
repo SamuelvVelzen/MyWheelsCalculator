@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ButtonComponent } from '@mwc/ui';
+import { ButtonComponent, DialogService } from '@mwc/ui';
 import { RouteQueryParamsService } from '../_services/route-query-params.service';
 import { RouteService } from '../_services/route.service';
 import { IRoute } from '../_types/routes.interface';
@@ -15,6 +15,7 @@ import { RouteListComponent } from '../route-list/route-list.component';
 export class RoutesComponent {
   private readonly _routeQueryParamsService = inject(RouteQueryParamsService);
   private readonly _routeService = inject(RouteService);
+  private readonly _dialogService = inject(DialogService);
 
   routes = this._routeQueryParamsService.routes;
 
@@ -33,7 +34,13 @@ export class RoutesComponent {
     this._routeService.updateRoute(route, index);
   }
 
-  deleteRoute(index: number): void {
-    this._routeService.removeRoute(index);
+  async deleteRoute(index: number): Promise<void> {
+    const dialogResult = await this._dialogService.open(
+      'Are you sure you want to delete this route?'
+    );
+
+    if (dialogResult) {
+      this._routeService.removeRoute(index);
+    }
   }
 }
