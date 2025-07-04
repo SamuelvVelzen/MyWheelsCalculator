@@ -1,4 +1,4 @@
-<mwc-form-group [labelText]="labelText()">
+<mwc-form-group [labelText]="labelText()" [badgeLabel]="badgeLabel()">
   <div [class]="'grid gap-2 ' + colClass()">
     @for (option of options(); track $index) {
     <input

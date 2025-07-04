@@ -13,6 +13,7 @@ import { FormGroupComponent } from '../form-group/form-group.component';
 export class RadioButtonsCardComponent<T> extends BaseFormInputs<T> {
   options = input.required<T[]>();
   labelText = input.required<string>();
+  badgeLabel = input<string>();
 
   colClass = input<string>('grid-cols-2');
   labelClass = input<string>('');
