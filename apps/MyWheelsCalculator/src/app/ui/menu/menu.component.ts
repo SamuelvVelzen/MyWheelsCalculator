@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DiscountButtonComponent, LanguageSelectComponent } from '@mwc/ui';
 import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
 
@@ -13,6 +13,8 @@ import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
     DiscountButtonComponent,
     LanguageSelectComponent,
     TranslatePipe,
+    RouterLink,
+    RouterLinkActive,
   ],
 })
 export class MenuComponent {

@@ -51,7 +51,8 @@
 <!-- Navigation Items Template -->
 <ng-template #navigationItems>
   <a
-    href="/"
+    [routerLink]="'/'"
+    [routerLinkActive]="['text-primary!', 'underline', 'md:font-bold!']"
     class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
     (click)="handleNavigation($event, '/')"
   >
@@ -59,14 +60,16 @@
   </a>
 
   <a
-    href="/routes"
+    [routerLink]="'/routes'"
+    [routerLinkActive]="['text-primary', 'underline']"
     class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
     (click)="handleNavigation($event, '/routes')"
   >
     {{ 'common.nav.routes' | translate }}
   </a>
   <a
-    href="/how-it-works"
+    [routerLink]="'/how-it-works'"
+    [routerLinkActive]="['text-primary', 'underline']"
     class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
     (click)="handleNavigation($event, '/how-it-works')"
   >
