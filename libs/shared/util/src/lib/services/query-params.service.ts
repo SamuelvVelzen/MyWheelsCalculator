@@ -45,30 +45,22 @@ export class QueryParamsService {
 
   getQueryParams$(
     key: string,
-    options: { multiple: true; parseDate: true }
+    options: { parseDate: true }
   ): Observable<Date[]>;
   getQueryParams$(
     key: string,
-    options: { multiple: true; parseDate?: false }
+    options?: { parseDate?: false }
   ): Observable<string[]>;
   getQueryParams$(
     key: string,
-    options: { multiple?: false; parseDate: true }
-  ): Observable<Date | null>;
-  getQueryParams$(
-    key: string,
-    options?: { multiple?: false; parseDate?: false }
-  ): Observable<string | null>;
-  getQueryParams$(
-    key: string,
-    options?: { multiple?: boolean; parseDate?: boolean }
-  ): Observable<string | null | string[] | Date | Date[]> {
+    options?: { parseDate?: boolean }
+  ): Observable<string[] | Date[]> {
     return this._activatedRoute.queryParams.pipe(
       map((params) => {
         const value = params[key];
 
         // Handle multiple dates
-        if (options?.multiple && options.parseDate) {
+        if (options?.parseDate) {
           const stringArray = QueryParamsHelpers.decodeArray(value);
           return stringArray
             .map((dateStr) => DateQueryParamsHelpers.decodeDate(dateStr))
@@ -76,16 +68,7 @@ export class QueryParamsService {
         }
 
         // Handle multiple strings
-        if (options?.multiple) {
-          return QueryParamsHelpers.decodeArray(value);
-        }
-
-        // Handle single date
-        if (options?.parseDate) {
-          return value ? DateQueryParamsHelpers.decodeDate(value) : null;
-        }
-
-        return value;
+        return QueryParamsHelpers.decodeArray(value);
       })
     );
   }

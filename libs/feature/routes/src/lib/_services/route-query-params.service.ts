@@ -32,31 +32,29 @@ export class RouteQueryParamsService {
 
   private _loadFromQueryParams() {
     const abonnementQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.abonnement, { multiple: true })
+      .getQueryParams$(calculatorQueryParams.abonnement)
       .pipe(take(1));
     const carQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.car, { multiple: true })
+      .getQueryParams$(calculatorQueryParams.car)
       .pipe(take(1));
     const tripQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.trip, { multiple: true })
+      .getQueryParams$(calculatorQueryParams.trip)
       .pipe(take(1));
     const kilometersQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.kilometers, { multiple: true })
+      .getQueryParams$(calculatorQueryParams.kilometers)
       .pipe(take(1));
     const startDateQueryParam$ = this._queryParamsService
       .getQueryParams$(calculatorQueryParams.startDate, {
         parseDate: true,
-        multiple: true,
       })
       .pipe(take(1));
     const endDateQueryParam$ = this._queryParamsService
       .getQueryParams$(calculatorQueryParams.endDate, {
         parseDate: true,
-        multiple: true,
       })
       .pipe(take(1));
     const hasDepositPaidQueryParam$ = this._queryParamsService
-      .getQueryParams$(calculatorQueryParams.hasDepositPaid, { multiple: true })
+      .getQueryParams$(calculatorQueryParams.hasDepositPaid)
       .pipe(take(1));
 
     forkJoin({
