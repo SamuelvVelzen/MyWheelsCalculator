@@ -31,8 +31,10 @@ export const nlTranslations = {
   'calculator.price.details.rental_period': 'Rental periode',
   'calculator.price.details.total_kilometers': 'Totaal kilometers',
   'calculator.price.details.kilometer_price': 'Kilometerprijs',
+  'calculator.price.details.extra_km': 'Extra kilometers',
   'calculator.price.details.trip_price': 'Ritprijs',
   'calculator.price.details.extra_costs': 'Extra kosten',
+  'calculator.price.details.start_price': 'Startprijs',
   'calculator.price.details.deposit': 'Borg',
   'calculator.price.discount': 'korting op je eerste MyWheels rit',
 

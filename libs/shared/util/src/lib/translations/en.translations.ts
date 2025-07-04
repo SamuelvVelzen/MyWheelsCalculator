@@ -31,8 +31,10 @@ export const enTranslations = {
   'calculator.price.details.rental_period': 'Rental period',
   'calculator.price.details.total_kilometers': 'Total kilometers',
   'calculator.price.details.kilometer_price': 'Kilometer price',
+  'calculator.price.details.extra_km': 'Extra kilometers',
   'calculator.price.details.trip_price': 'Trip price',
   'calculator.price.details.extra_costs': 'Extra costs',
+  'calculator.price.details.start_price': 'Start price',
   'calculator.price.details.deposit': 'Deposit',
 
   'calculator.price.discount': 'discount on your first MyWheels trip',
