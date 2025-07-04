@@ -9,7 +9,11 @@
       </h2>
     </div>
     <div class="justify-self-end self-center flex gap-2">
-      <mwc-button [themeType]="'Hover'" buttonClasses="hover:!border-light">
+      <mwc-button
+        [themeType]="'Hover'"
+        buttonClasses="hover:!border-light"
+        (click)="showDetails()"
+      >
         {{ 'calculator.price.show_details' | translate }}
       </mwc-button>
 
@@ -25,7 +29,7 @@
   </div>
 </div>
 
-<div class="bg-primary text-light">
+<div class="bg-primary text-light" #priceDetailsSection>
   <div class="border-t-2 pt-3 border-light">
     <div class="px-3 pb-3 sm:px-5 sm:pb-5">
       <ng-container

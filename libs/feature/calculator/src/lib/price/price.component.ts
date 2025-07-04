@@ -1,5 +1,11 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { ButtonComponent } from '@mwc/ui';
 import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
 import { CalculatorService } from '../_services/calculator.service';
@@ -26,6 +32,8 @@ export class PriceComponent {
   private readonly _priceService = inject(PriceService);
   private readonly _periodService = inject(PeriodService);
   private readonly _translateService = inject(TranslateService);
+
+  priceDetailsSection = viewChild.required<ElementRef>('priceDetailsSection');
 
   priceDetails = computed(() =>
     this._priceService.calculatePrice({
@@ -141,6 +149,16 @@ export class PriceComponent {
       },
     ];
   });
+
+  showDetails() {
+    const element = this.priceDetailsSection();
+
+    element.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
 }
 
 export type IPriceDetail =
