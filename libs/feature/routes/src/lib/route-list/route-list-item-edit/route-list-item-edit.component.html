@@ -21,7 +21,7 @@
     [badgeLabel]="totalPeriodTimeString()"
     [ngModel]="dateRange()"
     (ngModelChange)="setDateRange($event)"
-    [step]="1"
+    [step]="step"
   ></mwc-input-daterange>
 
   <mwc-trip-select [(ngModel)]="editedRoute().trip"></mwc-trip-select>

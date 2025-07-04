@@ -51,6 +51,7 @@ export class RouteListItemEditComponent {
 
   startPrice = PriceService.startPrice;
   depositPrice = PriceService.depositPrice;
+  step = PeriodService.roundToNearestStep;
 
   saved = output<IRoute>();
   cancelled = output<void>();
