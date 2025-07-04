@@ -1,5 +1,5 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ButtonComponent } from '@mwc/ui';
 import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
 import { CalculatorService } from '../_services/calculator.service';
@@ -40,18 +40,7 @@ export class PriceComponent {
     })
   );
 
-  totalPrice = this.priceDetails().totalPrice;
-  basePrice = this.priceDetails().basePrice;
-  hourPrice = this.priceDetails().hourPrice;
-  kilometerPrice = this.priceDetails().kmPrice;
-  kilometers = this._calculatorService.kilometers;
-
-  extraCosts = this.priceDetails().extraCosts;
-  abonnement = this._calculatorService.abonnement;
-
   abonnementOptions = AbonnementOptions;
-
-  showPriceDetails = signal(false);
 
   priceDetailList = computed(() => {
     const {
@@ -64,23 +53,33 @@ export class PriceComponent {
       depositPrice,
     } = this.priceDetails();
 
+    const {
+      trip,
+      kilometers,
+      abonnement,
+      hasStartPrice,
+      hasDepositPaid,
+      startDate,
+      endDate,
+    } = this._calculatorService;
+
     const totalDepositDays = this._periodService.getTotalDepositDays(
-      this._calculatorService.startDate(),
-      this._calculatorService.endDate()
+      startDate(),
+      endDate()
     );
 
     const totalPeriodTime = this._periodService.getTotalPeriodTime(
-      this._calculatorService.startDate(),
-      this._calculatorService.endDate()
+      startDate(),
+      endDate()
     );
 
     return [
       {
         label: `${this._translateService.translate(
           'calculator.price.details.discount'
-        )} (${this.abonnementOptions[this.abonnement()].discount}%)`,
+        )} (${this.abonnementOptions[abonnement()].discount}%)`,
         totalCost: totalPrice - basePrice,
-        hide: this.abonnementOptions[this.abonnement()].discount === 0,
+        hide: this.abonnementOptions[abonnement()].discount === 0,
       },
       {
         label: 'calculator.price.details.base_price',
@@ -98,14 +97,14 @@ export class PriceComponent {
             children: [
               {
                 label: 'calculator.price.details.total_kilometers',
-                value: `${this.kilometers()} km`,
+                value: `${kilometers()} km`,
               },
               {
                 label: `${this._translateService.translate(
                   'calculator.price.details.trip_price'
-                )} (${TripOptions[this._calculatorService.trip()].title})`,
-                totalCost: TripOptions[this._calculatorService.trip()].price,
-                hide: this._calculatorService.trip() === TripOptionsEnum.None,
+                )} (${TripOptions[trip()].title})`,
+                totalCost: TripOptions[trip()].price,
+                hide: trip() === TripOptionsEnum.None,
               },
               {
                 label: `${this._translateService.translate(
@@ -123,7 +122,7 @@ export class PriceComponent {
               {
                 label: 'calculator.price.details.start_price',
                 totalCost: PriceService.startPrice,
-                hide: !this._calculatorService.hasStartPrice(),
+                hide: !hasStartPrice(),
               },
               {
                 label: `${this._translateService.translate(
@@ -134,7 +133,7 @@ export class PriceComponent {
                     : this._translateService.translate('common.days')
                 })`,
                 totalCost: depositPrice,
-                hide: this._calculatorService.hasDepositPaid(),
+                hide: hasDepositPaid(),
               },
             ],
           },
