@@ -15,5 +15,5 @@ export const hasRoutesGuard: CanDeactivateFn<unknown> = () => {
     );
   }
 
-  return hasMoreThanOneRoute;
+  return true;
 };
