@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputDaterangeComponent, SliderNumberComponent } from '@mwc/ui';
-import { TranslatePipe, TranslateService } from '@mwc/util';
+import { TranslatePipe } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { CalculatorService } from './_services/calculator.service';
 import { PeriodService } from './_services/period.service';
@@ -38,7 +38,6 @@ export class CalculatorComponent {
   private readonly _calculatorQueryParamsService = inject(
     CalculatorQueryParamsService
   );
-  private readonly _translateService = inject(TranslateService);
 
   abbonementOptionsEnum = AbonnementOptionsEnum;
 
