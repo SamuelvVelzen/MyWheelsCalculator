@@ -1,4 +1,12 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  linkedSignal,
+  output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AbonnementSelectComponent,
@@ -31,6 +39,7 @@ import { IRoute } from '../../_types/routes.interface';
     TranslatePipe,
     ExtraCostsComponent,
     ButtonComponent,
+    CommonModule,
   ],
 })
 export class RouteListItemEditComponent {
@@ -38,6 +47,7 @@ export class RouteListItemEditComponent {
   private readonly _periodService = inject(PeriodService);
 
   route = input.required<IRoute>();
+  editedRoute = linkedSignal(() => ({ ...this.route() }));
 
   startPrice = PriceService.startPrice;
   depositPrice = PriceService.depositPrice;
@@ -47,24 +57,30 @@ export class RouteListItemEditComponent {
 
   dateRange = computed(() => {
     return {
-      startDate: this.route().startDate,
-      endDate: this.route().endDate,
+      startDate: this.editedRoute().startDate,
+      endDate: this.editedRoute().endDate,
     };
   });
 
   totalPeriodTimeString = computed(() =>
-    this._periodService.totalPeriodTimeString()
+    this._periodService.getFormattedPeriodTime(
+      this.dateRange().startDate,
+      this.dateRange().endDate
+    )
   );
 
   hasStartPrice = computed(() =>
     this._calculatorService.calculateHasStartPrice(
-      this.route().abonnement,
-      this.route().trip
+      this.editedRoute().abonnement,
+      this.editedRoute().trip
     )
   );
 
   setDateRange(dateRange: { startDate: Date; endDate: Date }) {
-    this.route().startDate = dateRange.startDate;
-    this.route().endDate = dateRange.endDate;
+    this.editedRoute.update((route) => ({
+      ...route,
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    }));
   }
 }

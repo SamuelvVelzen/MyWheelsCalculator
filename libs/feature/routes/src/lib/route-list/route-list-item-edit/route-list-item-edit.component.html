@@ -1,17 +1,17 @@
 <div class="flex flex-col gap-5">
   <mwc-abonnement-select
-    [(ngModel)]="route().abonnement"
+    [(ngModel)]="editedRoute().abonnement"
   ></mwc-abonnement-select>
 
   <mwc-car-select
-    [(ngModel)]="route().car"
-    [abonnement]="route().abonnement"
+    [(ngModel)]="editedRoute().car"
+    [abonnement]="editedRoute().abonnement"
   ></mwc-car-select>
 
   <mwc-slider-number
     [labelText]="'calculator.distance' | translate"
-    badgeLabel="{{ route().kilometers }} km"
-    [(ngModel)]="route().kilometers"
+    badgeLabel="{{ editedRoute().kilometers }} km"
+    [(ngModel)]="editedRoute().kilometers"
     [min]="1"
     [max]="1000"
   ></mwc-slider-number>
@@ -24,10 +24,10 @@
     [step]="1"
   ></mwc-input-daterange>
 
-  <mwc-trip-select [(ngModel)]="route().trip"></mwc-trip-select>
+  <mwc-trip-select [(ngModel)]="editedRoute().trip"></mwc-trip-select>
 
   <mwc-extra-costs
-    [hasDepositPaid]="route().hasDepositPaid"
+    [hasDepositPaid]="editedRoute().hasDepositPaid"
     [hasStartPrice]="hasStartPrice()"
   ></mwc-extra-costs>
 
@@ -35,6 +35,6 @@
     <mwc-button [themeType]="'Outline'" (click)="this.cancelled.emit()"
       >cancel</mwc-button
     >
-    <mwc-button (click)="this.saved.emit(route())">save</mwc-button>
+    <mwc-button (click)="this.saved.emit(editedRoute())">save</mwc-button>
   </div>
 </div>
