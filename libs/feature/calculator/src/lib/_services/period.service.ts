@@ -120,14 +120,26 @@ export class PeriodService {
     const minutes = Math.round((hours - wholeHours) * 60);
 
     if (minutes > 0) {
-      return `${wholeHours}h ${minutes}m`;
+      return `${this._formatHours(wholeHours)},${this._formatMinutes(minutes)}`;
     }
-    return `${wholeHours}h`;
+    return this._formatHours(wholeHours);
   }
 
   private _formatDays(days: number): string {
     return days === 1
       ? this._translateService.translate('common.day')
       : `${days} ${this._translateService.translate('common.days')}`;
+  }
+
+  private _formatHours(hours: number): string {
+    return hours === 1
+      ? this._translateService.translate('common.hour')
+      : `${hours} ${this._translateService.translate('common.hours')}`;
+  }
+
+  private _formatMinutes(minutes: number): string {
+    return minutes === 1
+      ? this._translateService.translate('common.minute')
+      : `${minutes} ${this._translateService.translate('common.minutes')}`;
   }
 }

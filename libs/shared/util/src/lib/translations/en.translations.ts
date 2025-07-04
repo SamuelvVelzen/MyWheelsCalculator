@@ -41,6 +41,10 @@ export const enTranslations = {
   'common.link': 'link',
   'common.days': 'days',
   'common.day': 'day',
+  'common.hours': 'hours',
+  'common.hour': 'hour',
+  'common.minutes': 'minutes',
+  'common.minute': 'minute',
 
   'common.nav.home': 'Home',
   'common.nav.routes': 'Routes',

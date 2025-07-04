@@ -40,6 +40,10 @@ export const nlTranslations = {
   'common.link': 'link',
   'common.days': 'dagen',
   'common.day': 'dag',
+  'common.hours': 'uur',
+  'common.hour': 'uur',
+  'common.minutes': 'minuten',
+  'common.minute': 'minuut',
 
   'common.nav.home': 'Home',
   'common.nav.routes': 'Routes',
