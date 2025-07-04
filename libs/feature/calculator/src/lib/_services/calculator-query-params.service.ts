@@ -23,14 +23,6 @@ export class CalculatorQueryParamsService {
     this._loadFromQueryParams();
 
     effect(() => {
-      void this._calculatorService.abonnement();
-      void this._calculatorService.car();
-      void this._calculatorService.trip();
-      void this._calculatorService.kilometers();
-      void this._periodService.startDate();
-      void this._periodService.endDate();
-      void this._calculatorService.hasDepositPaid();
-
       this._updateQueryParams();
     });
   }
