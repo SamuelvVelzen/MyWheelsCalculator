@@ -25,8 +25,9 @@
 }
 
 @layer base {
-  html {
-    @apply text-dark bg-light;
+  html,
+  body {
+    @apply text-dark bg-light h-full;
   }
 
   /* Button border radius override */
