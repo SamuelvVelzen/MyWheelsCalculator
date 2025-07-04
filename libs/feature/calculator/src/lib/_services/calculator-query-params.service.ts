@@ -71,7 +71,7 @@ export class CalculatorQueryParamsService {
           hasDepositPaidQueryParam$,
         }) => {
           const abonnementValue = EnumHelpers.parseEnumFromObject(
-            abonnementQueryParam$,
+            abonnementQueryParam$[0],
             AbonnementOptionsEnum
           );
 
@@ -80,7 +80,7 @@ export class CalculatorQueryParamsService {
           }
 
           const carValue = EnumHelpers.parseEnumFromObject(
-            carQueryParam$,
+            carQueryParam$[0],
             AutoOptionsEnum
           );
 
@@ -88,27 +88,30 @@ export class CalculatorQueryParamsService {
             this._calculatorService.car.set(carValue);
           }
 
-          const tripValue = this._decodeQueryParamToTrip(tripQueryParam$);
+          const tripValue = this._decodeQueryParamToTrip(tripQueryParam$[0]);
 
           if (tripValue) {
             this._calculatorService.trip.set(tripValue);
           }
 
+          console.log(kilometersQueryParam$);
           if (kilometersQueryParam$) {
             this._calculatorService.kilometers.set(
-              Number(kilometersQueryParam$)
+              Number(kilometersQueryParam$[0])
             );
           }
           if (startDateQueryParam$) {
-            this._periodService.startDate.set(new Date(startDateQueryParam$));
+            this._periodService.startDate.set(
+              new Date(startDateQueryParam$[0])
+            );
           }
           if (endDateQueryParam$) {
-            this._periodService.endDate.set(new Date(endDateQueryParam$));
+            this._periodService.endDate.set(new Date(endDateQueryParam$[0]));
           }
 
           if (hasDepositPaidQueryParam$) {
             this._calculatorService.hasDepositPaid.set(
-              hasDepositPaidQueryParam$ === 'true'
+              hasDepositPaidQueryParam$[0] === 'true'
             );
           }
         }
@@ -116,6 +119,7 @@ export class CalculatorQueryParamsService {
   }
 
   private _updateQueryParams() {
+    //TODO: only update the first value of the array
     const queryParams: Params = {
       [calculatorQueryParams.abonnement]: this._calculatorService.abonnement(),
       [calculatorQueryParams.car]: this._calculatorService.car(),
