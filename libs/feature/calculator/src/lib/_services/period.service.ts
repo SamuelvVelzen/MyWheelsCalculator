@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { DateHelpers, TranslateService } from '@mwc/util';
 import {
   addHours,
@@ -26,7 +26,6 @@ export class PeriodService {
   }
 
   getTotalPeriodTime(startDate: Date, endDate: Date): number {
-    // Calculate total difference in fractional hours (including minutes)
     const totalMinutes = differenceInMinutes(endDate, startDate);
     const totalHours = totalMinutes / 60;
 
@@ -54,12 +53,12 @@ export class PeriodService {
   getFormattedPeriodTime(startDate: Date, endDate: Date): string {
     const totalHours = this.getTotalPeriodTime(startDate, endDate);
 
-    // If 10 hours or less, show actual hours and minutes
+    // If maxHoursInDay hours or less, show actual hours and minutes
     if (totalHours <= PeriodService.maxHoursInDay) {
       return this._formatHoursMinutes(totalHours);
     }
 
-    // More than 10 hours: convert to day format
+    // More than maxHoursInDay hours: convert to day format
     const days = Math.floor(totalHours / PeriodService.maxHoursInDay);
     const remainingHours = totalHours % PeriodService.maxHoursInDay;
 
@@ -72,35 +71,8 @@ export class PeriodService {
     const dayString = this._formatDays(days);
     const hourString = this._formatHoursMinutes(remainingHours);
 
-    return `${dayString} + ${hourString}`;
+    return `${dayString}, ${hourString}`;
   }
-
-  totalPeriodTimeString = computed(() => {
-    const totalHours = this.getTotalPeriodTime(
-      this.startDate(),
-      this.endDate()
-    );
-
-    // If 10 hours or less, show actual hours and minutes
-    if (totalHours <= PeriodService.maxHoursInDay) {
-      return this._formatHoursMinutes(totalHours);
-    }
-
-    // More than 10 hours: convert to day format
-    const days = Math.floor(totalHours / PeriodService.maxHoursInDay);
-    const remainingHours = totalHours % PeriodService.maxHoursInDay;
-
-    // Just days (no remainder)
-    if (remainingHours === 0) {
-      return this._formatDays(days);
-    }
-
-    // Days + remaining hours/minutes
-    const dayString = this._formatDays(days);
-    const hourString = this._formatHoursMinutes(remainingHours);
-
-    return `${dayString} + ${hourString}`;
-  });
 
   private getRoundedStartDate(): Date {
     const now = new Date();
