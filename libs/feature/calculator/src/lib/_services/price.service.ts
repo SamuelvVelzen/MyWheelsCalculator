@@ -31,6 +31,8 @@ export class PriceService {
     kilometers,
     hasStartPrice,
     hasDepositPaid,
+    startDate,
+    endDate,
   }: {
     abonnement: AbonnementOptionsEnum;
     trip: TripOptionsEnum;
@@ -38,6 +40,8 @@ export class PriceService {
     kilometers: number;
     hasStartPrice: boolean;
     hasDepositPaid: boolean;
+    startDate: Date;
+    endDate: Date;
   }): {
     totalPrice: number;
     basePrice: number;
@@ -47,11 +51,28 @@ export class PriceService {
     hourPrice: number;
     depositPrice: number;
   } {
-    const hourPrice = this._hourPrice(abonnement, car);
-    const kmPrice = this._kilometerPrice(trip, abonnement, car, kilometers);
-    const extraCosts = this._extraCosts(hasStartPrice, hasDepositPaid);
+    const totalPeriodTime = this._periodService.getTotalPeriodTime(
+      startDate,
+      endDate
+    );
 
-    const basePrice = this._basePrice(hourPrice, kmPrice, extraCosts);
+    const hourPrice = this._hourPrice(abonnement, car, totalPeriodTime);
+    const kmPrice = this._kilometerPrice(trip, abonnement, car, kilometers);
+
+    const depositPrice = this._getDepositPrice(startDate, endDate);
+
+    const extraCosts = this._extraCosts(
+      hasStartPrice,
+      hasDepositPaid,
+      depositPrice
+    );
+
+    const basePrice = this._basePrice(
+      hourPrice,
+      kmPrice,
+      extraCosts,
+      depositPrice
+    );
 
     return {
       totalPrice: this._totalPrice(abonnement, basePrice),
@@ -60,7 +81,7 @@ export class PriceService {
       kmPrice,
       extraKm: this._extraKm(trip, kilometers),
       hourPrice,
-      depositPrice: this._depositPrice(),
+      depositPrice,
     };
   }
 
@@ -76,12 +97,17 @@ export class PriceService {
   private _basePrice(
     hourPrice: number,
     kilometerPrice: number,
-    extraCosts: number
+    extraCosts: number,
+    depositPrice: number
   ): number {
-    return extraCosts + kilometerPrice + hourPrice;
+    return extraCosts + kilometerPrice + hourPrice + depositPrice;
   }
 
-  private _extraCosts(hasStartPrice: boolean, hasDepositPaid: boolean): number {
+  private _extraCosts(
+    hasStartPrice: boolean,
+    hasDepositPaid: boolean,
+    depositPrice: number
+  ): number {
     let extraCosts = 0;
 
     if (hasStartPrice) {
@@ -89,14 +115,18 @@ export class PriceService {
     }
 
     if (!hasDepositPaid) {
-      extraCosts += this._depositPrice();
+      extraCosts += depositPrice;
     }
 
     return extraCosts;
   }
 
-  private _depositPrice(): number {
-    return this._periodService.totalDepositDays() * PriceService.depositPrice;
+  private _getDepositPrice(startDate: Date, endDate: Date): number {
+    const totalDepositDays = this._periodService.getTotalDepositDays(
+      startDate,
+      endDate
+    );
+    return totalDepositDays * PriceService.depositPrice;
   }
 
   private _kilometerPrice(
@@ -115,10 +145,9 @@ export class PriceService {
 
   private _hourPrice(
     abonnement: AbonnementOptionsEnum,
-    car: AutoOptionsEnum
+    car: AutoOptionsEnum,
+    totalPeriodTime: number
   ): number {
-    const totalPeriodTime = this._periodService.totalPeriodTime();
-
     return this.autoOptions[abonnement][car].hourPrice * totalPeriodTime;
   }
 

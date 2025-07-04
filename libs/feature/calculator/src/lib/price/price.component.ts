@@ -35,6 +35,8 @@ export class PriceComponent {
       kilometers: this._calculatorService.kilometers(),
       hasStartPrice: this._calculatorService.hasStartPrice(),
       hasDepositPaid: this._calculatorService.hasDepositPaid(),
+      startDate: this._calculatorService.startDate(),
+      endDate: this._calculatorService.endDate(),
     })
   );
 
@@ -62,6 +64,16 @@ export class PriceComponent {
       depositPrice,
     } = this.priceDetails();
 
+    const totalDepositDays = this._periodService.getTotalDepositDays(
+      this._calculatorService.startDate(),
+      this._calculatorService.endDate()
+    );
+
+    const totalPeriodTime = this._periodService.getTotalPeriodTime(
+      this._calculatorService.startDate(),
+      this._calculatorService.endDate()
+    );
+
     return [
       {
         label: `${this._translateService.translate(
@@ -77,7 +89,7 @@ export class PriceComponent {
           {
             label: `${this._translateService.translate(
               'calculator.price.details.rental_period'
-            )} (${this._periodService.totalPeriodTimeString()})`,
+            )} (${totalPeriodTime})`,
             totalCost: hourPrice,
           },
           {
@@ -116,8 +128,8 @@ export class PriceComponent {
               {
                 label: `${this._translateService.translate(
                   'calculator.price.details.deposit'
-                )} (${this._periodService.totalDepositDays()} ${
-                  this._periodService.totalDepositDays() === 1
+                )} (${totalDepositDays} ${
+                  totalDepositDays === 1
                     ? this._translateService.translate('common.day')
                     : this._translateService.translate('common.days')
                 })`,
