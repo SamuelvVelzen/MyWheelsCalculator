@@ -5,7 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class CurrencyPipe implements PipeTransform {
-  transform(value: number | string, showDecimals = true): string {
+  transform(
+    value: number | string | null | undefined,
+    showDecimals = true
+  ): string {
+    if (!value) {
+      value = 0;
+    }
+
     const val = Number(value);
 
     if (isNaN(val)) {
