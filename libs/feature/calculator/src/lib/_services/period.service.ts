@@ -20,14 +20,14 @@ export class PeriodService {
   startDate = signal<Date>(this.getRoundedStartDate());
   endDate = signal<Date>(addHours(this.getRoundedStartDate(), 4));
 
-  totalDepositDays(): number {
-    const billableHours = this.totalPeriodTime();
+  getTotalDepositDays(startDate: Date, endDate: Date): number {
+    const billableHours = this.getTotalPeriodTime(startDate, endDate);
     return Math.ceil(billableHours / PeriodService.maxHoursInDay);
   }
 
-  totalPeriodTime = computed(() => {
+  getTotalPeriodTime(startDate: Date, endDate: Date): number {
     // Calculate total difference in fractional hours (including minutes)
-    const totalMinutes = differenceInMinutes(this.endDate(), this.startDate());
+    const totalMinutes = differenceInMinutes(endDate, startDate);
     const totalHours = totalMinutes / 60;
 
     // If total time is within 24 hours, apply the 10-hour cap
@@ -49,10 +49,37 @@ export class PeriodService {
     billableHours += Math.min(remainingHours, PeriodService.maxHoursInDay);
 
     return billableHours;
-  });
+  }
+
+  getFormattedPeriodTime(startDate: Date, endDate: Date): string {
+    const totalHours = this.getTotalPeriodTime(startDate, endDate);
+
+    // If 10 hours or less, show actual hours and minutes
+    if (totalHours <= PeriodService.maxHoursInDay) {
+      return this._formatHoursMinutes(totalHours);
+    }
+
+    // More than 10 hours: convert to day format
+    const days = Math.floor(totalHours / PeriodService.maxHoursInDay);
+    const remainingHours = totalHours % PeriodService.maxHoursInDay;
+
+    // Just days (no remainder)
+    if (remainingHours === 0) {
+      return this._formatDays(days);
+    }
+
+    // Days + remaining hours/minutes
+    const dayString = this._formatDays(days);
+    const hourString = this._formatHoursMinutes(remainingHours);
+
+    return `${dayString} + ${hourString}`;
+  }
 
   totalPeriodTimeString = computed(() => {
-    const totalHours = this.totalPeriodTime();
+    const totalHours = this.getTotalPeriodTime(
+      this.startDate(),
+      this.endDate()
+    );
 
     // If 10 hours or less, show actual hours and minutes
     if (totalHours <= PeriodService.maxHoursInDay) {
