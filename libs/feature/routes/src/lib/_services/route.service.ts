@@ -40,7 +40,7 @@ export class RouteService {
       endDate: new Date(),
     };
 
-    this.routes.set([...this.routes(), newRoute]);
+    this.routes.update((routes) => [...routes, newRoute]);
   }
 
   updateRoute(route: IRoute, index: number) {
