@@ -60,11 +60,11 @@ export class CalculatorComponent {
     endDate: this._periodService.endDate(),
   }));
 
-  discountLabel = computed(
-    () =>
-      `${this._translateService.translate(
-        'calculator.trip.period'
-      )} (${this._periodService.totalPeriodTimeString()})`
+  totalPeriodTimeString = computed(() =>
+    this._periodService.getFormattedPeriodTime(
+      this._calculatorService.startDate(),
+      this._calculatorService.endDate()
+    )
   );
 
   constructor() {

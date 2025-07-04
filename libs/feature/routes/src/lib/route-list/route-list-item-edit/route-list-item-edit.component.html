@@ -18,6 +18,7 @@
 
   <mwc-input-daterange
     [labelText]="'calculator.trip.period' | translate"
+    [badgeLabel]="totalPeriodTimeString()"
     [ngModel]="dateRange()"
     (ngModelChange)="setDateRange($event)"
     [step]="1"

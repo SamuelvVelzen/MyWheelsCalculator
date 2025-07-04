@@ -5,6 +5,7 @@ import {
   CalculatorService,
   CarSelectComponent,
   ExtraCostsComponent,
+  PeriodService,
   PriceService,
   TripSelectComponent,
 } from '@mwc/calculator';
@@ -34,6 +35,7 @@ import { IRoute } from '../../_types/routes.interface';
 })
 export class RouteListItemEditComponent {
   private readonly _calculatorService = inject(CalculatorService);
+  private readonly _periodService = inject(PeriodService);
 
   route = input.required<IRoute>();
 
@@ -49,6 +51,10 @@ export class RouteListItemEditComponent {
       endDate: this.route().endDate,
     };
   });
+
+  totalPeriodTimeString = computed(() =>
+    this._periodService.totalPeriodTimeString()
+  );
 
   hasStartPrice = computed(() =>
     this._calculatorService.calculateHasStartPrice(
