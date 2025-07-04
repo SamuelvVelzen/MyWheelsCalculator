@@ -15,3 +15,5 @@ export * from './lib/language-select/language-select.component';
 export * from './lib/icon/icon/icon.component';
 
 export * from './lib/dialog/_services/dialog.service';
+
+export * from './lib/badge/badge.component';
