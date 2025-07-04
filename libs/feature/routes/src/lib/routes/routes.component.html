@@ -7,5 +7,10 @@
     }
   </div>
 
-  <mwc-route-list></mwc-route-list>
+  <mwc-route-list
+    [routes]="routes()"
+    (added)="addNewRoute()"
+    (saved)="saveRoute($event)"
+    (deleted)="deleteRoute($event)"
+  ></mwc-route-list>
 </div>

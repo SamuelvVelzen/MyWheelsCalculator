@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '@mwc/ui';
 import { RouteQueryParamsService } from '../_services/route-query-params.service';
 import { RouteService } from '../_services/route.service';
+import { IRoute } from '../_types/routes.interface';
 import { RouteListComponent } from '../route-list/route-list.component';
 
 @Component({
@@ -21,5 +22,14 @@ export class RoutesComponent {
 
   addNewRoute(): void {
     this._routeService.addNewRoute();
+  }
+
+  saveRoute(event: { route: IRoute; index: number }): void {
+    const { route, index } = event;
+    this._routeService.updateRoute(route, index);
+  }
+
+  deleteRoute(index: number): void {
+    this._routeService.removeRoute(index);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { ButtonComponent } from '@mwc/ui';
 import { RouteService } from '../_services/route.service';
 import { IRoute } from '../_types/routes.interface';
@@ -13,18 +13,23 @@ import { RouteListItemComponent } from './route-list-item/route-list-item.compon
 export class RouteListComponent {
   private readonly _routeService = inject(RouteService);
 
-  routes = this._routeService.routes;
+  routes = input.required<IRoute[]>();
+
   showAddButton = this._routeService.showAddButton;
 
+  added = output<void>();
+  saved = output<{ route: IRoute; index: number }>();
+  deleted = output<number>();
+
   addNewRoute(): void {
-    this._routeService.addNewRoute();
+    this.added.emit();
   }
 
   onSave(route: IRoute, index: number): void {
-    this._routeService.updateRoute(route, index);
+    this.saved.emit({ route, index });
   }
 
   onRemove(index: number): void {
-    this._routeService.removeRoute(index);
+    this.deleted.emit(index);
   }
 }
