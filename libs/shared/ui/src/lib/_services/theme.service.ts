@@ -47,8 +47,8 @@ const ThemeOptionsEnum: {
       background: 'bg-primary',
     },
     [ThemeType.Outline]: {
-      color: 'text-primary hover:text-white',
-      background: 'bg-white hover:bg-primary',
+      color: 'text-primary',
+      background: 'bg-white',
       border: 'border-primary',
     },
     [ThemeType.Hover]: {
@@ -62,8 +62,8 @@ const ThemeOptionsEnum: {
       background: 'bg-secondary',
     },
     [ThemeType.Outline]: {
-      color: 'text-secondary hover:text-white',
-      background: 'bg-white hover:bg-secondary',
+      color: 'text-secondary',
+      background: 'bg-white',
       border: 'border-secondary',
     },
     [ThemeType.Hover]: {
@@ -74,12 +74,12 @@ const ThemeOptionsEnum: {
   [ThemeEnum.Success]: {
     [ThemeType.Fill]: {
       color: 'text-white',
-      background: 'bg-green-500',
-      border: 'border-green-500',
+      background: 'bg-success',
+      border: 'border-success',
     },
     [ThemeType.Outline]: {
-      color: 'text-success hover:text-white',
-      background: 'bg-transparent hover:bg-success',
+      color: 'text-success',
+      background: 'bg-transparent',
       border: 'border-success',
     },
     [ThemeType.Hover]: {
@@ -94,8 +94,8 @@ const ThemeOptionsEnum: {
       border: 'border-danger',
     },
     [ThemeType.Outline]: {
-      color: 'text-danger hover:text-white',
-      background: 'bg-transparent hover:bg-danger',
+      color: 'text-danger',
+      background: 'bg-transparent',
       border: 'border-danger',
     },
     [ThemeType.Hover]: {
@@ -110,8 +110,8 @@ const ThemeOptionsEnum: {
       border: 'border-warning',
     },
     [ThemeType.Outline]: {
-      color: 'text-warning hover:text-white',
-      background: 'bg-transparent hover:bg-warning',
+      color: 'text-warning',
+      background: 'bg-transparent',
       border: 'border-warning',
     },
     [ThemeType.Hover]: {
@@ -126,8 +126,8 @@ const ThemeOptionsEnum: {
       border: 'border-info',
     },
     [ThemeType.Outline]: {
-      color: 'text-info hover:text-white',
-      background: 'bg-transparent hover:bg-info',
+      color: 'text-info',
+      background: 'bg-transparent',
       border: 'border-info',
     },
     [ThemeType.Hover]: {
@@ -142,8 +142,8 @@ const ThemeOptionsEnum: {
       border: 'border-dark',
     },
     [ThemeType.Outline]: {
-      color: 'text-dark hover:text-light',
-      background: 'bg-light hover:bg-muted',
+      color: 'text-dark',
+      background: 'bg-light',
       border: 'border-muted',
     },
     [ThemeType.Hover]: {
@@ -157,8 +157,8 @@ const ThemeOptionsEnum: {
       background: 'bg-dark',
     },
     [ThemeType.Outline]: {
-      color: 'text-dark hover:text-light',
-      background: 'bg-light hover:bg-dark',
+      color: 'text-dark',
+      background: 'bg-light',
       border: 'border-dark',
     },
     [ThemeType.Hover]: {
@@ -172,8 +172,8 @@ const ThemeOptionsEnum: {
       background: 'bg-muted',
     },
     [ThemeType.Outline]: {
-      color: 'text-grey hover:text-light',
-      background: 'bg-transparent hover:bg-muted',
+      color: 'text-grey',
+      background: 'bg-transparent',
       border: 'border-muted',
     },
     [ThemeType.Hover]: {
