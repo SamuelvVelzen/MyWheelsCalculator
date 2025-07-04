@@ -13,3 +13,5 @@ export * from './lib/forms/fieldset/fieldset.component';
 export * from './lib/language-select/language-select.component';
 
 export * from './lib/icon/icon/icon.component';
+
+export * from './lib/dialog/_services/dialog.service';
