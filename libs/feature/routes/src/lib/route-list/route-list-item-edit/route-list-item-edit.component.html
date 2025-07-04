@@ -10,6 +10,7 @@
 
   <mwc-slider-number
     [labelText]="'calculator.distance' | translate"
+    badgeLabel="{{ route().kilometers }} km"
     [(ngModel)]="route().kilometers"
     [min]="1"
     [max]="1000"

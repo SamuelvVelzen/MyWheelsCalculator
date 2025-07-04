@@ -19,4 +19,6 @@ import { SliderComponent } from '../slider/slider.component';
 })
 export class SliderNumberComponent extends BaseInputControls<number> {
   labelText = input.required<string>();
+
+  badgeLabel = input<string>();
 }

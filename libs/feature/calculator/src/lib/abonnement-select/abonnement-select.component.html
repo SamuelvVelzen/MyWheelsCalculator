@@ -2,6 +2,7 @@
   [(ngModel)]="value"
   [options]="abonnementOptions"
   labelText="Abonnement"
+  [badgeLabel]="value ? abonnementConfig[castAbbonementFn(value)].title : ''"
   [colClass]="'grid-cols-3'"
   [labelClass]="'focus:rounded-t-2xl'"
 >

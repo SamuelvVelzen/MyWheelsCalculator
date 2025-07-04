@@ -3,6 +3,7 @@
   [options]="carOptions"
   labelText="Car type"
   labelClass="focus:rounded-2xl"
+  [badgeLabel]="value ? carConfig()[castCarFn(value)].title : ''"
 >
   <ng-template #cardContent let-option let-selected="selected">
     @let car = carConfig()[castCarFn(option)];

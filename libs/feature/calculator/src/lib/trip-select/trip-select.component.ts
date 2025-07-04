@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonsCardComponent } from '@mwc/ui';
 import { BaseValueAccessor, CurrencyPipe, Helpers } from '@mwc/util';
@@ -13,6 +13,14 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
   standalone: true,
 })
 export class TripSelectComponent extends BaseValueAccessor<TripOptionsEnum> {
+  badgeLabel = computed(() => {
+    if (!this.value || this.value === TripOptionsEnum.None) {
+      return '0 km';
+    }
+
+    return this.tripConfig[this.castTripFn(this.value)].title;
+  });
+
   castTripFn = Helpers.castFn<TripOptionsEnum>;
 
   tripConfig = TripOptions;

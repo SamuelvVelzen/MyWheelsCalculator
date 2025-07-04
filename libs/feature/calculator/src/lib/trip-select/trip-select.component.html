@@ -4,6 +4,7 @@
   labelText="Trip"
   labelClass="focus:rounded-2xl"
   [colClass]="'grid-cols-2 sm:grid-cols-4 md:grid-cols-8'"
+  [badgeLabel]="badgeLabel()"
 >
   <ng-template #cardContent let-option let-selected="selected">
     <div

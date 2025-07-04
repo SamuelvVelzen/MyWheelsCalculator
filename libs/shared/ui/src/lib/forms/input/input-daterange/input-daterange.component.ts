@@ -24,7 +24,8 @@ export class InputDaterangeComponent extends BaseFormInputs<{
 }> {
   endDateInput = viewChild.required<InputDatetimeComponent>('endDateInput');
 
-  labelText = input<string>('Start date');
+  labelText = input.required<string>();
+  badgeLabel = input<string>();
 
   setStartDate(startDate: Date): void {
     if (!this.value) {
