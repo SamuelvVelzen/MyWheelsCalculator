@@ -1,6 +1,12 @@
 @if(!isEditMode()) {
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center gap-2">
   <h2>Route {{ index() + 1 }}</h2>
+
+  <div class="flex gap-2 mr-auto">
+    <mwc-badge [themeType]="'Outline'">{{ formattedPeriodTime() }}</mwc-badge>
+    <mwc-badge [themeType]="'Outline'">{{ route().kilometers }} km</mwc-badge>
+  </div>
+
   <div class="flex gap-2">
     <mwc-icon-button
       [icon]="tablerPencil"
