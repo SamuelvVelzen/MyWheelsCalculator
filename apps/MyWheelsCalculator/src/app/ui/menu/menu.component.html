@@ -1,0 +1,75 @@
+@if (openMenu()) {
+<div
+  class="fixed inset-0 bg-dark z-10 flex flex-col items-center justify-center md:hidden"
+>
+  <nav class="flex flex-col items-center space-y-4 text-light">
+    <ng-container *ngTemplateOutlet="navigationItems"></ng-container>
+  </nav>
+</div>
+}
+
+<div
+  class="flex justify-between border-b-1 items-center p-2 md:px-5 relative z-30"
+  [ngClass]="{
+      'text-light': openMenu(),
+      'border-dark': openMenu(),
+      'border-muted': !openMenu(),
+    }"
+>
+  <mwc-discount-button></mwc-discount-button>
+
+  <mwc-language-select></mwc-language-select>
+</div>
+
+<div
+  class="sticky top-0 p-3 md:p-5 border-x-1 border-b-1 flex justify-between flex-wrap items-center z-20 rounded-b-2xl"
+  [ngClass]="{
+      'bg-dark': openMenu(),
+      'text-light': openMenu(),
+      'border-dark': openMenu(),
+      'bg-light': !openMenu(),
+      'border-muted': !openMenu(),
+    }"
+>
+  <h1 class="text-2xl">{{ 'calculator.title' | translate }}</h1>
+
+  <nav class="hidden md:flex flex-row items-center gap-2">
+    <ng-container *ngTemplateOutlet="navigationItems"></ng-container>
+  </nav>
+
+  <button
+    class="h-9 w-9 cursor-pointer border flex items-center justify-center md:hidden"
+    (click)="toggleMenu()"
+  >
+    <div
+      class="icon icon-hamburger"
+      [class.icon-hamburger-open]="openMenu()"
+    ></div>
+  </button>
+</div>
+
+<!-- Navigation Items Template -->
+<ng-template #navigationItems>
+  <a
+    href="/"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    (click)="handleNavigation($event, '/')"
+  >
+    {{ 'common.nav.home' | translate }}
+  </a>
+
+  <a
+    href="/routes"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    (click)="handleNavigation($event, '/routes')"
+  >
+    {{ 'common.nav.routes' | translate }}
+  </a>
+  <a
+    href="/how-it-works"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    (click)="handleNavigation($event, '/how-it-works')"
+  >
+    {{ 'common.nav.how-it-works' | translate }}
+  </a>
+</ng-template>

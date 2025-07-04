@@ -1,55 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { DiscountButtonComponent, LanguageSelectComponent } from '@mwc/ui';
-import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MenuComponent } from '../ui/menu/menu.component';
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.css'],
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    DiscountButtonComponent,
-    LanguageSelectComponent,
-    TranslatePipe,
-  ],
+  imports: [CommonModule, RouterOutlet, MenuComponent],
 })
-export class MainLayoutComponent {
-  private readonly _router = inject(Router);
-
-  openMenu = signal(false);
-
-  toggleMenu() {
-    this.openMenu.update((open) => !open);
-  }
-
-  navigateAndCloseMenu(route: string) {
-    this._router.navigate([route], { queryParamsHandling: 'merge' });
-    this.openMenu.set(false);
-  }
-
-  handleNavigation(event: MouseEvent, route: string) {
-    // Allow middle click, ctrl+click, cmd+click to open in new tab
-    if (event.button === 1 || event.ctrlKey || event.metaKey) {
-      // Let browser handle it naturally (new tab)
-      this.openMenu.set(false); // Still close menu on mobile
-      return;
-    }
-
-    // For regular left clicks, prevent default and use programmatic navigation
-    event.preventDefault();
-    this.navigateAndCloseMenu(route);
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize(event: Event) {
-    const target = event.target as Window;
-    // Close menu when window width is greater than Tailwind sm breakpoint
-    if (target.innerWidth > TAILWIND_BREAKPOINTS.md) {
-      this.openMenu.set(false);
-    }
-  }
-}
+export class MainLayoutComponent {}
