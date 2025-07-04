@@ -21,10 +21,6 @@ export class RouteService {
 
   routes = this._routeQueryParamsService.routes;
 
-  constructor() {
-    this._routeQueryParamsService.init();
-  }
-
   addNewRoute() {
     if (this.routes().length >= RouteService.MAX_ROUTES) {
       return;

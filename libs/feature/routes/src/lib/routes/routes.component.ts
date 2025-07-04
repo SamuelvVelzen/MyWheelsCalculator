@@ -20,6 +20,10 @@ export class RoutesComponent {
 
   showAddButton = this._routeService.showAddButton;
 
+  constructor() {
+    this._routeQueryParamsService.init();
+  }
+
   addNewRoute(): void {
     this._routeService.addNewRoute();
   }
