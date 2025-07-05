@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputDaterangeComponent, SliderNumberComponent } from '@mwc/ui';
 import { TranslatePipe } from '@mwc/util';
@@ -11,6 +11,7 @@ import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
 import { CarSelectComponent } from './car-select/car-select.component';
 import { ExtraCostsComponent } from './extra-costs/extra-costs.component';
+import { PriceTotalComponent } from './price-total/price-total.component';
 import { PriceComponent } from './price/price.component';
 import { TripSelectComponent } from './trip-select/trip-select.component';
 
@@ -30,11 +31,15 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     TranslatePipe,
     InputDaterangeComponent,
     ExtraCostsComponent,
+    PriceTotalComponent,
   ],
 })
 export class CalculatorComponent {
+  priceDetails = viewChild.required<PriceComponent>('priceDetailsEl');
+
   private readonly _calculatorService = inject(CalculatorService);
   private readonly _periodService = inject(PeriodService);
+  private readonly _priceService = inject(PriceService);
   private readonly _calculatorQueryParamsService = inject(
     CalculatorQueryParamsService
   );
@@ -66,6 +71,19 @@ export class CalculatorComponent {
     )
   );
 
+  priceDetail = computed(() =>
+    this._priceService.calculatePrice({
+      abonnement: this._calculatorService.abonnement(),
+      trip: this._calculatorService.trip(),
+      car: this._calculatorService.car(),
+      kilometers: this._calculatorService.kilometers(),
+      hasStartPrice: this._calculatorService.hasStartPrice(),
+      hasDepositPaid: this._calculatorService.hasDepositPaid(),
+      startDate: this._calculatorService.startDate(),
+      endDate: this._calculatorService.endDate(),
+    })
+  );
+
   constructor() {
     this._calculatorQueryParamsService.init();
   }
@@ -73,5 +91,9 @@ export class CalculatorComponent {
   setDateRange(dateRange: { startDate: Date; endDate: Date }): void {
     this._periodService.startDate.set(dateRange.startDate);
     this._periodService.endDate.set(dateRange.endDate);
+  }
+
+  showDetails(): void {
+    this.priceDetails().showDetails();
   }
 }

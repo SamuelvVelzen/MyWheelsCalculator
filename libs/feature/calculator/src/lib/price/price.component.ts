@@ -4,6 +4,7 @@ import {
   computed,
   ElementRef,
   inject,
+  input,
   viewChild,
 } from '@angular/core';
 import { ButtonComponent } from '@mwc/ui';
@@ -29,24 +30,20 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
 })
 export class PriceComponent {
   private readonly _calculatorService = inject(CalculatorService);
-  private readonly _priceService = inject(PriceService);
   private readonly _periodService = inject(PeriodService);
   private readonly _translateService = inject(TranslateService);
 
   priceDetailsSection = viewChild.required<ElementRef>('priceDetailsSection');
 
-  priceDetails = computed(() =>
-    this._priceService.calculatePrice({
-      abonnement: this._calculatorService.abonnement(),
-      trip: this._calculatorService.trip(),
-      car: this._calculatorService.car(),
-      kilometers: this._calculatorService.kilometers(),
-      hasStartPrice: this._calculatorService.hasStartPrice(),
-      hasDepositPaid: this._calculatorService.hasDepositPaid(),
-      startDate: this._calculatorService.startDate(),
-      endDate: this._calculatorService.endDate(),
-    })
-  );
+  priceDetail = input.required<{
+    totalPrice: number;
+    basePrice: number;
+    extraCosts: number;
+    kmPrice: number;
+    extraKm: number;
+    hourPrice: number;
+    depositPrice: number;
+  }>();
 
   abonnementOptions = AbonnementOptions;
 
@@ -59,7 +56,7 @@ export class PriceComponent {
       extraCosts,
       extraKm,
       depositPrice,
-    } = this.priceDetails();
+    } = this.priceDetail();
 
     const {
       trip,

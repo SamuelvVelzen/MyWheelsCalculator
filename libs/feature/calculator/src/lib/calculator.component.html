@@ -30,4 +30,10 @@
   ></mwc-extra-costs>
 </div>
 
-<mwc-price></mwc-price>
+<mwc-price-total
+  class="sticky bottom-0"
+  [totalPrice]="priceDetail().totalPrice"
+  (showDetailsClicked)="showDetails()"
+></mwc-price-total>
+
+<mwc-price #priceDetailsEl [priceDetail]="priceDetail()"></mwc-price>
