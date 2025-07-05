@@ -25,6 +25,9 @@ export class RouteService {
     if (this.routes().length >= RouteService.MAX_ROUTES) {
       return;
     }
+    const abonnement = AbonnementOptionsEnum.Start;
+    const trip = TripOptionsEnum.None;
+
 
     const newRoute: IRoute = {
       car: AutoOptionsEnum.Compact,
@@ -32,8 +35,7 @@ export class RouteService {
       trip: TripOptionsEnum.None,
       kilometers: 0,
       hasDepositPaid: false,
-      startDate: new Date(),
-      endDate: new Date(),
+      hasStartPrice,
     };
 
     this.routes.update((routes) => [...routes, newRoute]);

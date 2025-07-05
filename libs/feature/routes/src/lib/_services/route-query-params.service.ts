@@ -4,6 +4,7 @@ import { Params } from '@angular/router';
 import {
   AbonnementOptionsEnum,
   AutoOptionsEnum,
+  CalculatorService,
   TripOptions,
   TripOptionsEnum,
 } from '@mwc/calculator';
@@ -19,6 +20,7 @@ import { IRoute } from '../_types/routes.interface';
 export class RouteQueryParamsService {
   private readonly _queryParamsService = inject(QueryParamsService);
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _calculatorService = inject(CalculatorService);
 
   routes = signal<IRoute[]>([]);
 
@@ -94,26 +96,33 @@ export class RouteQueryParamsService {
             return;
           }
 
-          const routes: IRoute[] = Array.from(
-            { length: maxLength },
-            (_, i) => ({
-              abonnement:
-                EnumHelpers.parseEnumFromObject(
-                  abonnementQueryParam$[i],
-                  AbonnementOptionsEnum
-                ) || AbonnementOptionsEnum.Start,
+          const routes: IRoute[] = Array.from({ length: maxLength }, (_, i) => {
+            const abonnement =
+              EnumHelpers.parseEnumFromObject(
+                abonnementQueryParam$[i],
+                AbonnementOptionsEnum
+              ) || AbonnementOptionsEnum.Start;
+
+            const trip = this._decodeQueryParamToTrip(tripQueryParam$[i]);
+
+            const hasStartPrice =
+              this._calculatorService.calculateHasStartPrice(abonnement, trip);
+
+            return {
+              abonnement,
               car:
                 EnumHelpers.parseEnumFromObject(
                   carQueryParam$[i],
                   AutoOptionsEnum
                 ) || AutoOptionsEnum.Comfort,
-              trip: this._decodeQueryParamToTrip(tripQueryParam$[i]),
+              trip,
               kilometers: Number(kilometersQueryParam$[i]) || 0,
               hasDepositPaid: hasDepositPaidQueryParam$[i] === 'true',
               startDate: startDateQueryParam$[i] || null,
               endDate: endDateQueryParam$[i] || null,
-            })
-          );
+              hasStartPrice,
+            };
+          });
 
           this.routes.set(routes);
         }
