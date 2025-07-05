@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-4 p-3 md:p-5 w-full md:w-3/4 mx-auto">
+<div class="flex flex-col gap-4 p-3 md:p-5 w-full md:w-3/4 mx-auto content">
   <div class="flex justify-between items-center">
     <h1 class="text-xl font-bold">Routes</h1>
   </div>
@@ -13,6 +13,12 @@
   @if (showAddButton()) {
   <mwc-button class="mt-5" (click)="addNewRoute()">Add route</mwc-button>
   }
-
-  <mwc-routes-price [routes]="routes()"></mwc-routes-price>
 </div>
+
+<mwc-price-total
+  [totalPrice]="totalPrice()"
+  class="sticky bottom-0"
+></mwc-price-total>
+<mwc-routes-price-details
+  [priceDetail]="priceDetail()"
+></mwc-routes-price-details>

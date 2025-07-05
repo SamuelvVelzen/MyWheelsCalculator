@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PriceService, PriceTotalComponent } from '@mwc/calculator';
 import { ButtonComponent, DialogService } from '@mwc/ui';
 import { RouteQueryParamsService } from '../_services/route-query-params.service';
 import { RouteService } from '../_services/route.service';
 import { IRoute } from '../_types/routes.interface';
 import { RouteListComponent } from '../route-list/route-list.component';
-import { RoutesPriceComponent } from '../routes-price/routes-price.component';
+import { RoutesPriceDetailsComponent } from '../routes-price-details/routes-price-details.component';
 
 @Component({
   selector: 'mwc-routes',
@@ -13,7 +14,8 @@ import { RoutesPriceComponent } from '../routes-price/routes-price.component';
     CommonModule,
     RouteListComponent,
     ButtonComponent,
-    RoutesPriceComponent,
+    RoutesPriceDetailsComponent,
+    PriceTotalComponent,
   ],
   templateUrl: './routes.component.html',
   styleUrl: './routes.component.css',
@@ -22,6 +24,7 @@ export class RoutesComponent {
   private readonly _routeQueryParamsService = inject(RouteQueryParamsService);
   private readonly _routeService = inject(RouteService);
   private readonly _dialogService = inject(DialogService);
+  private readonly _priceService = inject(PriceService);
 
   routes = this._routeQueryParamsService.routes;
 
@@ -49,4 +52,25 @@ export class RoutesComponent {
       this._routeService.removeRoute(index);
     }
   }
+
+  totalPrice = computed(() => {
+    return this.priceDetail().reduce((acc, route) => {
+      return acc + route.totalPrice;
+    }, 0);
+  });
+
+  priceDetail = computed(() => {
+    return this.routes().map((route) =>
+      this._priceService.calculatePrice({
+        abonnement: route.abonnement,
+        trip: route.trip,
+        car: route.car,
+        kilometers: route.kilometers,
+        hasStartPrice: route.hasStartPrice,
+        hasDepositPaid: route.hasDepositPaid,
+        startDate: route.startDate,
+        endDate: route.endDate,
+      })
+    );
+  });
 }
