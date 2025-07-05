@@ -1,6 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { DiscountButtonComponent, LanguageSelectComponent } from '@mwc/ui';
 import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
 
@@ -14,13 +21,24 @@ import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
     LanguageSelectComponent,
     TranslatePipe,
     RouterLink,
-    RouterLinkActive,
   ],
 })
-export class MenuComponent {
+export class MenuComponent implements OnDestroy {
   private readonly _router = inject(Router);
+  private readonly _document = inject(DOCUMENT);
 
   openMenu = signal(false);
+
+  constructor() {
+    // Effect to handle body overflow when menu state changes
+    effect(() => {
+      if (this.openMenu()) {
+        this._document.body.classList.add('overflow-hidden');
+      } else {
+        this._document.body.classList.remove('overflow-hidden');
+      }
+    });
+  }
 
   isRouteActive(route: string) {
     const currentUrl = this._router.url;
@@ -60,5 +78,10 @@ export class MenuComponent {
     if (target.innerWidth > TAILWIND_BREAKPOINTS.md) {
       this.openMenu.set(false);
     }
+  }
+
+  ngOnDestroy() {
+    // Ensure scrolling is restored when component is destroyed
+    this._document.body.style.overflow = '';
   }
 }
