@@ -1,4 +1,12 @@
-import { addHours, isAfter, isBefore, isSameDay, setMinutes } from 'date-fns';
+import {
+  addHours,
+  isAfter,
+  isBefore,
+  isSameDay,
+  setMilliseconds,
+  setMinutes,
+  setSeconds,
+} from 'date-fns';
 
 export class DateHelpers {
   static isAfter(
@@ -70,5 +78,13 @@ export class DateHelpers {
     }
 
     return isSameDay(date1, date2);
+  }
+
+  static getRoundedDate(date: Date, step: number): Date {
+    // Create base date with seconds and milliseconds set to 0
+    let roundedDate = setSeconds(date, 0);
+    roundedDate = setMilliseconds(roundedDate, 0);
+
+    return DateHelpers.roundToNearestStep(roundedDate, step);
   }
 }

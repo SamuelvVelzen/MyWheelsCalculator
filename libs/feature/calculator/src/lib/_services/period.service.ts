@@ -1,11 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { DateHelpers, TranslateService } from '@mwc/util';
-import {
-  addHours,
-  differenceInMinutes,
-  setMilliseconds,
-  setSeconds,
-} from 'date-fns';
+import { addHours, differenceInMinutes } from 'date-fns';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +12,8 @@ export class PeriodService {
   // should be divisible by 60
   static roundToNearestStep = 15;
 
-  startDate = signal<Date>(this.getRoundedStartDate());
-  endDate = signal<Date>(addHours(this.getRoundedStartDate(), 4));
+  startDate = signal<Date>(this._getRoundedStartDate());
+  endDate = signal<Date>(addHours(this._getRoundedStartDate(), 4));
 
   getTotalDepositDays(startDate: Date, endDate: Date): number {
     const billableHours = this.getTotalPeriodTime(startDate, endDate);
@@ -74,17 +69,10 @@ export class PeriodService {
     return `${dayString}, ${hourString}`;
   }
 
-  private getRoundedStartDate(): Date {
+  private _getRoundedStartDate(): Date {
     const now = new Date();
 
-    // Create base date with seconds and milliseconds set to 0
-    let roundedDate = setSeconds(now, 0);
-    roundedDate = setMilliseconds(roundedDate, 0);
-
-    return DateHelpers.roundToNearestStep(
-      roundedDate,
-      PeriodService.roundToNearestStep
-    );
+    return DateHelpers.getRoundedDate(now, PeriodService.roundToNearestStep);
   }
 
   private _formatHoursMinutes(hours: number): string {
