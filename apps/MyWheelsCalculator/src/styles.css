@@ -28,9 +28,17 @@
 }
 
 @layer base {
-  html,
+  html {
+    height: 100%;
+  }
   body {
-    @apply text-dark bg-light h-full dark:text-light dark:bg-dark;
+    min-height: 100%;
+  }
+
+  html,
+  body,
+  app-root {
+    @apply h-full text-dark bg-light  dark:text-light dark:bg-dark block;
   }
 
   /* Button border radius override */
