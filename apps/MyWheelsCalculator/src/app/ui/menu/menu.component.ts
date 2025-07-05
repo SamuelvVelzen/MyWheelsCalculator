@@ -5,34 +5,23 @@ import {
   OnDestroy,
   effect,
   inject,
-  signal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import {
-  DiscountButtonComponent,
-  LanguageSelectComponent,
-  ThemeToggleComponent,
-} from '@mwc/ui';
 import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
+import { MenuService } from './menu.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
-  imports: [
-    CommonModule,
-    DiscountButtonComponent,
-    LanguageSelectComponent,
-    TranslatePipe,
-    ThemeToggleComponent,
-    RouterLink,
-  ],
+  imports: [CommonModule, TranslatePipe, RouterLink],
 })
 export class MenuComponent implements OnDestroy {
   private readonly _router = inject(Router);
   private readonly _document = inject(DOCUMENT);
+  private readonly _menuService = inject(MenuService);
 
-  openMenu = signal(false);
+  openMenu = this._menuService.isOpen;
 
   constructor() {
     // Effect to handle body overflow when menu state changes
