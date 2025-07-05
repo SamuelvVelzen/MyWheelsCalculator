@@ -50,26 +50,42 @@
 
 <!-- Navigation Items Template -->
 <ng-template #navigationItems>
+  @let isHomeActive = isRouteActive('/');
   <a
-    [routerLink]="'/'"
-    [routerLinkActive]="['text-primary!', 'underline', 'md:font-bold!']"
+    [routerLink]="['/']"
+    [ngClass]="{
+      'text-primary!': isHomeActive,
+      'underline': isHomeActive,
+      'md:font-bold!': isHomeActive,
+    }"
     class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
     (click)="handleNavigation($event, '/')"
   >
     {{ 'common.nav.home' | translate }}
   </a>
 
+  @let isRoutesActive = isRouteActive('/routes');
   <a
     [routerLink]="'/routes'"
-    [routerLinkActive]="['text-primary', 'underline']"
+    [ngClass]="{
+      'text-primary!': isRoutesActive,
+      'underline': isRoutesActive,
+      'md:font-bold!': isRoutesActive,
+    }"
     class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
     (click)="handleNavigation($event, '/routes')"
   >
     {{ 'common.nav.routes' | translate }}
   </a>
+
+  @let isHowItWorksActive = isRouteActive('/how-it-works');
   <a
     [routerLink]="'/how-it-works'"
-    [routerLinkActive]="['text-primary', 'underline']"
+    [ngClass]="{
+      'text-primary!': isHowItWorksActive,
+      'underline': isHowItWorksActive,
+      'md:font-bold!': isHowItWorksActive,
+    }"
     class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
     (click)="handleNavigation($event, '/how-it-works')"
   >

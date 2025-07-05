@@ -22,6 +22,15 @@ export class MenuComponent {
 
   openMenu = signal(false);
 
+  isRouteActive(route: string) {
+    const currentUrl = this._router.url;
+    if (route === '/') {
+      // Home route is active only when exactly on '/' or '/?...' (with query params)
+      return currentUrl === '/' || currentUrl.startsWith('/?');
+    }
+    return currentUrl.startsWith(route);
+  }
+
   toggleMenu() {
     this.openMenu.update((open) => !open);
   }
