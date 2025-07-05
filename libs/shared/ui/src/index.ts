@@ -16,4 +16,6 @@ export * from './lib/icon/icon/icon.component';
 
 export * from './lib/dialog/_services/dialog.service';
 
+export * from './lib/theme/theme.service';
+
 export * from './lib/badge/badge.component';
