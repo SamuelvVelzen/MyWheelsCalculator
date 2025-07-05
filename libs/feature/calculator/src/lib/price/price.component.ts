@@ -73,7 +73,7 @@ export class PriceComponent {
       endDate()
     );
 
-    const totalPeriodTime = this._periodService.getTotalPeriodTime(
+    const totalPeriodTime = this._periodService.getFormattedPeriodTime(
       startDate(),
       endDate()
     );
