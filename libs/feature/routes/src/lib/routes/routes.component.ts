@@ -5,10 +5,16 @@ import { RouteQueryParamsService } from '../_services/route-query-params.service
 import { RouteService } from '../_services/route.service';
 import { IRoute } from '../_types/routes.interface';
 import { RouteListComponent } from '../route-list/route-list.component';
+import { RoutesPriceComponent } from '../routes-price/routes-price.component';
 
 @Component({
   selector: 'mwc-routes',
-  imports: [CommonModule, RouteListComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    RouteListComponent,
+    ButtonComponent,
+    RoutesPriceComponent,
+  ],
   templateUrl: './routes.component.html',
   styleUrl: './routes.component.css',
 })

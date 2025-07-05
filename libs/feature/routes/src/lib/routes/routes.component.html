@@ -13,4 +13,6 @@
   @if (showAddButton()) {
   <mwc-button class="mt-5" (click)="addNewRoute()">Add route</mwc-button>
   }
+
+  <mwc-routes-price [routes]="routes()"></mwc-routes-price>
 </div>
