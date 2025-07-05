@@ -9,6 +9,7 @@ export type IRoute = {
   car: AutoOptionsEnum;
   trip: TripOptionsEnum;
   kilometers: number;
+  hasStartPrice: boolean;
   hasDepositPaid: boolean;
   startDate: Date;
   endDate: Date;
