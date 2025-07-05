@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
-import { ThemeEnum, ThemeService, ThemeType } from '../_services/theme.service';
+import { ThemeEnum, ThemeHelpers, ThemeType } from '@mwc/util';
 
 @Component({
   selector: 'mwc-badge',
@@ -13,6 +13,6 @@ export class BadgeComponent {
   themeType = input<keyof typeof ThemeType>('Fill');
 
   themeClass = computed(() =>
-    ThemeService.getThemeClasses(this.theme(), this.themeType())
+    ThemeHelpers.getThemeClasses(this.theme(), this.themeType())
   );
 }
