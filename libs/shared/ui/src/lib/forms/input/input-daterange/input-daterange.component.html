@@ -1,23 +1,35 @@
 <mwc-form-group [labelText]="labelText()" [badgeLabel]="badgeLabel()">
-  <div class="flex gap-2">
-    <mwc-input-datetime
-      [ngModel]="value?.startDate"
-      (ngModelChange)="setStartDate($event)"
-      [min]="minStartDate()"
-      [step]="step()"
+  <div class="flex gap-2 flex-wrap sm:flex-nowrap items-end">
+    <mwc-form-group
+      [labelText]="'Startdate'"
+      [labelClasses]="'font-normal'"
       class="w-full"
-      (calendarClosed)="handleStartDateCalendarClosed()"
-    />
+    >
+      <mwc-input-datetime
+        [ngModel]="value?.startDate"
+        (ngModelChange)="setStartDate($event)"
+        [min]="minStartDate()"
+        [step]="step()"
+        class="w-full"
+        (calendarClosed)="handleStartDateCalendarClosed()"
+      />
+    </mwc-form-group>
 
-    <span class="text-grey"> - </span>
+    <span class="text-grey hidden sm:block"> - </span>
 
-    <mwc-input-datetime
-      #endDateInput
-      [ngModel]="value?.endDate"
-      (ngModelChange)="setEndDate($event)"
-      [min]="minEndDate()"
-      [step]="step()"
+    <mwc-form-group
+      [labelText]="'Enddate'"
+      [labelClasses]="'font-normal'"
       class="w-full"
-    />
+    >
+      <mwc-input-datetime
+        #endDateInput
+        [ngModel]="value?.endDate"
+        (ngModelChange)="setEndDate($event)"
+        [min]="minEndDate()"
+        [step]="step()"
+        class="w-full"
+      />
+    </mwc-form-group>
   </div>
 </mwc-form-group>
