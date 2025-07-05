@@ -9,7 +9,7 @@
   <ng-template #cardContent let-option let-selected="selected">
     <div
       class="rounded-2xl p-2 flex flex-col justify-between text-center"
-      [ngClass]="{ 'bg-grey-light': selected }"
+      [ngClass]="{ 'bg-grey-light dark:bg-grey': selected }"
     >
       <p class="mb-1">
         {{ tripConfig[castTripFn(option)].title }}

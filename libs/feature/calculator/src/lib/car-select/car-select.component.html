@@ -10,7 +10,7 @@
 
     <div
       class="rounded-2xl p-2 text-center"
-      [ngClass]="{ 'bg-grey-light': selected }"
+      [ngClass]="{ 'bg-grey-light dark:bg-grey': selected }"
     >
       <h3 class="font-secondary md:text-xl mb-1">
         {{ car.title }}
@@ -19,12 +19,12 @@
         <span class="text-xl">
           {{ car.hourPrice | mwcCurrency }}
         </span>
-        <span class="text-sm text-grey">
+        <span class="text-sm text-grey dark:text-light">
           {{ 'calculator.car.hour' | translate }}
         </span>
       </p>
 
-      <small class="text-sm text-grey">
+      <small class="text-sm text-grey dark:text-grey-light">
         <p>
           Max
           {{ car.hourPrice * 10 | mwcCurrency }} /{{

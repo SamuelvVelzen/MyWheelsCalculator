@@ -8,11 +8,10 @@
 >
   <ng-template #cardContent let-option let-selected="selected">
     <div
-      class="text-center abbonnement-option text-grey h-full text-sm sm:text-base rounded-t-2xl py-2.5 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-1"
+      class="text-center abbonnement-option h-full text-sm sm:text-base text-grey dark:text-grey-light rounded-t-2xl py-2.5 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-1"
       [ngClass]="{
-        selected: selected,
-        'font-medium': selected,
-        'bg-grey-light': selected,
+        'bg-grey-light selected dark:bg-grey': selected,
+
       }"
     >
       {{ abonnementConfig[castAbbonementFn(option)].title }} ({{

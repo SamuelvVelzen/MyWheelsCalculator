@@ -26,11 +26,8 @@
 <div
   class="sticky top-0 p-3 md:p-5 border-x-1 border-b-1 flex justify-between flex-wrap items-center z-20 rounded-b-2xl"
   [ngClass]="{
-      'bg-dark': openMenu(),
-      'text-light': openMenu(),
-      'border-dark': openMenu(),
-      'bg-light': !openMenu(),
-      'border-muted': !openMenu(),
+      'bg-dark text-light border-dark': openMenu(),
+      'bg-light border-muted dark:bg-dark': !openMenu(),
     }"
 >
   <h1 class="text-2xl">{{ 'calculator.title' | translate }}</h1>

@@ -48,7 +48,7 @@ const ThemeOptionsEnum: {
     },
     [ThemeType.Outline]: {
       color: 'text-primary',
-      background: 'bg-white',
+      background: 'bg-white dark:bg-dark',
       border: 'border-primary',
     },
     [ThemeType.Hover]: {
@@ -147,7 +147,7 @@ const ThemeOptionsEnum: {
       border: 'border-muted',
     },
     [ThemeType.Hover]: {
-      color: 'text-dark hover:text-light',
+      color: 'text-dark hover:text-light dark:text-light hover:dark:text-dark',
       background: 'bg-light hover:bg-muted',
     },
   },
@@ -162,8 +162,8 @@ const ThemeOptionsEnum: {
       border: 'border-dark',
     },
     [ThemeType.Hover]: {
-      color: 'text-dark hover:text-light',
-      background: 'bg-light hover:bg-dark',
+      color: 'text-dark hover:text-light dark:text-light hover:dark:text-dark',
+      background: 'bg-light hover:bg-dark dark:bg-dark hover:dark:bg-muted',
     },
   },
   [ThemeEnum.Muted]: {
