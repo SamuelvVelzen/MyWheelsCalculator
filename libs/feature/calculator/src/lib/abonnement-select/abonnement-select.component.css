@@ -24,6 +24,10 @@
     }
   }
 
+  &.selected:after {
+    border-radius: 0;
+  }
+
   &:hover:after {
     transition: background-size 0.4s ease-out;
   }
