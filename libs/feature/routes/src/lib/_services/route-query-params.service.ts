@@ -77,22 +77,29 @@ export class RouteQueryParamsService {
           endDateQueryParam$,
           hasDepositPaidQueryParam$,
         }) => {
-          if (
-            abonnementQueryParam$.length !== carQueryParam$.length ||
-            carQueryParam$.length !== tripQueryParam$.length ||
-            tripQueryParam$.length !== kilometersQueryParam$.length ||
-            kilometersQueryParam$.length !== startDateQueryParam$.length ||
-            startDateQueryParam$.length !== endDateQueryParam$.length ||
-            endDateQueryParam$.length !== hasDepositPaidQueryParam$.length
-          ) {
-            throw new Error('query params are not the same length');
+          // Find the maximum length across all arrays to handle missing data
+          const maxLength = Math.max(
+            abonnementQueryParam$.length,
+            carQueryParam$.length,
+            tripQueryParam$.length,
+            kilometersQueryParam$.length,
+            startDateQueryParam$.length,
+            endDateQueryParam$.length,
+            hasDepositPaidQueryParam$.length
+          );
+
+          // If no data exists, return early
+          if (maxLength === 0) {
+            this.routes.set([]);
+            return;
           }
 
-          const routes: IRoute[] = abonnementQueryParam$.map(
-            (abonnement, i) => ({
+          const routes: IRoute[] = Array.from(
+            { length: maxLength },
+            (_, i) => ({
               abonnement:
                 EnumHelpers.parseEnumFromObject(
-                  abonnement,
+                  abonnementQueryParam$[i],
                   AbonnementOptionsEnum
                 ) || AbonnementOptionsEnum.Start,
               car:
@@ -103,8 +110,8 @@ export class RouteQueryParamsService {
               trip: this._decodeQueryParamToTrip(tripQueryParam$[i]),
               kilometers: Number(kilometersQueryParam$[i]) || 0,
               hasDepositPaid: hasDepositPaidQueryParam$[i] === 'true',
-              startDate: startDateQueryParam$[i],
-              endDate: endDateQueryParam$[i],
+              startDate: startDateQueryParam$[i] || null,
+              endDate: endDateQueryParam$[i] || null,
             })
           );
 
@@ -150,7 +157,13 @@ export class RouteQueryParamsService {
     });
   }
 
-  private _decodeQueryParamToTrip(queryParam: string): TripOptionsEnum {
+  private _decodeQueryParamToTrip(
+    queryParam: string | undefined
+  ): TripOptionsEnum {
+    if (!queryParam) {
+      return TripOptionsEnum.None;
+    }
+
     const tripString = Object.entries(TripOptions).find(
       ([_, tripOptions]) => tripOptions.queryParamIdentifier === queryParam
     )?.[0];
