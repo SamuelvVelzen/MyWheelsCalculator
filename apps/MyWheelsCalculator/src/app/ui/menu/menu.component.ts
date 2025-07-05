@@ -8,7 +8,11 @@ import {
   signal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { DiscountButtonComponent, LanguageSelectComponent } from '@mwc/ui';
+import {
+  DiscountButtonComponent,
+  LanguageSelectComponent,
+  ThemeToggleComponent,
+} from '@mwc/ui';
 import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
 
 @Component({
@@ -20,6 +24,7 @@ import { TAILWIND_BREAKPOINTS, TranslatePipe } from '@mwc/util';
     DiscountButtonComponent,
     LanguageSelectComponent,
     TranslatePipe,
+    ThemeToggleComponent,
     RouterLink,
   ],
 })
