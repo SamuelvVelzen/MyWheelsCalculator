@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ThemeEnum, ThemeType } from '../../_services/theme.service';
+import { ThemeEnum, ThemeType } from '@mwc/util';
 import { IconComponent } from '../../icon/icon/icon.component';
 import { ButtonComponent } from '../button/button.component';
 
