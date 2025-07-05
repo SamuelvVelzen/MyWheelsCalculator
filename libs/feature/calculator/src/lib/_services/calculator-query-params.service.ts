@@ -94,21 +94,25 @@ export class CalculatorQueryParamsService {
             this._calculatorService.trip.set(tripValue);
           }
 
-          if (kilometersQueryParam$) {
-            this._calculatorService.kilometers.set(
-              Number(kilometersQueryParam$[0])
-            );
+          if (kilometersQueryParam$[0]) {
+            const kilometers = Number(kilometersQueryParam$[0]);
+
+            const kilometersValue = isNaN(kilometers) ? 0 : kilometers;
+
+            this._calculatorService.kilometers.set(kilometersValue);
           }
-          if (startDateQueryParam$) {
+
+          if (startDateQueryParam$[0]) {
             this._periodService.startDate.set(
               new Date(startDateQueryParam$[0])
             );
           }
-          if (endDateQueryParam$) {
+
+          if (endDateQueryParam$[0]) {
             this._periodService.endDate.set(new Date(endDateQueryParam$[0]));
           }
 
-          if (hasDepositPaidQueryParam$) {
+          if (hasDepositPaidQueryParam$[0]) {
             this._calculatorService.hasDepositPaid.set(
               hasDepositPaidQueryParam$[0] === 'true'
             );

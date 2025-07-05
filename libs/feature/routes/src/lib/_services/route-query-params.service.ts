@@ -116,6 +116,10 @@ export class RouteQueryParamsService {
   updateQueryParams() {
     const routes = this.routes();
 
+    if (routes.length === 0) {
+      return;
+    }
+
     const queryParams: Params = {
       [calculatorQueryParams.abonnement]: routes.map(
         (route) => route.abonnement
