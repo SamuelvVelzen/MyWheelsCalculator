@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Injectable, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { StorageService, WINDOW } from '@mwc/util';
 
 export type ThemeMode = 'light' | 'dark';
@@ -11,6 +11,8 @@ export class ThemeService {
   private readonly THEME_KEY = 'theme-preference';
 
   private readonly storageService = inject(StorageService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
   private readonly _document = inject(DOCUMENT);
   private readonly _window = inject(WINDOW);
 
@@ -73,6 +75,10 @@ export class ThemeService {
   }
 
   private getSystemPreference(): 'light' | 'dark' {
+    if (!this.isBrowser) {
+      return 'light';
+    }
+
     return this._window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';
