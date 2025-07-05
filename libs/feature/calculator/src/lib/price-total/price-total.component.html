@@ -1,0 +1,28 @@
+<div class="grid grid-cols-2 p-3 sm:p-5 bg-primary text-light">
+  <div>
+    <p class="text-sm">
+      {{ 'calculator.price.total_price' | translate }}
+    </p>
+    <h2 class="text-2xl font-bold">
+      {{ totalPrice() | mwcCurrency }}
+    </h2>
+  </div>
+  <div class="justify-self-end self-center flex gap-2">
+    <mwc-button
+      [themeType]="'Hover'"
+      buttonClasses="hover:border-light border"
+      (click)="showDetailsClicked.emit()"
+    >
+      {{ 'calculator.price.show_details' | translate }}
+    </mwc-button>
+
+    <mwc-button [themeType]="'Hover'" [theme]="'Secondary'">
+      <span class="hidden sm:block">{{
+        'calculator.price.share' | translate
+      }}</span>
+      <span class="block sm:hidden">{{
+        'calculator.price.share' | translate
+      }}</span>
+    </mwc-button>
+  </div>
+</div>
