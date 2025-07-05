@@ -28,6 +28,10 @@ export class RouteService {
     const abonnement = AbonnementOptionsEnum.Start;
     const trip = TripOptionsEnum.None;
 
+    const hasStartPrice = this._calculatorService.calculateHasStartPrice(
+      abonnement,
+      trip
+    );
 
     const newRoute: IRoute = {
       car: AutoOptionsEnum.Compact,

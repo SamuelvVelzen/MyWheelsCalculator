@@ -10,7 +10,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import {
   AbonnementSelectComponent,
-  CalculatorService,
   CarSelectComponent,
   ExtraCostsComponent,
   PeriodService,
@@ -43,7 +42,6 @@ import { IRoute } from '../../_types/routes.interface';
   ],
 })
 export class RouteListItemEditComponent {
-  private readonly _calculatorService = inject(CalculatorService);
   private readonly _periodService = inject(PeriodService);
 
   route = input.required<IRoute>();
@@ -67,13 +65,6 @@ export class RouteListItemEditComponent {
     this._periodService.getFormattedPeriodTime(
       this.dateRange().startDate,
       this.dateRange().endDate
-    )
-  );
-
-  hasStartPrice = computed(() =>
-    this._calculatorService.calculateHasStartPrice(
-      this.editedRoute().abonnement,
-      this.editedRoute().trip
     )
   );
 
