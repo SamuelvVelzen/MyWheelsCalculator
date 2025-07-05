@@ -2,13 +2,16 @@
   <div class="border-t-2 pt-3 border-light">
     <div class="px-3 pb-3 sm:px-5 sm:pb-5">
       <ng-container
-        *ngTemplateOutlet="priceDetail; context: { details: [], depth: 0 }"
+        *ngTemplateOutlet="
+          priceDetailTpl;
+          context: { details: mappedPriceDetail(), depth: 0 }
+        "
       ></ng-container>
     </div>
   </div>
 </div>
 
-<ng-template #priceDetail let-details="details" let-depth="depth">
+<ng-template #priceDetailTpl let-details="details" let-depth="depth">
   @for (detail of details; track $index) { @if(!detail.hide) {
   <div class="flex justify-between flex-wrap">
     <span>{{ detail.label | translate }}</span>
@@ -27,7 +30,7 @@
     >
       <ng-container
         *ngTemplateOutlet="
-          priceDetail;
+          priceDetailTpl;
           context: { details: detail.children, depth: depth + 1 }
         "
       ></ng-container>

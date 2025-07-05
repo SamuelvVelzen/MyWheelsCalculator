@@ -54,14 +54,14 @@ export class RoutesComponent {
   }
 
   totalPrice = computed(() => {
-    return this.priceDetail().reduce((acc, route) => {
-      return acc + route.totalPrice;
+    return this.priceDetail().reduce((acc, details) => {
+      return acc + details.priceDetail.totalPrice;
     }, 0);
   });
 
   priceDetail = computed(() => {
-    return this.routes().map((route) =>
-      this._priceService.calculatePrice({
+    return this.routes().map((route) => {
+      const priceDetail = this._priceService.calculatePrice({
         abonnement: route.abonnement,
         trip: route.trip,
         car: route.car,
@@ -70,7 +70,12 @@ export class RoutesComponent {
         hasDepositPaid: route.hasDepositPaid,
         startDate: route.startDate,
         endDate: route.endDate,
-      })
-    );
+      });
+
+      return {
+        route,
+        priceDetail,
+      };
+    });
   });
 }
