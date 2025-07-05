@@ -3,6 +3,9 @@
 @import './styles/utilities/fonts.css';
 @import './styles/icons/icons.css';
 
+/* Custom dark variant - makes dark: utilities work with scheme-dark class */
+@custom-variant dark (&:where(.scheme-dark, .scheme-dark *));
+
 @theme {
   --color-primary: #1b70de;
   --color-secondary: #32af4b;
@@ -27,7 +30,7 @@
 @layer base {
   html,
   body {
-    @apply text-dark bg-light h-full;
+    @apply text-dark bg-light h-full dark:text-light dark:bg-dark;
   }
 
   /* Button border radius override */
