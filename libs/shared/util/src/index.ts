@@ -10,6 +10,7 @@ export * from './lib/injectiontokens/window';
 
 export * from './lib/services/language.service';
 export * from './lib/services/query-params.service';
+export * from './lib/services/storage.service';
 export * from './lib/services/translate.service';
 export * from './lib/services/url.service';
 
