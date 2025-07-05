@@ -17,6 +17,8 @@ import { MenuService } from './menu.service';
   imports: [CommonModule, TranslatePipe, RouterLink],
 })
 export class MenuComponent implements OnDestroy {
+  static CLASSES = ['overflow-hidden'];
+
   private readonly _router = inject(Router);
   private readonly _document = inject(DOCUMENT);
   private readonly _menuService = inject(MenuService);
@@ -27,9 +29,9 @@ export class MenuComponent implements OnDestroy {
     // Effect to handle body overflow when menu state changes
     effect(() => {
       if (this.openMenu()) {
-        this._document.body.classList.add('overflow-hidden');
+        this._document.body.classList.add(...MenuComponent.CLASSES);
       } else {
-        this._document.body.classList.remove('overflow-hidden');
+        this._document.body.classList.remove(...MenuComponent.CLASSES);
       }
     });
   }
@@ -75,7 +77,6 @@ export class MenuComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    // Ensure scrolling is restored when component is destroyed
-    this._document.body.style.overflow = '';
+    this._document.body.classList.remove(...MenuComponent.CLASSES);
   }
 }
