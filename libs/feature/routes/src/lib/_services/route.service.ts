@@ -2,8 +2,12 @@ import { computed, inject, Injectable } from '@angular/core';
 import {
   AbonnementOptionsEnum,
   AutoOptionsEnum,
+  CalculatorService,
+  PeriodService,
   TripOptionsEnum,
 } from '@mwc/calculator';
+import { DateHelpers } from '@mwc/util';
+import { addHours } from 'date-fns';
 import { IRoute } from '../_types/routes.interface';
 import { RouteQueryParamsService } from './route-query-params.service';
 
@@ -18,6 +22,8 @@ export class RouteService {
   );
 
   private readonly _routeQueryParamsService = inject(RouteQueryParamsService);
+  private readonly _calculatorService = inject(CalculatorService);
+  private readonly _periodService = inject(PeriodService);
 
   routes = this._routeQueryParamsService.routes;
 
@@ -25,8 +31,16 @@ export class RouteService {
     if (this.routes().length >= RouteService.MAX_ROUTES) {
       return;
     }
+
     const abonnement = AbonnementOptionsEnum.Start;
     const trip = TripOptionsEnum.None;
+
+    const startDate = DateHelpers.getRoundedDate(
+      new Date(),
+      PeriodService.roundToNearestStep
+    );
+
+    const endDate = addHours(startDate, 4);
 
     const hasStartPrice = this._calculatorService.calculateHasStartPrice(
       abonnement,
@@ -35,10 +49,12 @@ export class RouteService {
 
     const newRoute: IRoute = {
       car: AutoOptionsEnum.Compact,
-      abonnement: AbonnementOptionsEnum.Start,
-      trip: TripOptionsEnum.None,
+      abonnement,
+      trip,
       kilometers: 0,
       hasDepositPaid: false,
+      startDate,
+      endDate,
       hasStartPrice,
     };
 
