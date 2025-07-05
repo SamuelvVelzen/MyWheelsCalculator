@@ -1,6 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
-import { ButtonComponent } from '@mwc/ui';
-import { RouteService } from '../_services/route.service';
+import { Component, input, output } from '@angular/core';
 import { IRoute } from '../_types/routes.interface';
 import { RouteListItemComponent } from './route-list-item/route-list-item.component';
 
@@ -8,14 +6,10 @@ import { RouteListItemComponent } from './route-list-item/route-list-item.compon
   selector: 'mwc-route-list',
   templateUrl: './route-list.component.html',
   styleUrls: ['./route-list.component.css'],
-  imports: [RouteListItemComponent, ButtonComponent],
+  imports: [RouteListItemComponent],
 })
 export class RouteListComponent {
-  private readonly _routeService = inject(RouteService);
-
   routes = input.required<IRoute[]>();
-
-  showAddButton = this._routeService.showAddButton;
 
   added = output<void>();
   saved = output<{ route: IRoute; index: number }>();
