@@ -30,7 +30,7 @@ export class TooltipDirective implements OnInit {
     // Add position class
     this.renderer.addClass(
       this.elementRef.nativeElement,
-      `mwc-tooltip-native-${this.tooltipPosition}`
+      `mwc-tooltip-${this.tooltipPosition}`
     );
 
     // Add trigger class
