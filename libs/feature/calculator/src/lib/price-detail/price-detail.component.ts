@@ -28,7 +28,7 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
     TranslatePipe,
   ],
 })
-export class PriceComponent {
+export class PriceDetailComponent {
   private readonly _calculatorService = inject(CalculatorService);
   private readonly _periodService = inject(PeriodService);
   private readonly _translateService = inject(TranslateService);

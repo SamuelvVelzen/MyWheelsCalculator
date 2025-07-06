@@ -11,7 +11,7 @@ import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
 import { CarSelectComponent } from './car-select/car-select.component';
 import { ExtraCostsComponent } from './extra-costs/extra-costs.component';
-import { PriceComponent } from './price-detail/price-detail.component';
+import { PriceDetailComponent } from './price-detail/price-detail.component';
 import { PriceTotalComponent } from './price-total/price-total.component';
 import { TripSelectComponent } from './trip-select/trip-select.component';
 
@@ -24,7 +24,7 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
     SliderNumberComponent,
     FormsModule,
     CommonModule,
-    PriceComponent,
+    PriceDetailComponent,
     AbonnementSelectComponent,
     CarSelectComponent,
     TripSelectComponent,
@@ -35,7 +35,7 @@ import { TripSelectComponent } from './trip-select/trip-select.component';
   ],
 })
 export class CalculatorComponent {
-  priceDetails = viewChild.required<PriceComponent>('priceDetailsEl');
+  priceDetails = viewChild.required<PriceDetailComponent>('priceDetailsEl');
 
   private readonly _calculatorService = inject(CalculatorService);
   private readonly _periodService = inject(PeriodService);
