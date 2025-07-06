@@ -8,13 +8,15 @@ import { WINDOW } from '../injectiontokens/window';
 export class ScrollService {
   private readonly _defaultOptions: ScrollIntoViewOptions = {
     behavior: 'smooth',
+    block: 'start',
+    inline: 'nearest',
   };
 
   private readonly _window = inject(WINDOW);
   private readonly _document = inject(DOCUMENT);
 
   scrollTo(element: HTMLElement) {
-    element.scrollIntoView(this._defaultOptions);
+    element.scrollIntoView({ ...this._defaultOptions });
   }
 
   scrollToTop() {
