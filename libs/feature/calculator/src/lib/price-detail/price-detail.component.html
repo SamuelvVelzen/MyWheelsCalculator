@@ -3,7 +3,7 @@
     <ng-container
       *ngTemplateOutlet="
         priceDetail;
-        context: { details: priceDetailList(), depth: 0 }
+        context: { details: priceDetailList(), depth: 1 }
       "
     ></ng-container>
   </div>
@@ -11,19 +11,24 @@
 
 <ng-template #priceDetail let-details="details" let-depth="depth">
   @for (detail of details; track $index) { @if(!detail.hide) {
-  <div class="flex justify-between flex-wrap">
-    <span>{{ detail.label | translate }}</span>
-    <span>
-      @if(detail.value) {
-      {{ detail.value }}
-      } @else {
-      {{ detail.totalCost | mwcCurrency }}
-      }
-    </span>
+  <div class="flex flex-col">
+    <div
+      class="w-full flex justify-between"
+      [ngClass]="{ 'border-b': depth === 1, 'font-bold': depth === 2 }"
+    >
+      <span>{{ detail.label | translate }}</span>
+      <span class="ms-auto">
+        @if(detail.value) {
+        {{ detail.value }}
+        } @else {
+        {{ detail.totalCost | mwcCurrency }}
+        }
+      </span>
+    </div>
 
     @if(detail.children) {
     <div
-      class="flex flex-col w-full"
+      class="flex flex-col w-full font-normal border-0"
       [ngStyle]="{ 'padding-left.px': depth + 1 * 10 }"
     >
       <ng-container

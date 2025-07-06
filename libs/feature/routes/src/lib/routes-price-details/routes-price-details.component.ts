@@ -7,7 +7,7 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { PeriodService } from '@mwc/calculator';
+import { IPriceDetail, PeriodService } from '@mwc/calculator';
 import { IconButtonComponent } from '@mwc/ui';
 import {
   CurrencyPipe,
@@ -43,15 +43,7 @@ export class RoutesPriceDetailsComponent {
   priceDetail = input.required<
     {
       route: IRoute;
-      priceDetail: {
-        totalPrice: number;
-        basePrice: number;
-        extraCosts: number;
-        kmPrice: number;
-        extraKm: number;
-        hourPrice: number;
-        depositPrice: number;
-      };
+      priceDetail: IPriceDetail;
     }[]
   >();
 
@@ -79,7 +71,7 @@ export class RoutesPriceDetailsComponent {
           },
           {
             label: 'calculator.price.details.kilometer_price',
-            totalCost: detail.kmPrice,
+            totalCost: detail.kmTotalCost,
           },
         ],
       };

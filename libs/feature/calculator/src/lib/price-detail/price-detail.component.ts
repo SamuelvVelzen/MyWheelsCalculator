@@ -15,7 +15,7 @@ import {
 } from '@mwc/util';
 import { CalculatorService } from '../_services/calculator.service';
 import { PeriodService } from '../_services/period.service';
-import { PriceService } from '../_services/price.service';
+import { IPriceDetail, PriceService } from '../_services/price.service';
 import { AbonnementOptions } from '../_types/AbonnementOptionsEnum';
 import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
 
@@ -34,15 +34,7 @@ export class PriceDetailComponent {
 
   priceDetailsSection = viewChild.required<ElementRef>('priceDetailsSection');
 
-  priceDetail = input.required<{
-    totalPrice: number;
-    basePrice: number;
-    extraCosts: number;
-    kmPrice: number;
-    extraKm: number;
-    hourPrice: number;
-    depositPrice: number;
-  }>();
+  priceDetail = input.required<IPriceDetail>();
 
   abonnementOptions = AbonnementOptions;
 
@@ -51,9 +43,10 @@ export class PriceDetailComponent {
       totalPrice,
       basePrice,
       hourPrice,
-      kmPrice,
+      kmTotalCost,
       extraCosts,
       extraKm,
+      extraKmTotalCost,
       depositPrice,
     } = this.priceDetail();
 
@@ -96,13 +89,11 @@ export class PriceDetailComponent {
             totalCost: hourPrice,
           },
           {
-            label: 'calculator.price.details.kilometer_price',
-            totalCost: kmPrice,
+            label: `${this._translateService.translate(
+              'calculator.price.details.kilometer_price'
+            )} (${kilometers()} km)`,
+            totalCost: kmTotalCost,
             children: [
-              {
-                label: 'calculator.price.details.total_kilometers',
-                value: `${kilometers()} km`,
-              },
               {
                 label: `${this._translateService.translate(
                   'calculator.price.details.trip_price'
@@ -113,8 +104,8 @@ export class PriceDetailComponent {
               {
                 label: `${this._translateService.translate(
                   'calculator.price.details.extra_km'
-                )}`,
-                value: `${extraKm} km`,
+                )} (${extraKm} km)`,
+                totalCost: extraKmTotalCost,
                 hide: extraKm === 0,
               },
             ],
