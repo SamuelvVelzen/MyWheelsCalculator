@@ -11,8 +11,8 @@ import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
 import { CarSelectComponent } from './car-select/car-select.component';
 import { ExtraCostsComponent } from './extra-costs/extra-costs.component';
+import { PriceComponent } from './price-detail/price-detail.component';
 import { PriceTotalComponent } from './price-total/price-total.component';
-import { PriceComponent } from './price/price-detail.component';
 import { TripSelectComponent } from './trip-select/trip-select.component';
 
 @Component({

@@ -16,5 +16,5 @@ export * from './lib/trip-select/trip-select.component';
 
 export * from './lib/calculator.query-params';
 
+export * from './lib/price-detail/price-detail.component';
 export * from './lib/price-total/price-total.component';
-export * from './lib/price/price-detail.component';
