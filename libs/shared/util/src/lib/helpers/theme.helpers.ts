@@ -43,37 +43,37 @@ const ThemeOptionsEnum: {
 } = {
   [ThemeEnum.Primary]: {
     [ThemeType.Fill]: {
-      color: 'text-white',
+      color: 'text-light',
       background: 'bg-primary',
     },
     [ThemeType.Outline]: {
       color: 'text-primary',
-      background: 'bg-white dark:bg-dark',
+      background: 'bg-light dark:bg-dark',
       border: 'border-primary',
     },
     [ThemeType.Hover]: {
-      color: 'text-primary hover:text-white',
-      background: 'bg-white hover:bg-primary',
+      color: 'text-primary hover:text-light',
+      background: 'bg-light hover:bg-primary',
     },
   },
   [ThemeEnum.Secondary]: {
     [ThemeType.Fill]: {
-      color: 'text-white',
+      color: 'text-light',
       background: 'bg-secondary',
     },
     [ThemeType.Outline]: {
       color: 'text-secondary',
-      background: 'bg-white',
+      background: 'bg-light',
       border: 'border-secondary',
     },
     [ThemeType.Hover]: {
-      color: 'text-secondary hover:text-white',
-      background: 'bg-white hover:bg-secondary',
+      color: 'text-secondary hover:text-light',
+      background: 'bg-light hover:bg-secondary',
     },
   },
   [ThemeEnum.Success]: {
     [ThemeType.Fill]: {
-      color: 'text-white',
+      color: 'text-light',
       background: 'bg-success',
       border: 'border-success',
     },
@@ -83,13 +83,13 @@ const ThemeOptionsEnum: {
       border: 'border-success',
     },
     [ThemeType.Hover]: {
-      color: 'text-success hover:text-white',
+      color: 'text-success hover:text-light',
       background: 'bg-transparent hover:bg-success',
     },
   },
   [ThemeEnum.Danger]: {
     [ThemeType.Fill]: {
-      color: 'text-white',
+      color: 'text-light',
       background: 'bg-danger',
       border: 'border-danger',
     },
@@ -99,13 +99,13 @@ const ThemeOptionsEnum: {
       border: 'border-danger',
     },
     [ThemeType.Hover]: {
-      color: 'text-danger hover:text-white',
+      color: 'text-danger hover:text-light',
       background: 'bg-transparent hover:bg-danger',
     },
   },
   [ThemeEnum.Warning]: {
     [ThemeType.Fill]: {
-      color: 'text-white',
+      color: 'text-light',
       background: 'bg-warning',
       border: 'border-warning',
     },
@@ -115,13 +115,13 @@ const ThemeOptionsEnum: {
       border: 'border-warning',
     },
     [ThemeType.Hover]: {
-      color: 'text-warning hover:text-white',
+      color: 'text-warning hover:text-light',
       background: 'bg-transparent hover:bg-warning',
     },
   },
   [ThemeEnum.Info]: {
     [ThemeType.Fill]: {
-      color: 'text-white',
+      color: 'text-light',
       background: 'bg-info',
       border: 'border-info',
     },
@@ -131,7 +131,7 @@ const ThemeOptionsEnum: {
       border: 'border-info',
     },
     [ThemeType.Hover]: {
-      color: 'text-info hover:text-white',
+      color: 'text-info hover:text-light',
       background: 'bg-transparent hover:bg-info',
     },
   },
