@@ -1,11 +1,10 @@
-import { DOCUMENT } from '@angular/common';
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { from, map, Observable, tap } from 'rxjs';
 import { DateQueryParamsHelpers } from '../helpers/dateQueryParams.helpers';
 import { QueryParamsHelpers } from '../helpers/query-params.helpers';
-import { WINDOW } from '../injectiontokens/window';
+import { ScrollService } from './scroll.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,17 +12,13 @@ import { WINDOW } from '../injectiontokens/window';
 export class QueryParamsService {
   private readonly _router = inject(Router);
   private readonly _activatedRoute = inject(ActivatedRoute);
-  private readonly _window = inject(WINDOW);
-  private readonly _document = inject(DOCUMENT);
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _scrollService = inject(ScrollService);
 
   updateQueryParams$(
     params: Params,
     options?: { scrollToTop?: boolean; mode?: 'single' | 'multiple' }
   ): Observable<boolean> {
-    const scrollTop =
-      this._window.scrollY || this._document.documentElement.scrollTop;
-
     const mappedParams = this._mapParams(params, options?.mode);
 
     return from(
@@ -35,8 +30,8 @@ export class QueryParamsService {
       })
     ).pipe(
       tap(() => {
-        if (this._window.scrollTo && !options?.scrollToTop) {
-          this._window.scrollTo(0, scrollTop);
+        if (options?.scrollToTop) {
+          this._scrollService.scrollToTop();
         }
       }),
       takeUntilDestroyed(this._destroyRef)
