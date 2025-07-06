@@ -12,7 +12,7 @@ import { AbonnementSelectComponent } from './abonnement-select/abonnement-select
 import { CarSelectComponent } from './car-select/car-select.component';
 import { ExtraCostsComponent } from './extra-costs/extra-costs.component';
 import { PriceTotalComponent } from './price-total/price-total.component';
-import { PriceComponent } from './price/price.component';
+import { PriceComponent } from './price/price-detail.component';
 import { TripSelectComponent } from './trip-select/trip-select.component';
 
 @Component({
