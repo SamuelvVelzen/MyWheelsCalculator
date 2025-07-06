@@ -26,6 +26,7 @@ export const enTranslations = {
   'calculator.price.hide_details': 'Hide details',
   'calculator.price.show_details': 'Show details',
   'calculator.price.share': 'Share',
+  'calculator.price.link_copied': 'Link copied to clipboard!',
   'calculator.price.details.discount': 'Discount',
   'calculator.price.details.base_price': 'Base price',
   'calculator.price.details.rental_period': 'Rental period',

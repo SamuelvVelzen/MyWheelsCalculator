@@ -26,6 +26,7 @@ export const nlTranslations = {
   'calculator.price.hide_details': 'Verberg details',
   'calculator.price.show_details': 'Toon details',
   'calculator.price.share': 'Delen',
+  'calculator.price.link_copied': 'Link gekopieerd naar klembord!',
   'calculator.price.details.discount': 'Korting',
   'calculator.price.details.base_price': 'Basisprijs',
   'calculator.price.details.rental_period': 'Rental periode',

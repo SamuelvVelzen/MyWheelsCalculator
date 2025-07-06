@@ -18,7 +18,14 @@
       {{ 'calculator.price.show_details' | translate }}
     </mwc-button>
 
-    <mwc-button [themeType]="'Hover'" [theme]="'Secondary'">
+    <mwc-button
+      [themeType]="'Hover'"
+      [theme]="'Secondary'"
+      (click)="saveLink()"
+      [mwcTooltip]="'calculator.price.link_copied' | translate"
+      tooltipTrigger="manual"
+      tooltipPosition="top"
+    >
       <span class="hidden sm:block">{{
         'calculator.price.share' | translate
       }}</span>
