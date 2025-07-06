@@ -49,7 +49,7 @@ export const enTranslations = {
   'common.minutes': 'minutes',
   'common.minute': 'minute',
 
-  'common.nav.home': 'Home',
-  'common.nav.routes': 'Routes',
+  'common.nav.home': 'Calculator',
+  'common.nav.routes': 'Rides',
   'common.nav.how-it-works': 'How it works',
 } as const;

@@ -48,7 +48,7 @@ export const nlTranslations = {
   'common.minutes': 'minuten',
   'common.minute': 'minuut',
 
-  'common.nav.home': 'Home',
-  'common.nav.routes': 'Routes',
+  'common.nav.home': 'Calculator',
+  'common.nav.routes': 'Ritten',
   'common.nav.how-it-works': 'Hoe werkt het',
 } as const;
