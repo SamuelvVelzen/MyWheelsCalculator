@@ -9,8 +9,8 @@
   content: attr(data-tooltip);
   position: absolute;
   padding: 8px 12px;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: var(--color-dark);
+  color: var(--color-light);
   border-radius: var(--radius-2xl);
   font-size: 14px;
   font-weight: 500;
@@ -27,6 +27,27 @@
   white-space: normal;
 }
 
+[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  border: 5px solid transparent;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* SSR Safety: Only show tooltips when JavaScript is available */
+/* This prevents hydration mismatches and ensures tooltips are browser-only */
+[data-tooltip]:not(.mwc-tooltip-trigger-hover):not(
+    .mwc-tooltip-trigger-manual
+  )::after,
+[data-tooltip]:not(.mwc-tooltip-trigger-hover):not(
+    .mwc-tooltip-trigger-manual
+  )::before {
+  display: none !important;
+}
+
 /* Show tooltip on hover for hover trigger */
 .mwc-tooltip-trigger-hover[data-tooltip]:hover::after,
 .mwc-tooltip-trigger-hover[data-tooltip]:hover::before {
@@ -41,17 +62,6 @@
   opacity: 1;
   visibility: visible;
   transform: scale(1);
-}
-
-/* Arrow pseudo-element */
-[data-tooltip]::before {
-  content: '';
-  position: absolute;
-  border: 5px solid transparent;
-  z-index: 1001;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* Top position (default) */
@@ -72,7 +82,7 @@
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 3px;
-  border-top-color: rgba(0, 0, 0, 0.9);
+  border-top-color: rgb(var(--color-dark));
 }
 
 /* Bottom position */
@@ -93,7 +103,7 @@
   left: 50%;
   transform: translateX(-50%);
   margin-top: 3px;
-  border-bottom-color: rgba(0, 0, 0, 0.9);
+  border-bottom-color: rgb(var(--color-dark));
 }
 
 /* Left position */
@@ -114,7 +124,7 @@
   top: 50%;
   transform: translateY(-50%);
   margin-right: 3px;
-  border-left-color: rgba(0, 0, 0, 0.9);
+  border-left-color: rgb(var(--color-dark));
 }
 
 /* Right position */
@@ -135,31 +145,7 @@
   top: 50%;
   transform: translateY(-50%);
   margin-left: 3px;
-  border-right-color: rgba(0, 0, 0, 0.9);
-}
-
-/* Dark theme support */
-@media (prefers-color-scheme: dark) {
-  [data-tooltip]::after {
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #333;
-  }
-
-  .mwc-tooltip-top::before {
-    border-top-color: rgba(255, 255, 255, 0.95);
-  }
-
-  .mwc-tooltip-bottom::before {
-    border-bottom-color: rgba(255, 255, 255, 0.95);
-  }
-
-  .mwc-tooltip-left::before {
-    border-left-color: rgba(255, 255, 255, 0.95);
-  }
-
-  .mwc-tooltip-right::before {
-    border-right-color: rgba(255, 255, 255, 0.95);
-  }
+  border-right-color: rgb(var(--color-dark));
 }
 
 /* Responsive adjustments */
