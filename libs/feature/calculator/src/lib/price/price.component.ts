@@ -47,7 +47,7 @@ export class PriceComponent {
 
   abonnementOptions = AbonnementOptions;
 
-  priceDetailList = computed(() => {
+  priceDetailList = computed((): IPriceDetailLabel[] => {
     const {
       totalPrice,
       basePrice,
@@ -158,15 +158,15 @@ export class PriceComponent {
   }
 }
 
-export type IPriceDetail =
+type IPriceDetailLabel =
   | {
       label: string;
       hide?: boolean;
-      children?: IPriceDetail[];
+      children?: IPriceDetailLabel[];
     } & (
       | {
           totalCost?: never;
-          value: number;
+          value: string;
         }
       | {
           totalCost: number;

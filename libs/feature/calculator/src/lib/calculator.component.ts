@@ -6,7 +6,7 @@ import { TranslatePipe } from '@mwc/util';
 import { CalculatorQueryParamsService } from './_services/calculator-query-params.service';
 import { CalculatorService } from './_services/calculator.service';
 import { PeriodService } from './_services/period.service';
-import { PriceService } from './_services/price.service';
+import { IPriceDetail, PriceService } from './_services/price.service';
 import { AbonnementOptionsEnum } from './_types/AbonnementOptionsEnum';
 import { AbonnementSelectComponent } from './abonnement-select/abonnement-select.component';
 import { CarSelectComponent } from './car-select/car-select.component';
@@ -71,17 +71,18 @@ export class CalculatorComponent {
     )
   );
 
-  priceDetail = computed(() =>
-    this._priceService.calculatePrice({
-      abonnement: this._calculatorService.abonnement(),
-      trip: this._calculatorService.trip(),
-      car: this._calculatorService.car(),
-      kilometers: this._calculatorService.kilometers(),
-      hasStartPrice: this._calculatorService.hasStartPrice(),
-      hasDepositPaid: this._calculatorService.hasDepositPaid(),
-      startDate: this._calculatorService.startDate(),
-      endDate: this._calculatorService.endDate(),
-    })
+  priceDetail = computed(
+    (): IPriceDetail =>
+      this._priceService.calculatePrice({
+        abonnement: this._calculatorService.abonnement(),
+        trip: this._calculatorService.trip(),
+        car: this._calculatorService.car(),
+        kilometers: this._calculatorService.kilometers(),
+        hasStartPrice: this._calculatorService.hasStartPrice(),
+        hasDepositPaid: this._calculatorService.hasDepositPaid(),
+        startDate: this._calculatorService.startDate(),
+        endDate: this._calculatorService.endDate(),
+      })
   );
 
   constructor() {

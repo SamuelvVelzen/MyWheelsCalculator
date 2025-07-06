@@ -7,6 +7,16 @@ import { AutoOptions, AutoOptionsEnum } from '../_types/AutoOptionsEnum';
 import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
 import { PeriodService } from './period.service';
 
+export type IPriceDetail = {
+  totalPrice: number;
+  basePrice: number;
+  extraCosts: number;
+  kmPrice: number;
+  extraKm: number;
+  hourPrice: number;
+  depositPrice: number;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -42,15 +52,7 @@ export class PriceService {
     hasDepositPaid: boolean;
     startDate: Date;
     endDate: Date;
-  }): {
-    totalPrice: number;
-    basePrice: number;
-    extraCosts: number;
-    kmPrice: number;
-    extraKm: number;
-    hourPrice: number;
-    depositPrice: number;
-  } {
+  }): IPriceDetail {
     const totalPeriodTime = this._periodService.getTotalPeriodTime(
       startDate,
       endDate

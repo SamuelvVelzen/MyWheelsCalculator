@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { PriceService, PriceTotalComponent } from '@mwc/calculator';
+import {
+  IPriceDetail,
+  PriceService,
+  PriceTotalComponent,
+} from '@mwc/calculator';
 import { ButtonComponent, DialogService } from '@mwc/ui';
 import { RouteQueryParamsService } from '../_services/route-query-params.service';
 import { RouteService } from '../_services/route.service';
@@ -59,7 +63,7 @@ export class RoutesComponent {
     }, 0);
   });
 
-  priceDetail = computed(() => {
+  priceDetail = computed((): { route: IRoute; priceDetail: IPriceDetail }[] => {
     return this.routes().map((route) => {
       const priceDetail = this._priceService.calculatePrice({
         abonnement: route.abonnement,
