@@ -1,13 +1,11 @@
-<div class="bg-primary text-light" #priceDetailsSection>
-  <div class="border-t-2 pt-3 border-light">
-    <div class="px-3 pb-3 sm:px-5 sm:pb-5">
-      <ng-container
-        *ngTemplateOutlet="
-          priceDetail;
-          context: { details: priceDetailList(), depth: 0 }
-        "
-      ></ng-container>
-    </div>
+<div class="bg-primary text-light pt-3" #priceDetailsSection>
+  <div class="px-3 pb-3 sm:px-5 sm:pb-5">
+    <ng-container
+      *ngTemplateOutlet="
+        priceDetail;
+        context: { details: priceDetailList(), depth: 0 }
+      "
+    ></ng-container>
   </div>
 </div>
 
