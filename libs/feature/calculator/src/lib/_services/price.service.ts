@@ -11,8 +11,9 @@ export type IPriceDetail = {
   totalPrice: number;
   basePrice: number;
   extraCosts: number;
-  kmPrice: number;
+  kmTotalCost: number;
   extraKm: number;
+  extraKmTotalCost: number;
   hourPrice: number;
   depositPrice: number;
 };
@@ -58,8 +59,12 @@ export class PriceService {
       endDate
     );
 
-    const hourPrice = this._hourPrice(abonnement, car, totalPeriodTime);
-    const kmPrice = this._kilometerPrice(trip, abonnement, car, kilometers);
+    const kmPrice = this.autoOptions[AbonnementOptionsEnum.Start][car].kmPrice;
+
+    const hourPrice = this._hourPrice(car, totalPeriodTime);
+    const kmTotalCost = this._kilometerPrice(trip, car, kilometers);
+    const extraKm = this._extraKm(trip, kilometers);
+    const extraKmTotalCost = extraKm * kmPrice;
 
     const depositPrice = this._getDepositPrice(startDate, endDate);
 
@@ -69,19 +74,15 @@ export class PriceService {
       depositPrice
     );
 
-    const basePrice = this._basePrice(
-      hourPrice,
-      kmPrice,
-      extraCosts,
-      depositPrice
-    );
+    const basePrice = this._basePrice(hourPrice, kmTotalCost, extraCosts);
 
     return {
       totalPrice: this._totalPrice(abonnement, basePrice),
       basePrice,
       extraCosts,
-      kmPrice,
-      extraKm: this._extraKm(trip, kilometers),
+      kmTotalCost,
+      extraKm,
+      extraKmTotalCost,
       hourPrice,
       depositPrice,
     };
@@ -99,10 +100,9 @@ export class PriceService {
   private _basePrice(
     hourPrice: number,
     kilometerPrice: number,
-    extraCosts: number,
-    depositPrice: number
+    extraCosts: number
   ): number {
-    return extraCosts + kilometerPrice + hourPrice + depositPrice;
+    return extraCosts + kilometerPrice + hourPrice;
   }
 
   private _extraCosts(
@@ -133,24 +133,23 @@ export class PriceService {
 
   private _kilometerPrice(
     trip: TripOptionsEnum,
-    abonnement: AbonnementOptionsEnum,
+
     car: AutoOptionsEnum,
     kilometers: number
   ): number {
     const { price: tripPrice } = this.tripOptions[trip];
-    const kmPrice = this.autoOptions[abonnement][car].kmPrice;
+    const kmPrice = this.autoOptions[AbonnementOptionsEnum.Start][car].kmPrice;
 
     const extraKmPrice = this._extraKm(trip, kilometers) * kmPrice;
 
     return extraKmPrice + tripPrice;
   }
 
-  private _hourPrice(
-    abonnement: AbonnementOptionsEnum,
-    car: AutoOptionsEnum,
-    totalPeriodTime: number
-  ): number {
-    return this.autoOptions[abonnement][car].hourPrice * totalPeriodTime;
+  private _hourPrice(car: AutoOptionsEnum, totalPeriodTime: number): number {
+    return (
+      this.autoOptions[AbonnementOptionsEnum.Start][car].hourPrice *
+      totalPeriodTime
+    );
   }
 
   private _extraKm(trip: TripOptionsEnum, kilometers: number): number {
