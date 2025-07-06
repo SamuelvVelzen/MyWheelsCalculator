@@ -38,25 +38,6 @@ export class RoutesComponent {
     this._routeQueryParamsService.init();
   }
 
-  addNewRoute(): void {
-    this._routeService.addNewRoute();
-  }
-
-  saveRoute(event: { route: IRoute; index: number }): void {
-    const { route, index } = event;
-    this._routeService.updateRoute(route, index);
-  }
-
-  async deleteRoute(index: number): Promise<void> {
-    const dialogResult = await this._dialogService.open(
-      'Are you sure you want to delete this route?'
-    );
-
-    if (dialogResult) {
-      this._routeService.removeRoute(index);
-    }
-  }
-
   totalPrice = computed(() => {
     return this.priceDetail().reduce((acc, details) => {
       return acc + details.priceDetail.totalPrice;
@@ -82,4 +63,23 @@ export class RoutesComponent {
       };
     });
   });
+
+  addNewRoute(): void {
+    this._routeService.addNewRoute();
+  }
+
+  saveRoute(event: { route: IRoute; index: number }): void {
+    const { route, index } = event;
+    this._routeService.updateRoute(route, index);
+  }
+
+  async deleteRoute(index: number): Promise<void> {
+    const dialogResult = await this._dialogService.open(
+      'Are you sure you want to delete this route?'
+    );
+
+    if (dialogResult) {
+      this._routeService.removeRoute(index);
+    }
+  }
 }
