@@ -42,7 +42,7 @@
       'underline': isHomeActive,
       'md:font-bold!': isHomeActive,
     }"
-    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal md:text-base"
     (click)="handleNavigation($event, '/')"
   >
     {{ 'common.nav.home' | translate }}
@@ -56,7 +56,7 @@
       'underline': isRoutesActive,
       'md:font-bold!': isRoutesActive,
     }"
-    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal md:text-base"
     (click)="handleNavigation($event, '/routes')"
   >
     {{ 'common.nav.routes' | translate }}
@@ -70,7 +70,7 @@
       'underline': isHowItWorksActive,
       'md:font-bold!': isHowItWorksActive,
     }"
-    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal text-light md:text-base md:text-dark"
+    class="cursor-pointer no-underline text-2xl font-semibold md:font-normal md:text-base"
     (click)="handleNavigation($event, '/how-it-works')"
   >
     {{ 'common.nav.how-it-works' | translate }}
