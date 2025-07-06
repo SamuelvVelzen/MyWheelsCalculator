@@ -6,12 +6,12 @@
     <mwc-toggle-button [(ngModel)]="hasDepositPaid">
       {{ 'calculator.extra_costs.deposit_paid' | translate }}
     </mwc-toggle-button>
-    <small class="text-grey text-sm">
+    <small class="text-grey dark:text-muted text-sm">
       {{ 'calculator.extra_costs.deposit_description' | translate }}
       <strong>{{ depositPrice | mwcCurrency }}</strong>
       {{ 'calculator.price.per_day' | translate }}.
     </small>
-    <small class="text-grey text-sm">
+    <small class="text-grey dark:text-muted text-sm">
       {{ 'calculator.extra_costs.read_more' | translate }}
       <a
         [href]="depositPriceUrl()"
@@ -26,12 +26,12 @@
     <mwc-toggle-button [ngModel]="hasStartPrice()" [disabled]="true">
       {{ 'calculator.extra_costs.start_price' | translate }}
     </mwc-toggle-button>
-    <small class="text-grey text-sm">
+    <small class="text-grey dark:text-muted text-sm">
       {{ 'calculator.extra_costs.start_price_description' | translate }}
       <strong>{{ startPrice | mwcCurrency }}</strong>
       {{ 'calculator.extra_costs.per_trip' | translate }}.
     </small>
-    <small class="text-grey text-sm">
+    <small class="text-grey dark:text-muted text-sm">
       {{ 'calculator.extra_costs.read_more' | translate }}
       <a
         [href]="startPriceUrl()"
