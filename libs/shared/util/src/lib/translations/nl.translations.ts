@@ -14,7 +14,7 @@ export const nlTranslations = {
     'Als je een borg hebt betaald heb je de optie om de verplichte verlaging van het eigen risico uit te schakelen wat kost',
   'calculator.extra_costs.start_price': 'Heeft een startprijs',
   'calculator.extra_costs.start_price_description':
-    'Je moet een startprijs betalen als je geen abonnement hebt of geen ritten hebt. Dit kost',
+    'Je moet eenmalig een startprijs betalen als je geen abonnement hebt of geen ritten hebt. Wij rekenen dit automatisch uit en kost',
   'calculator.extra_costs.per_trip': 'per rit',
   'calculator.extra_costs.read_more': 'Om hier meer over te lezen, volg deze',
   'calculator.trip.period': 'Periode',
