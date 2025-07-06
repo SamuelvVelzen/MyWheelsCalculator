@@ -3,6 +3,22 @@
 /* Custom dark variant - makes dark: utilities work with scheme-dark class */
 @custom-variant dark (&:where(.scheme-dark, .scheme-dark *));
 
+/* fix mobile no hover */
+@custom-variant hover {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  @media not all and (hover: hover) {
+    & {
+      @slot;
+    }
+  }
+}
+/* show hover on mobile touch */
+@custom-variant mobile-hover (&:hover);
+
 @theme {
   --color-*: initial;
 
