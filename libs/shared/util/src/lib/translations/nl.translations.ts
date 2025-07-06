@@ -7,6 +7,9 @@ export const nlTranslations = {
   // Form labels
   'calculator.distance': 'Afstand',
 
+  // Trip
+  'calculator.trip.none': 'Geen',
+
   // Extra costs
   'calculator.extra_costs.title': 'Extra kosten',
   'calculator.extra_costs.deposit_paid': 'Je hebt een borg betaald',

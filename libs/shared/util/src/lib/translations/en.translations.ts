@@ -7,6 +7,9 @@ export const enTranslations = {
   // Form labels
   'calculator.distance': 'Distance',
 
+  // Trip
+  'calculator.trip.none': 'None',
+
   // Extra costs
   'calculator.extra_costs.title': 'Extra costs',
   'calculator.extra_costs.deposit_paid': 'You have paid a deposit',

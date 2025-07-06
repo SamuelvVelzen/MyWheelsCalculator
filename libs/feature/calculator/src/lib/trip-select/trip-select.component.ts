@@ -2,14 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Component, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonsCardComponent } from '@mwc/ui';
-import { BaseValueAccessor, CurrencyPipe, Helpers } from '@mwc/util';
+import {
+  BaseValueAccessor,
+  CurrencyPipe,
+  Helpers,
+  TranslatePipe,
+} from '@mwc/util';
 import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
 
 @Component({
   selector: 'mwc-trip-select',
   templateUrl: './trip-select.component.html',
   styleUrls: ['./trip-select.component.css'],
-  imports: [RadioButtonsCardComponent, FormsModule, CurrencyPipe, CommonModule],
+  imports: [
+    RadioButtonsCardComponent,
+    FormsModule,
+    CurrencyPipe,
+    CommonModule,
+    TranslatePipe,
+  ],
   standalone: true,
 })
 export class TripSelectComponent extends BaseValueAccessor<TripOptionsEnum> {

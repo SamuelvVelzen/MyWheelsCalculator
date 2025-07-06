@@ -4,7 +4,7 @@
   labelText="Trip"
   labelClass="focus:rounded-2xl"
   [colClass]="'grid-cols-2 @md:grid-cols-4 @3xl:grid-cols-8'"
-  [badgeLabel]="badgeLabel()"
+  [badgeLabel]="badgeLabel() | translate"
 >
   <ng-template #cardContent let-option let-selected="selected">
     <div
@@ -12,7 +12,7 @@
       [ngClass]="{ 'bg-grey-light dark:bg-grey': selected }"
     >
       <p class="mb-1">
-        {{ tripConfig[castTripFn(option)].title }}
+        {{ tripConfig[castTripFn(option)].title | translate }}
       </p>
       <p class="font-medium">
         {{ tripConfig[castTripFn(option)].price | mwcCurrency }}

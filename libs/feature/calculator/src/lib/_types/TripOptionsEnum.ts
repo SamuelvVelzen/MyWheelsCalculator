@@ -19,7 +19,7 @@ export const TripOptions: {
 } = {
   [TripOptionsEnum.None]: {
     price: 0,
-    title: 'Geen',
+    title: 'calculator.trip.none',
     freeKm: 0,
     queryParamIdentifier: '0',
   },
