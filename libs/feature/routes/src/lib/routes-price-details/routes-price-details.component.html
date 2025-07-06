@@ -1,12 +1,37 @@
 <div class="bg-primary text-light" #priceDetailsSection>
   <div class="border-t-2 pt-3 border-light">
     <div class="px-3 pb-3 sm:px-5 sm:pb-5">
-      <ng-container
-        *ngTemplateOutlet="
-          priceDetailTpl;
-          context: { details: mappedPriceDetail(), depth: 0 }
-        "
-      ></ng-container>
+      @for(detail of mappedPriceDetail(); track $index) {
+      <div
+        class="flex gap-2 items-center border-b route-price-detail"
+        tabindex="0"
+        (keydown)="onKeyDown($event, detail)"
+        (click)="toggleRouteDetail($event, detail)"
+      >
+        <span class="font-bold grow ms-2">{{ detail.label | translate }}</span>
+        <span>{{ detail.totalCost | mwcCurrency }}</span>
+
+        <mwc-icon-button
+          [icon]="tablerPencil"
+          [theme]="'Primary'"
+          [themeType]="'Fill'"
+          class="transition-transform duration-300"
+          [ngClass]="{ 'rotate-90': detail.expanded }"
+          (click)="toggleRouteDetail($event, detail)"
+        ></mwc-icon-button>
+      </div>
+
+      <div class="me-12 ms-2 expanded-detail">
+        @if(detail.expanded) {
+        <ng-container
+          *ngTemplateOutlet="
+            priceDetailTpl;
+            context: { details: detail.details, depth: 0 }
+          "
+        ></ng-container>
+        }
+      </div>
+      }
     </div>
   </div>
 </div>

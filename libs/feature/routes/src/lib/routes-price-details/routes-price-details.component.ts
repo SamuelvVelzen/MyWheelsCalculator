@@ -1,4 +1,4 @@
-import { NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
@@ -8,20 +8,37 @@ import {
   viewChild,
 } from '@angular/core';
 import { PeriodService } from '@mwc/calculator';
-import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
+import { IconButtonComponent } from '@mwc/ui';
+import {
+  CurrencyPipe,
+  ScrollService,
+  TranslatePipe,
+  TranslateService,
+} from '@mwc/util';
+import { tablerArrowRight } from '@ng-icons/tabler-icons';
 import { IRoute } from './../_types/routes.interface';
 
 @Component({
   selector: 'mwc-routes-price-details',
   templateUrl: './routes-price-details.component.html',
   styleUrls: ['./routes-price-details.component.css'],
-  imports: [TranslatePipe, CurrencyPipe, NgTemplateOutlet, NgStyle],
+  imports: [
+    TranslatePipe,
+    CurrencyPipe,
+    NgTemplateOutlet,
+    NgStyle,
+    IconButtonComponent,
+    NgClass,
+  ],
 })
 export class RoutesPriceDetailsComponent {
   priceDetailsSection = viewChild.required<ElementRef>('priceDetailsSection');
 
   private readonly _periodService = inject(PeriodService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _scrollService = inject(ScrollService);
+
+  tablerPencil = tablerArrowRight;
 
   priceDetail = input.required<
     {
@@ -52,7 +69,8 @@ export class RoutesPriceDetailsComponent {
       return {
         label: `Route #${index + 1}`,
         totalCost: detail.totalPrice,
-        children: [
+        expanded: false,
+        details: [
           {
             label: `${this._translateService.translate(
               'calculator.price.details.rental_period'
@@ -76,5 +94,30 @@ export class RoutesPriceDetailsComponent {
       block: 'start',
       inline: 'nearest',
     });
+  }
+
+  onKeyDown(event: KeyboardEvent, detail: { expanded: boolean }) {
+    if (event.key === 'Enter') {
+      this.toggleRouteDetail(event, detail);
+    }
+  }
+
+  toggleRouteDetail(event: Event, detail: { expanded: boolean }) {
+    console.log(event, detail);
+    event.stopPropagation();
+
+    detail.expanded = !detail.expanded;
+
+    if (detail.expanded) {
+      const target = event.target as HTMLElement;
+      const parentDiv = target.closest('.route-price-detail')?.parentElement;
+      const expandedDetailDiv = parentDiv?.querySelector(
+        '.expanded-detail'
+      ) as HTMLElement;
+
+      if (expandedDetailDiv) {
+        this._scrollService.scrollTo(expandedDetailDiv);
+      }
+    }
   }
 }
