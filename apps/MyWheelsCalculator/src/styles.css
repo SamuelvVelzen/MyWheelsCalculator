@@ -8,6 +8,8 @@
 @custom-variant dark (&:where(.scheme-dark, .scheme-dark *));
 
 @theme {
+  --color-*: initial;
+
   --color-primary: #1b70de;
   --color-secondary: #32af4b;
 
