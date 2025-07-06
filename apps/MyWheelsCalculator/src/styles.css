@@ -2,6 +2,7 @@
 
 @import './styles/utilities/fonts.css';
 @import './styles/icons/icons.css';
+@import './styles/components/tooltip.css';
 
 /* Custom dark variant - makes dark: utilities work with scheme-dark class */
 @custom-variant dark (&:where(.scheme-dark, .scheme-dark *));

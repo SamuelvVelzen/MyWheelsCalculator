@@ -1,0 +1,192 @@
+/* Tooltip Component Styles */
+
+/* Base tooltip styles */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-width: 300px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+/* Show tooltip on hover for hover trigger */
+.mwc-tooltip-trigger-hover[data-tooltip]:hover::after,
+.mwc-tooltip-trigger-hover[data-tooltip]:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+/* Show tooltip programmatically for manual trigger */
+.mwc-tooltip-trigger-manual.mwc-tooltip-show::after,
+.mwc-tooltip-trigger-manual.mwc-tooltip-show::before {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+/* Arrow pseudo-element */
+[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  border: 5px solid transparent;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Top position (default) */
+.mwc-tooltip-native-top::after {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  margin-bottom: 8px;
+}
+
+.mwc-tooltip-native-top:hover::after,
+.mwc-tooltip-native-top.mwc-tooltip-show::after {
+  transform: translateX(-50%) scale(1);
+}
+
+.mwc-tooltip-native-top::before {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 3px;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Bottom position */
+.mwc-tooltip-native-bottom::after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  margin-top: 8px;
+}
+
+.mwc-tooltip-native-bottom:hover::after,
+.mwc-tooltip-native-bottom.mwc-tooltip-show::after {
+  transform: translateX(-50%) scale(1);
+}
+
+.mwc-tooltip-native-bottom::before {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 3px;
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Left position */
+.mwc-tooltip-native-left::after {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  margin-right: 8px;
+}
+
+.mwc-tooltip-native-left:hover::after,
+.mwc-tooltip-native-left.mwc-tooltip-show::after {
+  transform: translateY(-50%) scale(1);
+}
+
+.mwc-tooltip-native-left::before {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 3px;
+  border-left-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Right position */
+.mwc-tooltip-native-right::after {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  margin-left: 8px;
+}
+
+.mwc-tooltip-native-right:hover::after,
+.mwc-tooltip-native-right.mwc-tooltip-show::after {
+  transform: translateY(-50%) scale(1);
+}
+
+.mwc-tooltip-native-right::before {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 3px;
+  border-right-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  [data-tooltip]::after {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+  }
+
+  .mwc-tooltip-native-top::before {
+    border-top-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .mwc-tooltip-native-bottom::before {
+    border-bottom-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .mwc-tooltip-native-left::before {
+    border-left-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .mwc-tooltip-native-right::before {
+    border-right-color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  [data-tooltip]::after {
+    font-size: 12px;
+    padding: 6px 10px;
+    max-width: 250px;
+  }
+
+  [data-tooltip]::before {
+    border-width: 4px;
+  }
+
+  .mwc-tooltip-native-top::before {
+    margin-bottom: 1px;
+  }
+
+  .mwc-tooltip-native-bottom::before {
+    margin-top: 1px;
+  }
+
+  .mwc-tooltip-native-left::before {
+    margin-right: 1px;
+  }
+
+  .mwc-tooltip-native-right::before {
+    margin-left: 1px;
+  }
+}

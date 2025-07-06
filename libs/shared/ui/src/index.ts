@@ -20,3 +20,5 @@ export * from './lib/theme/theme-toggle/theme-toggle.component';
 export * from './lib/theme/theme.service';
 
 export * from './lib/badge/badge.component';
+
+export * from './lib/tooltip/tooltip.directive';
