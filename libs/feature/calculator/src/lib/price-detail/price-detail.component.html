@@ -14,10 +14,10 @@
   <div class="flex justify-between flex-wrap">
     <span>{{ detail.label | translate }}</span>
     <span>
-      @if(detail.totalCost !== undefined || detail.totalCost !== null) {
-      {{ detail.totalCost | mwcCurrency }}
-      } @else {
+      @if(detail.value) {
       {{ detail.value }}
+      } @else {
+      {{ detail.totalCost | mwcCurrency }}
       }
     </span>
 
