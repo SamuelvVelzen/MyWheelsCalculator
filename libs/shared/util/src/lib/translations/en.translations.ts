@@ -52,4 +52,52 @@ export const enTranslations = {
   'common.nav.home': 'Calculator',
   'common.nav.routes': 'Rides',
   'common.nav.how-it-works': 'How it works',
+
+  // How it works
+  'how-it-works.title': 'How it works?',
+
+  'how-it-works.step.1.title': 'Fill in Subscription Type:',
+  'how-it-works.step.1.step.1': 'Choose your subscription type.',
+  'how-it-works.step.1.step.2': 'Options are "Start", "Plus", or "Pro".',
+  'how-it-works.step.1.step.3':
+    'The subscription type affects the pricing structure: hourly price, daily price, and kilometer price.',
+
+  'how-it-works.step.2.title': 'Fill in Car Type:',
+  'how-it-works.step.2.step.1': 'Choose the type of car you wish to rent.',
+  'how-it-works.step.2.step.2':
+    'Options are "Compact", "Comfort", "Extra", or "Premium".',
+  'how-it-works.step.2.step.3': 'Different car types may have different rates.',
+
+  'how-it-works.step.3.title': 'Fill in Distance:',
+  'how-it-works.step.3.step.1':
+    'Enter the total distance of your trip in kilometers.',
+  'how-it-works.step.3.step.2':
+    'You can use the slider up to 1000 km; otherwise, you can use the input field for even more flexibility.',
+  'how-it-works.step.3.step.3':
+    'Ensure the distance is accurate, as it will directly impact the cost estimate.',
+
+  'how-it-works.step.4.title': 'Fill in Start Date and End Date:',
+  'how-it-works.step.4.step.1': 'Select the start and end dates for your trip.',
+  'how-it-works.step.4.step.2':
+    'Use the date picker to choose the appropriate dates.',
+  'how-it-works.step.4.step.3':
+    'The duration of the rental affects the total cost. The default time is 4 hours, but you need to rent for at least 1 hour. Keep in mind that you only need to pay for 10 hours within a 24-hour span.',
+
+  'how-it-works.step.5.title': 'Fill in Trips:',
+  'how-it-works.step.5.step.1':
+    'Find the closest amount of kilometers you plan to drive and select the trip.',
+  'how-it-works.step.5.step.2':
+    'Options are "None", "25 km", "50 km", "100 km", "200 km", "400 km", "1000 km", or "2000 km".',
+
+  'how-it-works.step.6.title': 'Extra Costs:',
+  'how-it-works.step.6.step.1':
+    'There are two extra costs: one is a deposit, and the other is a start price that you may have to pay.',
+  'how-it-works.step.6.step.2':
+    'To check if you have paid a deposit, go to your app and check in your menu "Finance." Look for a payment section where you have paid 250 euros.',
+  'how-it-works.step.6.step.3':
+    'The start price is calculated based on whether you have more than the start subscription and/or if you have selected a trip.',
+
+  'how-it-works.step.7.title': 'View Estimated Cost:',
+  'how-it-works.step.7.step.1':
+    'After filling in all the fields, you can see the estimated cost for your trip.',
 } as const;
