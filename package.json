@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npx nx serve MyWheelsCalculator"
+    "start": "npx nx serve MyWheelsCalculator",
+    "start-remote": "npx nx serve MyWheelsCalculator --host 0.0.0.0 --port 4200"
   },
   "private": true,
   "dependencies": {
