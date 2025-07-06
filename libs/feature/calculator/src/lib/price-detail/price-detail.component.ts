@@ -17,8 +17,8 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
 
 @Component({
   selector: 'mwc-price',
-  templateUrl: './price.component.html',
-  styleUrls: ['./price.component.css'],
+  templateUrl: './price-detail.component.html',
+  styleUrls: ['./price-detail.component.css'],
   standalone: true,
   imports: [
     CurrencyPipe,
