@@ -3,6 +3,7 @@
   [options]="carOptions"
   labelText="Car type"
   labelClass="focus:rounded-2xl"
+  [colClass]="'@xs:grid-cols-2 @xl:grid-cols-4'"
   [badgeLabel]="value ? carConfig()[castCarFn(value)].title : ''"
 >
   <ng-template #cardContent let-option let-selected="selected">
