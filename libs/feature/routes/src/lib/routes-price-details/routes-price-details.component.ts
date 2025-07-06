@@ -89,11 +89,7 @@ export class RoutesPriceDetailsComponent {
   scrollToDetails() {
     const element = this.priceDetailsSection();
 
-    element.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
+    this._scrollService.scrollTo(element.nativeElement);
   }
 
   onKeyDown(event: KeyboardEvent, detail: { expanded: boolean }) {

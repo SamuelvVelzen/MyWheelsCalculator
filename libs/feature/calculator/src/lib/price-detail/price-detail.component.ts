@@ -7,8 +7,12 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { ButtonComponent } from '@mwc/ui';
-import { CurrencyPipe, TranslatePipe, TranslateService } from '@mwc/util';
+import {
+  CurrencyPipe,
+  ScrollService,
+  TranslatePipe,
+  TranslateService,
+} from '@mwc/util';
 import { CalculatorService } from '../_services/calculator.service';
 import { PeriodService } from '../_services/period.service';
 import { PriceService } from '../_services/price.service';
@@ -20,18 +24,13 @@ import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
   templateUrl: './price-detail.component.html',
   styleUrls: ['./price-detail.component.css'],
   standalone: true,
-  imports: [
-    CurrencyPipe,
-    ButtonComponent,
-    NgTemplateOutlet,
-    CommonModule,
-    TranslatePipe,
-  ],
+  imports: [CurrencyPipe, NgTemplateOutlet, CommonModule, TranslatePipe],
 })
 export class PriceDetailComponent {
   private readonly _calculatorService = inject(CalculatorService);
   private readonly _periodService = inject(PeriodService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _scrollService = inject(ScrollService);
 
   priceDetailsSection = viewChild.required<ElementRef>('priceDetailsSection');
 
@@ -147,14 +146,10 @@ export class PriceDetailComponent {
     ];
   });
 
-  showDetails() {
+  scrollToDetails() {
     const element = this.priceDetailsSection();
 
-    element.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
+    this._scrollService.scrollTo(element.nativeElement);
   }
 }
 

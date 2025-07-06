@@ -17,8 +17,9 @@
 
 <mwc-price-total
   [totalPrice]="totalPrice()"
-  class="sticky bottom-0"
+  (showDetailsClicked)="priceDetailsEl.scrollToDetails()"
 ></mwc-price-total>
 <mwc-routes-price-details
+  #priceDetailsEl
   [priceDetail]="priceDetail()"
 ></mwc-routes-price-details>

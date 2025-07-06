@@ -93,8 +93,4 @@ export class CalculatorComponent {
     this._periodService.startDate.set(dateRange.startDate);
     this._periodService.endDate.set(dateRange.endDate);
   }
-
-  showDetails(): void {
-    this.priceDetails().showDetails();
-  }
 }

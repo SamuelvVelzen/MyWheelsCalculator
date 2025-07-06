@@ -33,7 +33,7 @@
 <mwc-price-total
   class="sticky bottom-0"
   [totalPrice]="priceDetail().totalPrice"
-  (showDetailsClicked)="showDetails()"
+  (showDetailsClicked)="priceDetailsEl.scrollToDetails()"
 ></mwc-price-total>
 
 <mwc-price #priceDetailsEl [priceDetail]="priceDetail()"></mwc-price>
