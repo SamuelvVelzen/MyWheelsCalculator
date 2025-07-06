@@ -142,10 +142,9 @@ export class TooltipDirective implements OnInit {
       height: window.innerHeight,
     };
 
-    // Estimated tooltip dimensions (we'll use average values)
-    const tooltipWidth = 200; // Average tooltip width
-    const tooltipHeight = 40; // Average tooltip height
-    const margin = 12; // Margin from viewport edge
+    const tooltipWidth = Math.min(300, this.mwcTooltip.length * 8 + 24);
+    const tooltipHeight = 40;
+    const margin = 8;
 
     // Calculate available space in each direction
     const spaces = {
@@ -155,20 +154,19 @@ export class TooltipDirective implements OnInit {
       right: viewport.width - rect.right - margin,
     };
 
-    // Check if tooltip would fit in each position
     const fits = {
       top:
         spaces.top >= tooltipHeight &&
-        this.hasHorizontalSpace(rect, tooltipWidth, viewport),
+        this.hasHorizontalSpace(rect, tooltipWidth, viewport, margin),
       bottom:
         spaces.bottom >= tooltipHeight &&
-        this.hasHorizontalSpace(rect, tooltipWidth, viewport),
+        this.hasHorizontalSpace(rect, tooltipWidth, viewport, margin),
       left:
         spaces.left >= tooltipWidth &&
-        this.hasVerticalSpace(rect, tooltipHeight, viewport),
+        this.hasVerticalSpace(rect, tooltipHeight, viewport, margin),
       right:
         spaces.right >= tooltipWidth &&
-        this.hasVerticalSpace(rect, tooltipHeight, viewport),
+        this.hasVerticalSpace(rect, tooltipHeight, viewport, margin),
     };
 
     // Find the first position from the allowed list that fits
@@ -178,41 +176,46 @@ export class TooltipDirective implements OnInit {
       }
     }
 
-    // If none fit perfectly, return the first allowed position with the most space
-    let bestPosition = allowedPositions[0];
-    let maxSpace = spaces[bestPosition];
-
+    // If none fit perfectly, prioritize user's preferred order
+    // Find the first allowed position that has reasonable space
     for (const position of allowedPositions) {
-      if (spaces[position] > maxSpace) {
-        maxSpace = spaces[position];
-        bestPosition = position;
+      const minRequiredSpace =
+        position === 'left' || position === 'right'
+          ? tooltipWidth * 0.7 // Allow 70% of tooltip width
+          : tooltipHeight * 0.7; // Allow 70% of tooltip height
+
+      if (spaces[position] >= minRequiredSpace) {
+        return position;
       }
     }
 
-    return bestPosition;
+    return allowedPositions[0];
   }
 
   private hasHorizontalSpace(
     elementRect: DOMRect,
     tooltipWidth: number,
-    viewport: { width: number }
+    viewport: { width: number },
+    margin = 8
   ): boolean {
     const elementCenter = elementRect.left + elementRect.width / 2;
     const tooltipLeft = elementCenter - tooltipWidth / 2;
     const tooltipRight = elementCenter + tooltipWidth / 2;
 
-    return tooltipLeft >= 0 && tooltipRight <= viewport.width;
+    return tooltipLeft >= -margin && tooltipRight <= viewport.width + margin;
   }
 
   private hasVerticalSpace(
     elementRect: DOMRect,
     tooltipHeight: number,
-    viewport: { height: number }
+    viewport: { height: number },
+    margin = 8
   ): boolean {
     const elementCenter = elementRect.top + elementRect.height / 2;
     const tooltipTop = elementCenter - tooltipHeight / 2;
     const tooltipBottom = elementCenter + tooltipHeight / 2;
 
-    return tooltipTop >= 0 && tooltipBottom <= viewport.height;
+    // More lenient: allow tooltip to go slightly outside viewport but keep readable
+    return tooltipTop >= -margin && tooltipBottom <= viewport.height + margin;
   }
 }
