@@ -1,3 +1,19 @@
-<mwc-button (click)="toggleTheme()" buttonClasses="text-sm">
-  {{ buttonText() }}
-</mwc-button>
+<!-- <mwc-icon-button
+  [icon]="icon()"
+  (click)="toggleTheme()"
+  class="bg-warning! text-light!"
+></mwc-icon-button> -->
+
+<button
+  type="button"
+  class="p-2 rounded-5 w-full cursor-pointer hover:rotate-360 transition-all duration-300"
+  [ngClass]="[themeClasses()]"
+  (click)="toggleTheme()"
+>
+  <div class="flex items-center justify-center text-xl">
+    <mwc-icon
+      [icon]="icon()"
+      class="h-6 w-6 flex items-center justify-center"
+    ></mwc-icon>
+  </div>
+</button>

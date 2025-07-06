@@ -1,5 +1,5 @@
 <div
-  class="flex justify-between border-b-1 items-center p-2 md:px-5 relative z-30"
+  class="flex gap-3 border-b-1 items-center p-2 md:px-5 relative z-30"
   [ngClass]="{
   'text-light border-dark': isOpen(),
   'border-muted': !isOpen(),
@@ -7,7 +7,7 @@
 >
   <mwc-discount-button></mwc-discount-button>
 
-  <mwc-theme-toggle></mwc-theme-toggle>
+  <mwc-theme-toggle class="ml-auto block"></mwc-theme-toggle>
 
   <mwc-language-select></mwc-language-select>
 </div>
