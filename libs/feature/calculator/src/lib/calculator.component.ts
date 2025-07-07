@@ -85,10 +85,6 @@ export class CalculatorComponent {
       })
   );
 
-  constructor() {
-    this._calculatorQueryParamsService.init();
-  }
-
   setDateRange(dateRange: { startDate: Date; endDate: Date }): void {
     this._periodService.startDate.set(dateRange.startDate);
     this._periodService.endDate.set(dateRange.endDate);

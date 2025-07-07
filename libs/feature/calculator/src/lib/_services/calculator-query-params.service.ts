@@ -1,8 +1,8 @@
-import { DestroyRef, effect, inject, Injectable } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef, inject, Injectable } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { EnumHelpers, QueryParamsService } from '@mwc/util';
-import { debounceTime, forkJoin, take } from 'rxjs';
+import { combineLatest, debounceTime, forkJoin, switchMap, take } from 'rxjs';
 import { AbonnementOptionsEnum } from '../_types/AbonnementOptionsEnum';
 import { AutoOptionsEnum } from '../_types/AutoOptionsEnum';
 import { TripOptions, TripOptionsEnum } from '../_types/TripOptionsEnum';
@@ -19,12 +19,10 @@ export class CalculatorQueryParamsService {
   private readonly _periodService = inject(PeriodService);
   private readonly _destroyRef = inject(DestroyRef);
 
-  init() {
+  constructor() {
     this._loadFromQueryParams();
 
-    effect(() => {
-      this._updateQueryParams();
-    });
+    this._updateQueryParams();
   }
 
   private _loadFromQueryParams() {
@@ -122,23 +120,53 @@ export class CalculatorQueryParamsService {
   }
 
   private _updateQueryParams() {
-    //TODO: only update the first value of the array
-    const queryParams: Params = {
-      [calculatorQueryParams.abonnement]: this._calculatorService.abonnement(),
-      [calculatorQueryParams.car]: this._calculatorService.car(),
-      [calculatorQueryParams.trip]: this._encodeTripForQueryParams(
-        this._calculatorService.trip()
-      ),
-      [calculatorQueryParams.kilometers]: this._calculatorService.kilometers(),
-      [calculatorQueryParams.startDate]: this._periodService.startDate(),
-      [calculatorQueryParams.endDate]: this._periodService.endDate(),
-      [calculatorQueryParams.hasDepositPaid]:
-        this._calculatorService.hasDepositPaid(),
-    };
+    const abonnement$ = toObservable(this._calculatorService.abonnement);
+    const car$ = toObservable(this._calculatorService.car);
+    const trip$ = toObservable(this._calculatorService.trip);
+    const kilometers$ = toObservable(this._calculatorService.kilometers);
+    const startDate$ = toObservable(this._periodService.startDate);
+    const endDate$ = toObservable(this._periodService.endDate);
+    const hasDepositPaid$ = toObservable(
+      this._calculatorService.hasDepositPaid
+    );
 
-    this._queryParamsService
-      .updateQueryParams$(queryParams)
-      .pipe(debounceTime(100), takeUntilDestroyed(this._destroyRef))
+    combineLatest([
+      abonnement$,
+      car$,
+      trip$,
+      kilometers$,
+      startDate$,
+      endDate$,
+      hasDepositPaid$,
+    ])
+      .pipe(
+        debounceTime(300),
+        switchMap(
+          ([
+            abonnement,
+            car,
+            trip,
+            kilometers,
+            startDate,
+            endDate,
+            hasDepositPaid,
+          ]) => {
+            const queryParams: Params = {
+              [calculatorQueryParams.abonnement]: abonnement,
+              [calculatorQueryParams.car]: car,
+              [calculatorQueryParams.trip]:
+                this._encodeTripForQueryParams(trip),
+              [calculatorQueryParams.kilometers]: kilometers,
+              [calculatorQueryParams.startDate]: startDate,
+              [calculatorQueryParams.endDate]: endDate,
+              [calculatorQueryParams.hasDepositPaid]: hasDepositPaid,
+            };
+
+            return this._queryParamsService.updateQueryParams$(queryParams);
+          }
+        ),
+        takeUntilDestroyed(this._destroyRef)
+      )
       .subscribe();
   }
 
