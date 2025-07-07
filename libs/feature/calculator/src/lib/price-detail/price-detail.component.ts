@@ -34,11 +34,15 @@ export class PriceDetailComponent {
 
   priceDetailsSection = viewChild.required<ElementRef>('priceDetailsSection');
 
-  priceDetail = input.required<IPriceDetail>();
+  priceDetail = input.required<IPriceDetail[]>();
 
   abonnementOptions = AbonnementOptions;
 
-  priceDetailList = computed((): IPriceDetailLabel[] => {
+  priceDetailList = computed((): IPriceDetailLabel[][] => {
+    return this.priceDetail().map((detail) => this._getPriceDetailList(detail));
+  });
+
+  private _getPriceDetailList(detail: IPriceDetail): IPriceDetailLabel[] {
     const {
       totalPrice,
       basePrice,
@@ -48,7 +52,7 @@ export class PriceDetailComponent {
       extraKm,
       extraKmTotalCost,
       depositPrice,
-    } = this.priceDetail();
+    } = detail;
 
     const {
       trip,
@@ -135,7 +139,7 @@ export class PriceDetailComponent {
         ],
       },
     ];
-  });
+  }
 
   scrollToDetails() {
     const element = this.priceDetailsSection();
