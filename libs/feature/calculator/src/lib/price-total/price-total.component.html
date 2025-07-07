@@ -1,5 +1,5 @@
 <div
-  class="grid grid-cols-2 p-3 sm:p-5 bg-primary text-light border-y-1 border-light sticky top-0 bottom-0"
+  class="grid grid-cols-1 sm:grid-cols-2 p-3 sm:p-5 bg-primary text-light border-y-1 border-light sticky top-0 bottom-0"
 >
   <div>
     <p class="text-sm">
@@ -9,11 +9,13 @@
       {{ totalPrice() | mwcCurrency }}
     </h2>
   </div>
-  <div class="justify-self-end self-center flex gap-2">
+
+  <div class="justify-end self-center flex gap-2 w-full">
     <mwc-button
       [themeType]="'Hover'"
       buttonClasses="hover:border-light border"
       (click)="showDetailsClicked.emit()"
+      class="w-1/2 sm:w-fit"
     >
       {{ 'calculator.price.show_details' | translate }}
     </mwc-button>
@@ -25,6 +27,7 @@
       [mwcTooltip]="'calculator.price.link_copied' | translate"
       tooltipTrigger="manual"
       [tooltipPosition]="['top', 'bottom']"
+      class="w-1/2 sm:w-fit"
     >
       <span class="hidden sm:block">{{
         'calculator.price.share' | translate
