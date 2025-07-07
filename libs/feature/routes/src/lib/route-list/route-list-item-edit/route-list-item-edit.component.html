@@ -12,6 +12,7 @@
     [labelText]="'calculator.distance' | translate"
     badgeLabel="{{ editedRoute().kilometers }} km"
     [(ngModel)]="editedRoute().kilometers"
+    (ngModelChange)="updateTrip()"
     [min]="1"
     [max]="1000"
   ></mwc-slider-number>

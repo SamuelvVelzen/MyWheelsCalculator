@@ -10,6 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import {
   AbonnementSelectComponent,
+  CalculatorService,
   CarSelectComponent,
   ExtraCostsComponent,
   PeriodService,
@@ -43,9 +44,12 @@ import { IRoute } from '../../_types/routes.interface';
 })
 export class RouteListItemEditComponent {
   private readonly _periodService = inject(PeriodService);
+  private readonly _calculatorService = inject(CalculatorService);
 
   route = input.required<IRoute>();
-  editedRoute = linkedSignal(() => ({ ...this.route() }));
+  editedRoute = linkedSignal(() => ({
+    ...this.route(),
+  }));
 
   startPrice = PriceService.startPrice;
   depositPrice = PriceService.depositPrice;
@@ -74,5 +78,26 @@ export class RouteListItemEditComponent {
       startDate: dateRange.startDate,
       endDate: dateRange.endDate,
     }));
+  }
+
+  updateTrip() {
+    console.log('updateTrip');
+    const calculatedTrip = this._calculateTrip();
+
+    this.editedRoute.update((route) => ({
+      ...route,
+      trip: calculatedTrip,
+    }));
+  }
+
+  private _calculateTrip() {
+    const originalTrip = this.editedRoute().trip;
+    const calculatedTrip = this._calculatorService.getClosedTrip(
+      this.editedRoute().kilometers,
+      this.editedRoute().abonnement,
+      this.editedRoute().car
+    );
+
+    return originalTrip === calculatedTrip ? originalTrip : calculatedTrip;
   }
 }
