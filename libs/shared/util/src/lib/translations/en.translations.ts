@@ -43,6 +43,16 @@ export const enTranslations = {
 
   'calculator.price.discount': 'discount on your first MyWheels trip',
 
+  // Routes
+  'routes.title': 'Routes',
+  'routes.add': 'Add new route',
+  'routes.edit': 'Edit',
+  'routes.delete': 'Delete',
+  'routes.save': 'Save',
+  'routes.cancel': 'Cancel',
+  'routes.no_routes_found': 'No routes found',
+  'routes.route': 'Route',
+
   // Common
   'common.link': 'link',
   'common.days': 'days',

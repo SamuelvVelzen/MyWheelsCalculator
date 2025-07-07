@@ -42,6 +42,16 @@ export const nlTranslations = {
   'calculator.price.details.deposit': 'Borg',
   'calculator.price.discount': 'korting op je eerste MyWheels rit',
 
+  // Routes
+  'routes.title': 'Ritten',
+  'routes.add': 'Voeg een rit toe',
+  'routes.edit': 'Bewerk een rit',
+  'routes.delete': 'Verwijder een rit',
+  'routes.save': 'Opslaan',
+  'routes.cancel': 'Annuleren',
+  'routes.no_routes_found': 'Geen ritten gevonden',
+  'routes.route': 'Rit',
+
   // Common
   'common.link': 'link',
   'common.days': 'dagen',

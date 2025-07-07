@@ -6,6 +6,7 @@ import {
   PriceTotalComponent,
 } from '@mwc/calculator';
 import { ButtonComponent, DialogService } from '@mwc/ui';
+import { TranslatePipe } from '@mwc/util';
 import { RouteQueryParamsService } from '../_services/route-query-params.service';
 import { RouteService } from '../_services/route.service';
 import { IRoute } from '../_types/routes.interface';
@@ -20,6 +21,7 @@ import { RoutesPriceDetailsComponent } from '../routes-price-details/routes-pric
     ButtonComponent,
     RoutesPriceDetailsComponent,
     PriceTotalComponent,
+    TranslatePipe,
   ],
   templateUrl: './routes.component.html',
   styleUrl: './routes.component.css',

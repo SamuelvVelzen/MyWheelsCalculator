@@ -1,4 +1,5 @@
 import { Component, input, output } from '@angular/core';
+import { TranslatePipe } from '@mwc/util';
 import { IRoute } from '../_types/routes.interface';
 import { RouteListItemComponent } from './route-list-item/route-list-item.component';
 
@@ -6,7 +7,7 @@ import { RouteListItemComponent } from './route-list-item/route-list-item.compon
   selector: 'mwc-route-list',
   templateUrl: './route-list.component.html',
   styleUrls: ['./route-list.component.css'],
-  imports: [RouteListItemComponent],
+  imports: [RouteListItemComponent, TranslatePipe],
 })
 export class RouteListComponent {
   routes = input.required<IRoute[]>();

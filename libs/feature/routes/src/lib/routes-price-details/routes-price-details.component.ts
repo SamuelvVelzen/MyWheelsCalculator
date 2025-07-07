@@ -59,7 +59,9 @@ export class RoutesPriceDetailsComponent {
       );
 
       return {
-        label: `Route #${index + 1}`,
+        label: `${this._translateService.translate('routes.route')} #${
+          index + 1
+        }`,
         totalCost: detail.totalPrice,
         expanded: false,
         details: [
@@ -91,7 +93,6 @@ export class RoutesPriceDetailsComponent {
   }
 
   toggleRouteDetail(event: Event, detail: { expanded: boolean }) {
-    console.log(event, detail);
     event.stopPropagation();
 
     detail.expanded = !detail.expanded;

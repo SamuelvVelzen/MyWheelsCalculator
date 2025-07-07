@@ -1,6 +1,6 @@
 @if(!isEditMode()) {
 <div class="flex justify-between items-center gap-2 group">
-  <h2>Route {{ index() + 1 }}</h2>
+  <h2>{{ 'routes.route' | translate }} #{{ index() + 1 }}</h2>
 
   <div class="flex gap-2 mr-auto">
     <mwc-badge [themeType]="'Outline'">{{ formattedPeriodTime() }}</mwc-badge>
@@ -11,12 +11,14 @@
     <mwc-icon-button
       [icon]="tablerPencil"
       (click)="isEditMode.set(true)"
+      [attr.aria-label]="'routes.edit' | translate"
     ></mwc-icon-button>
 
     <mwc-icon-button
       [icon]="tablerTrash"
       [theme]="'Danger'"
       (click)="removed.emit()"
+      [attr.aria-label]="'routes.delete' | translate"
     ></mwc-icon-button>
   </div>
 </div>

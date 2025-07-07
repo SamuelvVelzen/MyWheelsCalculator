@@ -18,6 +18,7 @@ export enum ThemeType {
   Fill = 'fill',
   Outline = 'outline',
   Hover = 'hover',
+  TextOnly = 'text-only',
 }
 
 export enum ThemeEnum {
@@ -55,6 +56,10 @@ const ThemeOptionsEnum: {
       color: 'text-primary hover:text-light',
       background: 'bg-light hover:bg-primary',
     },
+    [ThemeType.TextOnly]: {
+      color: 'text-primary',
+      background: 'bg-transparent',
+    },
   },
   [ThemeEnum.Secondary]: {
     [ThemeType.Fill]: {
@@ -69,6 +74,10 @@ const ThemeOptionsEnum: {
     [ThemeType.Hover]: {
       color: 'text-secondary hover:text-light',
       background: 'bg-light hover:bg-secondary',
+    },
+    [ThemeType.TextOnly]: {
+      color: 'text-secondary',
+      background: 'bg-transparent',
     },
   },
   [ThemeEnum.Success]: {
@@ -86,6 +95,10 @@ const ThemeOptionsEnum: {
       color: 'text-success hover:text-light',
       background: 'bg-transparent hover:bg-success',
     },
+    [ThemeType.TextOnly]: {
+      color: 'text-success',
+      background: 'bg-transparent',
+    },
   },
   [ThemeEnum.Danger]: {
     [ThemeType.Fill]: {
@@ -101,6 +114,10 @@ const ThemeOptionsEnum: {
     [ThemeType.Hover]: {
       color: 'text-danger hover:text-light',
       background: 'bg-transparent hover:bg-danger',
+    },
+    [ThemeType.TextOnly]: {
+      color: 'text-danger',
+      background: 'bg-transparent',
     },
   },
   [ThemeEnum.Warning]: {
@@ -118,6 +135,10 @@ const ThemeOptionsEnum: {
       color: 'text-warning hover:text-light',
       background: 'bg-transparent hover:bg-warning',
     },
+    [ThemeType.TextOnly]: {
+      color: 'text-warning',
+      background: 'bg-transparent',
+    },
   },
   [ThemeEnum.Info]: {
     [ThemeType.Fill]: {
@@ -133,6 +154,10 @@ const ThemeOptionsEnum: {
     [ThemeType.Hover]: {
       color: 'text-info hover:text-light',
       background: 'bg-transparent hover:bg-info',
+    },
+    [ThemeType.TextOnly]: {
+      color: 'text-info',
+      background: 'bg-transparent',
     },
   },
   [ThemeEnum.Light]: {
@@ -150,6 +175,10 @@ const ThemeOptionsEnum: {
       color: 'text-dark hover:text-light dark:text-light hover:dark:text-dark',
       background: 'bg-light hover:bg-muted',
     },
+    [ThemeType.TextOnly]: {
+      color: 'text-dark',
+      background: 'bg-transparent',
+    },
   },
   [ThemeEnum.Dark]: {
     [ThemeType.Fill]: {
@@ -165,6 +194,10 @@ const ThemeOptionsEnum: {
       color: 'text-dark hover:text-light dark:text-light hover:dark:text-dark',
       background: 'bg-light hover:bg-dark dark:bg-dark hover:dark:bg-muted',
     },
+    [ThemeType.TextOnly]: {
+      color: 'text-dark',
+      background: 'bg-transparent',
+    },
   },
   [ThemeEnum.Muted]: {
     [ThemeType.Fill]: {
@@ -179,6 +212,10 @@ const ThemeOptionsEnum: {
     [ThemeType.Hover]: {
       color: 'text-grey hover:text-light',
       background: 'bg-transparent hover:bg-muted',
+    },
+    [ThemeType.TextOnly]: {
+      color: 'text-grey',
+      background: 'bg-transparent',
     },
   },
 };

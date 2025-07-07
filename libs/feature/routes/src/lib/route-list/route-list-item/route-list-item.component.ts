@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { PeriodService } from '@mwc/calculator';
 import { BadgeComponent, IconButtonComponent } from '@mwc/ui';
+import { TranslatePipe } from '@mwc/util';
 import { tablerPencil, tablerTrash } from '@ng-icons/tabler-icons';
 import { IRoute } from '../../_types/routes.interface';
 import { RouteListItemEditComponent } from '../route-list-item-edit/route-list-item-edit.component';
@@ -22,7 +23,7 @@ import { RouteListItemEditComponent } from '../route-list-item-edit/route-list-i
     RouteListItemEditComponent,
     IconButtonComponent,
     BadgeComponent,
-
+    TranslatePipe,
     CommonModule,
   ],
 })
