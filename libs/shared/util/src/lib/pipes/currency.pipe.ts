@@ -26,6 +26,12 @@ export class CurrencyPipe implements PipeTransform {
       maximumFractionDigits: showDecimals ? 2 : 0,
     });
 
-    return formatter.format(val);
+    return (
+      formatter
+        .format(val)
+        // Add space after currency symbol
+        .replace(/^(\D+)/, '$1 ')
+        .replace(/\s+/, ' ')
+    );
   }
 }
