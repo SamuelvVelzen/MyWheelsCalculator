@@ -1,13 +1,19 @@
 @if(!isEditMode()) {
-<div class="flex justify-between items-center gap-2 group">
-  <h2>{{ 'routes.route' | translate }} #{{ index() + 1 }}</h2>
+<div
+  class="grid grid-cols-2 grid-rows-2 sm:grid-rows-1 justify-between items-center gap-2 group"
+>
+  <div class="flex justify-start gap-2 flex-wrap row-span-2">
+    <h2 class="w-full sm:w-fit">
+      {{ 'routes.route' | translate }} #{{ index() + 1 }}
+    </h2>
 
-  <div class="flex gap-2 mr-auto">
     <mwc-badge [themeType]="'Outline'">{{ formattedPeriodTime() }}</mwc-badge>
     <mwc-badge [themeType]="'Outline'">{{ route().kilometers }} km</mwc-badge>
   </div>
 
-  <div class="flex group-hover:visible invisible">
+  <div
+    class="flex justify-end group-hover:visible invisible row-span-2 sm:row-span-1"
+  >
     <mwc-icon-button
       [icon]="tablerPencil"
       (click)="isEditMode.set(true)"
