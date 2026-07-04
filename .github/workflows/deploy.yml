@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - run: npx nx build MyWheelsCalculator --configuration=github-pages
+
+      - name: Prepare static output for GitHub Pages
+        run: |
+          OUTPUT=dist/apps/MyWheelsCalculator/browser
+          cp "$OUTPUT/index.html" "$OUTPUT/404.html"
+          touch "$OUTPUT/.nojekyll"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/apps/MyWheelsCalculator/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
